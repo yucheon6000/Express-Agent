@@ -16,16 +16,22 @@ public class Bullet : MonoBehaviour
     private float moveDistance;     // 이동할 거리 (0일 경우 무제한)
     private float movedDistance;    // 이동한 거리
 
-    public void Init(Vector2 spawnPosition, Vector2 moveDirection)
+    [SerializeField]
+    private TrailRenderer trailRenderer;
+
+    public void Init(Vector2 moveDirection)
     {
         movedDistance = 0;
-        transform.position = spawnPosition;
         this.moveDirection = moveDirection.normalized;
     }
 
     private void Update()
     {
-        if (movedDistance >= moveDistance && moveDistance > 0) return;
+        if (movedDistance >= moveDistance && moveDistance > 0)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
 
         float moveAmount = moveSpeed * Time.deltaTime;
 
@@ -39,5 +45,17 @@ public class Bullet : MonoBehaviour
         }
 
         transform.Translate(moveDirection * moveAmount);
+    }
+
+    private void OnEnable()
+    {
+        if (trailRenderer != null)
+            trailRenderer.Clear();
+    }
+
+    private void OnDisable()
+    {
+
+        ObjectPooler.ReturnToPool(gameObject);
     }
 }

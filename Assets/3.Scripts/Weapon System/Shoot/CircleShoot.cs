@@ -79,9 +79,8 @@ public class CircleShoot : Shoot
                 Vector3 spawnPosition = spawnCircleCenterTransform.position + (spawnDir * spawnCircleRadius);
 
                 // 총알 생성
-                GameObject bulletGameObject = Instantiate(bulletPrefab);
-                Bullet bullet = bulletGameObject.GetComponent<Bullet>();
-                bullet.Init(spawnPosition, spawnDir);
+                Bullet bullet = ObjectPooler.SpawnFromPool<Bullet>(bulletPrefab.name, spawnPosition);
+                bullet.Init(spawnDir);
             }
 
             count++;

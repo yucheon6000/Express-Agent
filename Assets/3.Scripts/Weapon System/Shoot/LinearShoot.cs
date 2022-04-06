@@ -68,9 +68,8 @@ public class LinearShoot : Shoot
                 Vector2 moveDir = directionTransform.position - spawnTransform.position;
 
                 // 총알 생성
-                GameObject bulletGameObject = Instantiate(bulletPrefab);
-                Bullet bullet = bulletGameObject.GetComponent<Bullet>();
-                bullet.Init(spawnPosition, moveDir);
+                Bullet bullet = ObjectPooler.SpawnFromPool<Bullet>(bulletPrefab.name, spawnPosition);
+                bullet.Init(moveDir);
             }
 
             count++;

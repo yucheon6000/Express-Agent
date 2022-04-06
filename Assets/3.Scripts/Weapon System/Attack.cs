@@ -44,6 +44,7 @@ public class Attack : MonoBehaviour
     private IEnumerator AttackRoutine()
     {
         WaitForSeconds wait = new WaitForSeconds(shootDeltaTime);
+        bool firstShoot = true;
 
         yield return new WaitForSeconds(shootDelayTimeAtStart);
 
@@ -55,10 +56,11 @@ public class Attack : MonoBehaviour
                 continue;
             }
 
-            if (shootDeltaTime > 0)
+            if (shootDeltaTime > 0 && firstShoot == false)
                 yield return wait;
 
             shoot.StartShoot();
+            firstShoot = false;
         }
     }
 }
