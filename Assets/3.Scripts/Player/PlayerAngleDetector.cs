@@ -7,11 +7,20 @@ public enum PlayerAngle { Right = 0, UpRight, Up, UpLeft, Left, DownLeft, Down, 
 
 public class PlayerAngleDetector : MonoBehaviour
 {
+    [SerializeField]
+    private Transform targetTransform;
+
     private PlayerAngle playerAngle;
     public PlayerAngle PlayerAngle => playerAngle;
 
     private class PlayerAngleEvent : UnityEvent<PlayerAngle> { }
     private PlayerAngleEvent playerAngleEvent = new PlayerAngleEvent();
+
+    private void Awake()
+    {
+        if (targetTransform) return;
+        targetTransform = transform;
+    }
 
     public void AddPlayerAngleAction(UnityAction<PlayerAngle> action)
     {
@@ -27,7 +36,7 @@ public class PlayerAngleDetector : MonoBehaviour
     {
         // 현재 PlayerAngle 상태 확인
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = mousePosition - transform.position;
+        Vector3 direction = mousePosition - targetTransform.position;
         float degree = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         degree = (degree + 360) % 360;  // -180~180 -> 0~360
         int playerAngleIndex = (int)(degree / 22.5);

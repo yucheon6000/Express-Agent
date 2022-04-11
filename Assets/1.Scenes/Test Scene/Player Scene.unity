@@ -220,7 +220,7 @@ Transform:
   - {fileID: 1530257697}
   - {fileID: 561166896}
   m_Father: {fileID: 727128427}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &252341805
 MonoBehaviour:
@@ -431,7 +431,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 727128427}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &434477339
 SpriteRenderer:
@@ -3764,7 +3764,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 727128427}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &715164064
 MonoBehaviour:
@@ -4047,6 +4047,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 998244793}
   - {fileID: 434477338}
   - {fileID: 715164063}
   - {fileID: 252341803}
@@ -4078,6 +4079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41410448e387e415ba20f61a8766fbff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTransform: {fileID: 998244793}
 --- !u!1 &801562520
 GameObject:
   m_ObjectHideFlags: 0
@@ -4201,6 +4203,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1530257697}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &998244792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 998244793}
+  m_Layer: 0
+  m_Name: Player Center
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &998244793
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998244792}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 727128427}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1235107387
 GameObject:
@@ -4436,8 +4469,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307daaa676738447cac9ccb669f28299, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorTexture: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
-  hotspot: {x: 30, y: 30}
+  cursorTexture: {fileID: 2800000, guid: ff0f18aa6eaf04a22b521a33fa51c834, type: 3}
+  hotspotIsCenter: 1
+  hotspot: {x: 0, y: 0}
 --- !u!4 &1680754571
 Transform:
   m_ObjectHideFlags: 0

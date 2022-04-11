@@ -8,10 +8,18 @@ public class CustomCursor : MonoBehaviour
     private Texture2D cursorTexture;
 
     [SerializeField]
+    private bool hotspotIsCenter = true;
+
+    [SerializeField]
     private Vector2 hotspot;
 
     private void Awake()
     {
+        Vector2 hotspot =
+            hotspotIsCenter
+                ? new Vector2(cursorTexture.width / 2, cursorTexture.height / 2)
+                : this.hotspot;
+
         Cursor.SetCursor(cursorTexture, hotspot, CursorMode.ForceSoftware);
     }
 }
