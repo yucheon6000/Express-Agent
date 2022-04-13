@@ -2,27 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircleShoot : Shoot
+public class CircleShoot : ShootWithBullet
 {
+    [Header("[Shoot Stats]")]
     [SerializeField]
-    [Tooltip("총알 개수")]
-    private int bulletCount = 1;
-    [SerializeField]
-    [Tooltip("총알 간 사이 시간")]
-    private float bulletDeltaTime;
-    [SerializeField]
-    [Tooltip("총알 생성 시작 각도")]
-    private float bulletStartAngle;
-    [SerializeField]
-    [Tooltip("총알 생성 사이 각도")]
-    private float bulletDeltaAngle;
-    [SerializeField]
-    [Tooltip("시작 총알 인덱스")]
-    private int bulletIndexAtStart;
-    [SerializeField]
-    [Tooltip("생성 원 반지름")]
-    private float spawnCircleRadius;
-
+    private CircleShootStat[] shootStats;
+    private CircleShootStat shootStat;
+    private Steper<CircleShootStat> statSteper;
+    private int pervStep = 0;
 
     [Header("[Transform]")]
     [SerializeField]
@@ -35,10 +22,19 @@ public class CircleShoot : Shoot
 
     private Coroutine coroutine;
 
+    private void Awake()
+    {
+        statSteper = new Steper<CircleShootStat>(shootStats);
+        shootStat = statSteper.GetStep(pervStep);
+    }
+
     [ContextMenu("Start Shoot")]
     public override void StartShoot()
     {
         if (isShooting) return;
+
+        if (pervStep != characterStat.BulletAmountStep)
+            shootStat = statSteper.GetStep(characterStat.BulletAmountStep);
 
         isShooting = true;
         coroutine = StartCoroutine(ShootRoutine());
@@ -48,7 +44,7 @@ public class CircleShoot : Shoot
     public override void StopShoot()
     {
         if (!isShooting) return;
-        if (!breakable) return;
+        if (!shootStat.Breakable) return;
         if (coroutine == null) return;
 
         isShooting = false;
@@ -58,38 +54,46 @@ public class CircleShoot : Shoot
 
     private IEnumerator ShootRoutine()
     {
+        WaitForSeconds wait = new WaitForSeconds(shootStat.BulletDeltaTime);
         int count = 0;
-        WaitForSeconds wait = new WaitForSeconds(bulletDeltaTime);
 
-        while (count < bulletCount)
+        while (count < shootStat.BulletCount)
         {
-            if (count >= bulletIndexAtStart)
+            if (count >= shootStat.BulletIndexAtStart)
             {
                 // 기준(시작) 각도 (standardAngle)
                 Vector3 standardDir = spawnCircleStandardTransform.position - spawnCircleCenterTransform.position;
                 float standardAngle = Mathf.Atan2(standardDir.y, standardDir.x) * Mathf.Rad2Deg;
-                standardAngle = (standardAngle + bulletStartAngle + 360) % 360;
+                standardAngle = (standardAngle + shootStat.BulletStartAngle + 360) % 360;
 
                 // 생성원 중앙에서 생성 위치쪽을 바라보는 방향 (spawnDir)
-                float spawnAngle = (standardAngle + (bulletDeltaAngle * count)) % 360;
+                float spawnAngle = (standardAngle + (shootStat.BulletDeltaAngle * count)) % 360;
                 float theta = spawnAngle * Mathf.PI / 180;
                 Vector3 spawnDir = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta));
 
                 // 생성 위치
-                Vector3 spawnPosition = spawnCircleCenterTransform.position + (spawnDir * spawnCircleRadius);
+                Vector3 spawnPosition = spawnCircleCenterTransform.position + (spawnDir * shootStat.SpawnCircleRadius);
 
                 // 총알 생성
                 Bullet bullet = ObjectPooler.SpawnFromPool<Bullet>(bulletPrefab.name, spawnPosition);
-                bullet.Init(spawnDir);
+                bullet.Init(spawnDir, characterStat);
             }
 
             count++;
 
-            if (bulletDeltaTime > 0 && count < bulletCount)
+            if (shootStat.BulletDeltaTime > 0 && count < shootStat.BulletCount)
                 yield return wait;
         }
 
         isShooting = false;
         coroutine = null;
+    }
+
+    public override void SetCharacterStat(CharacterStat characterStat)
+    {
+        if (this.characterStat == characterStat) return;
+
+        this.characterStat = characterStat;
+        shootStat.SetCharacterStat(characterStat);
     }
 }

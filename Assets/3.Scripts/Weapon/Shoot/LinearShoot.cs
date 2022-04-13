@@ -2,20 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LinearShoot : Shoot
+public class LinearShoot : ShootWithBullet
 {
+    [Header("[Shoot Stats]")]
     [SerializeField]
-    [Tooltip("총알 개수")]
-    private int bulletCount = 1;
-    [SerializeField]
-    [Tooltip("총알 간 사이 시간")]
-    private float bulletDeltaTime;
-    [SerializeField]
-    [Tooltip("총알 생성 사이 거리")]
-    private float bulletDeltaDistance;
-    [SerializeField]
-    [Tooltip("시작 총알 인덱스")]
-    private int bulletIndexAtStart;
+    private LinearShootStat[] shootStats;
+    private LinearShootStat shootStat;
+    private Steper<LinearShootStat> statSteper;
+    private int pervStep = 0;
 
     [Header("[Transform]")]
     [SerializeField]
@@ -30,10 +24,19 @@ public class LinearShoot : Shoot
 
     private Coroutine coroutine;
 
+    private void Awake()
+    {
+        statSteper = new Steper<LinearShootStat>(shootStats);
+        shootStat = statSteper.GetStep(pervStep);
+    }
+
     [ContextMenu("Start Shoot")]
     public override void StartShoot()
     {
         if (isShooting) return;
+
+        if (pervStep != characterStat.BulletAmountStep)
+            shootStat = statSteper.GetStep(characterStat.BulletAmountStep);
 
         isShooting = true;
         coroutine = StartCoroutine(ShootRoutine());
@@ -43,7 +46,7 @@ public class LinearShoot : Shoot
     public override void StopShoot()
     {
         if (!isShooting) return;
-        if (!breakable) return;
+        if (!shootStat.Breakable) return;
         if (coroutine == null) return;
 
         isShooting = false;
@@ -53,32 +56,40 @@ public class LinearShoot : Shoot
 
     private IEnumerator ShootRoutine()
     {
+        WaitForSeconds wait = new WaitForSeconds(shootStat.BulletDeltaTime);
         int count = 0;
-        WaitForSeconds wait = new WaitForSeconds(bulletDeltaTime);
 
-        while (count < bulletCount)
+        while (count < shootStat.BulletCount)
         {
-            if (count >= bulletIndexAtStart)
+            if (count >= shootStat.BulletIndexAtStart)
             {
                 // 생성 위치                
                 Vector3 spawnDir = (spawnDirectionTransfrom.position - spawnTransform.position).normalized;
-                Vector3 spawnPosition = spawnTransform.position + (spawnDir * bulletDeltaDistance * count);
+                Vector3 spawnPosition = spawnTransform.position + (spawnDir * shootStat.BulletDeltaDistance * count);
 
                 // 이동 방향
                 Vector2 moveDir = directionTransform.position - spawnTransform.position;
 
                 // 총알 생성
                 Bullet bullet = ObjectPooler.SpawnFromPool<Bullet>(bulletPrefab.name, spawnPosition);
-                bullet.Init(moveDir);
+                bullet.Init(moveDir, characterStat);
             }
 
             count++;
 
-            if (bulletDeltaTime > 0 && count < bulletCount)
+            if (shootStat.BulletDeltaTime > 0 && count < shootStat.BulletCount)
                 yield return wait;
         }
 
         isShooting = false;
         coroutine = null;
+    }
+
+    public override void SetCharacterStat(CharacterStat characterStat)
+    {
+        if (this.characterStat == characterStat) return;
+
+        this.characterStat = characterStat;
+        shootStat.SetCharacterStat(characterStat);
     }
 }

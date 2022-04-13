@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2356771059136709974}
   - component: {fileID: 2356771059136709975}
   - component: {fileID: 2356771059136709976}
+  - component: {fileID: 721730411551481606}
+  - component: {fileID: 7908417124944570366}
   m_Layer: 0
   m_Name: Test Bullet
   m_TagString: Untagged
@@ -99,10 +101,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5565667d17642a7a307ec1b3c5ae74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDirection: {x: 1, y: 0}
-  moveSpeed: 10
-  moveDistance: 20
+  bulletStat:
+    attack: 0
+    moveSpeed: 10
+    knockBack: 0
+    scatter: 10
+    isPenetrable: 0
+  rigidbody: {fileID: 7908417124944570366}
   trailRenderer: {fileID: 8158439012644904763}
+--- !u!58 &721730411551481606
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2356771059136709977}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.49999997
+--- !u!50 &7908417124944570366
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2356771059136709977}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &3570167626951808118
 GameObject:
   m_ObjectHideFlags: 0

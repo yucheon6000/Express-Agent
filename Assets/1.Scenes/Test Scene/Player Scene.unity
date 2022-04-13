@@ -234,9 +234,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c57fa62184e34b59b1bbee17837feed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackStat:
+    shootDeltaTime: 0.5
+    shootDelayTimeAtStart: 0
   shoot: {fileID: 252341808}
-  shootDeltaTime: 0.5
-  shootDelayTimeAtStart: 0
 --- !u!114 &252341806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,6 +253,15 @@ MonoBehaviour:
   attacks:
   - {fileID: 252341805}
   debugMode: 1
+  debugCharactorStat:
+    health: 0
+    moveSpeed: 0
+    attack: 0
+    knockBackResistance: 0
+    attackSpeed: 1
+    bulletAmountStep: 0
+    bulletSpeed: 1
+    bulletscatterResistance: 0
 --- !u!114 &252341807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,13 +275,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 2356771059136709977, guid: cb0fe37aaee1243e2bac7a98175865d1, type: 3}
-  breakable: 1
-  bulletCount: 5
-  bulletDeltaTime: 0
-  bulletStartAngle: -10
-  bulletDeltaAngle: 5
-  bulletIndexAtStart: 0
-  spawnCircleRadius: 0
+  shootStats:
+  - breakable: 1
+    bulletCount: 1
+    bulletDeltaTime: 0
+    bulletStartAngle: 0
+    bulletDeltaAngle: 0
+    bulletIndexAtStart: 0
+    spawnCircleRadius: 0
+  - breakable: 1
+    bulletCount: 2
+    bulletDeltaTime: 0
+    bulletStartAngle: -15
+    bulletDeltaAngle: 30
+    bulletIndexAtStart: 0
+    spawnCircleRadius: 0
+  - breakable: 1
+    bulletCount: 3
+    bulletDeltaTime: 0
+    bulletStartAngle: -15
+    bulletDeltaAngle: 15
+    bulletIndexAtStart: 0
+    spawnCircleRadius: 0
   spawnCircleCenterTransform: {fileID: 267644553}
   spawnCircleStandardTransform: {fileID: 1960289715}
 --- !u!114 &252341808
@@ -286,12 +311,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae26992d168e4cbb9cd605794b84322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 0}
-  breakable: 1
-  shootDeltaTime: 0.1
   shoots:
   - {fileID: 252341807}
   - {fileID: 252341807}
+  shootStat:
+    breakable: 1
+    shootDeltaTime: 0.1
 --- !u!1 &267644552
 GameObject:
   m_ObjectHideFlags: 0
@@ -3796,7 +3821,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 715164062}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -3807,8 +3832,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!61 &715164066
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4267,7 +4292,7 @@ MonoBehaviour:
   pools:
   - tag: Test Bullet
     prefab: {fileID: 2356771059136709977, guid: cb0fe37aaee1243e2bac7a98175865d1, type: 3}
-    size: 10
+    size: 100
 --- !u!4 &1235107389
 Transform:
   m_ObjectHideFlags: 0

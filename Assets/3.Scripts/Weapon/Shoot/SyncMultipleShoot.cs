@@ -2,15 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SyncMultipleShoot : Shoot
+public class SyncMultipleShoot : MultipleShoot
 {
+    [Header("[Shoot Stat]")]
     [SerializeField]
-    [Tooltip("Shoot 사이 시간")]
-    private float shootDeltaTime;
-
-    [Header("[Shoots]")]
-    [SerializeField]
-    private Shoot[] shoots;
+    private SyncMultipleShootStat shootStat;
 
     private Coroutine coroutine;
 
@@ -27,7 +23,7 @@ public class SyncMultipleShoot : Shoot
     public override void StopShoot()
     {
         if (!isShooting) return;
-        if (!breakable) return;
+        if (!shootStat.Breakable) return;
         if (coroutine == null) return;
 
         isShooting = false;
@@ -37,7 +33,7 @@ public class SyncMultipleShoot : Shoot
 
     private IEnumerator ShootRoutine()
     {
-        WaitForSeconds wait = new WaitForSeconds(shootDeltaTime);
+        WaitForSeconds wait = new WaitForSeconds(shootStat.ShootDeltaTime);
         Shoot target = null;
         int curIndex = 0;
 
@@ -60,7 +56,7 @@ public class SyncMultipleShoot : Shoot
                 if (curIndex == shoots.Length)
                     break;
 
-                if (shootDeltaTime > 0)
+                if (shootStat.ShootDeltaTime > 0)
                     yield return wait;
 
                 target = shoots[curIndex];
@@ -70,5 +66,16 @@ public class SyncMultipleShoot : Shoot
 
         isShooting = false;
         coroutine = null;
+    }
+
+    public override void SetCharacterStat(CharacterStat characterStat)
+    {
+        if (this.characterStat == characterStat) return;
+
+        this.characterStat = characterStat;
+        shootStat.SetCharacterStat(characterStat);
+
+        foreach (Shoot shoot in shoots)
+            shoot.SetCharacterStat(characterStat);
     }
 }

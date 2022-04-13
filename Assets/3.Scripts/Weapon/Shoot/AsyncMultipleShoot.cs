@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsyncMultipleShoot : Shoot
+public class AsyncMultipleShoot : MultipleShoot
 {
-    [Header("[Shoots]")]
+    [Header("[Shoot Stat]")]
     [SerializeField]
-    private Shoot[] shoots;
+    private ShootStat shootStat;
 
     private Coroutine coroutine;
 
@@ -23,7 +23,7 @@ public class AsyncMultipleShoot : Shoot
     public override void StopShoot()
     {
         if (!isShooting) return;
-        if (!breakable) return;
+        if (!shootStat.Breakable) return;
         if (coroutine == null) return;
 
         isShooting = false;
@@ -35,7 +35,6 @@ public class AsyncMultipleShoot : Shoot
     {
         foreach (Shoot shoot in shoots)
             shoot.StartShoot();
-
 
         while (true)
         {
@@ -56,5 +55,16 @@ public class AsyncMultipleShoot : Shoot
 
         isShooting = false;
         coroutine = null;
+    }
+
+    public override void SetCharacterStat(CharacterStat characterStat)
+    {
+        if (this.characterStat == characterStat) return;
+
+        this.characterStat = characterStat;
+        shootStat.SetCharacterStat(characterStat);
+
+        foreach (Shoot shoot in shoots)
+            shoot.SetCharacterStat(characterStat);
     }
 }

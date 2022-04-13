@@ -2,19 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack : MonoBehaviour
+public class Attack : MonoBehaviour, NeedCharacterStat
 {
+    private CharacterStat characterStat = CharacterStat.Default;
+
+    [Header("[Attack Stat]")]
+    [SerializeField]
+    private AttackStat attackStat = AttackStat.Default;
+
     [Header("[Shoot]")]
     [SerializeField]
     private Shoot shoot;
-
-    [Header("[Property]")]
-    [Tooltip("Shoot 사이 시간")]
-    [SerializeField]
-    private float shootDeltaTime = 0;
-    [SerializeField]
-    [Tooltip("시작 시, Shoot 딜레이 시간")]
-    private float shootDelayTimeAtStart = 0;
 
     private bool isAttacking = false;
     public bool IsAttacking => isAttacking;
@@ -43,10 +41,9 @@ public class Attack : MonoBehaviour
 
     private IEnumerator AttackRoutine()
     {
-        WaitForSeconds wait = new WaitForSeconds(shootDeltaTime);
         bool firstShoot = true;
 
-        yield return new WaitForSeconds(shootDelayTimeAtStart);
+        yield return new WaitForSeconds(attackStat.ShootDelayTimeAtStart);
 
         while (true)
         {
@@ -56,11 +53,20 @@ public class Attack : MonoBehaviour
                 continue;
             }
 
-            if (shootDeltaTime > 0 && firstShoot == false)
-                yield return wait;
+            if (attackStat.ShootDeltaTime > 0 && firstShoot == false)
+                yield return new WaitForSeconds(attackStat.ShootDeltaTime);
 
             shoot.StartShoot();
             firstShoot = false;
         }
+    }
+
+    public void SetCharacterStat(CharacterStat characterStat)
+    {
+        if (this.characterStat == characterStat) return;
+
+        this.characterStat = characterStat;
+        attackStat.SetCharacterStat(characterStat);
+        shoot.SetCharacterStat(characterStat);
     }
 }
