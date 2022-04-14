@@ -65,7 +65,10 @@ public class LinearShoot : ShootWithBullet
             {
                 // 생성 위치                
                 Vector3 spawnDir = (spawnDirectionTransfrom.position - spawnTransform.position).normalized;
-                Vector3 spawnPosition = spawnTransform.position + (spawnDir * shootStat.BulletDeltaDistance * count);
+                Vector3 spawnPosition =
+                    spawnTransform.position
+                    + (spawnDir * shootStat.BulletStartDistance)
+                    + (spawnDir * shootStat.BulletDeltaDistance * count);
 
                 // 이동 방향
                 Vector2 moveDir = directionTransform.position - spawnTransform.position;

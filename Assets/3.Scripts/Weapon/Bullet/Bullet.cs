@@ -20,8 +20,8 @@ public class Bullet : MonoBehaviour, NeedCharacterStat
 
     public void Init(Vector2 moveDirection, CharacterStat characterStat)
     {
-        this.moveDirection = ConvertMoveDirection(moveDirection);
         bulletStat.SetCharacterStat(characterStat);
+        this.moveDirection = ConvertMoveDirection(moveDirection);
     }
 
     private Vector3 ConvertMoveDirection(Vector2 moveDirection)

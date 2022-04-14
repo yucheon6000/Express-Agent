@@ -4,11 +4,15 @@ using UnityEngine;
 [Serializable]
 public class LinearShootStat : ShootStat
 {
+    [SerializeField]
     [Tooltip("총알 개수")]
     private int bulletCount = 1;
     [SerializeField]
     [Tooltip("총알 간 사이 시간")]
     private float bulletDeltaTime;
+    [SerializeField]
+    [Tooltip("총알 생성 시작 거리")]
+    private float bulletStartDistance;
     [SerializeField]
     [Tooltip("총알 생성 사이 거리")]
     private float bulletDeltaDistance;
@@ -18,6 +22,7 @@ public class LinearShootStat : ShootStat
 
     public int BulletCount => bulletCount;
     public float BulletDeltaTime => bulletDeltaTime / characterStat.AttackSpeed;
+    public float BulletStartDistance => bulletStartDistance;
     public float BulletDeltaDistance => bulletDeltaDistance;
     public int BulletIndexAtStart => bulletIndexAtStart;
 }

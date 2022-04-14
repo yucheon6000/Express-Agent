@@ -42,22 +42,34 @@ public class Attack : MonoBehaviour, NeedCharacterStat
     private IEnumerator AttackRoutine()
     {
         bool firstShoot = true;
+        bool waited = false;
 
         yield return new WaitForSeconds(attackStat.ShootDelayTimeAtStart);
 
         while (true)
         {
+            // Shoot이 진행 중이면 한 프레임 쉼
             if (shoot.IsShooting)
             {
                 yield return null;
+                waited = true;
                 continue;
             }
 
             if (attackStat.ShootDeltaTime > 0 && firstShoot == false)
                 yield return new WaitForSeconds(attackStat.ShootDeltaTime);
 
+            // 해당 분기가 없으면 시작과 동시에 끝나는 Shoot일 경우, 무한루프 문제 발생
+            // 최소 한 프레임은 쉬어줘야 함
+            else if (attackStat.ShootDeltaTime == 0 && waited == false && firstShoot == false)
+            {
+                yield return null;
+                waited = true;
+            }
+
             shoot.StartShoot();
             firstShoot = false;
+            waited = false;
         }
     }
 
