@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour, NeedCharacterStat
 {
-    private Vector2 moveDirection = Vector2.right;  // 이동 방향
-
     [Header("[Bullet Stat]")]
     [SerializeField]
     private BulletStat bulletStat;
 
-    [Header("[Rigidbody2D]")]
+    [Header("[Movement]")]
     [SerializeField]
-    private Rigidbody2D rigidbody;
+    private Movement movement;
 
     [Header("[Trail Renderer]")]
     [SerializeField]
     private TrailRenderer trailRenderer;
 
+    private void Start()
+    {
+        movement.SetStat(bulletStat);
+    }
+
     public void Init(Vector2 moveDirection, CharacterStat characterStat)
     {
         bulletStat.SetCharacterStat(characterStat);
-        this.moveDirection = ConvertMoveDirection(moveDirection);
+        movement.SetMoveDirection(ConvertMoveDirection(moveDirection));
     }
 
     private Vector3 ConvertMoveDirection(Vector2 moveDirection)
@@ -38,12 +41,9 @@ public class Bullet : MonoBehaviour, NeedCharacterStat
         return newMoveDir.normalized;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        float moveAmount = bulletStat.MoveSpeed * Time.deltaTime;
-        rigidbody.MovePosition(rigidbody.position + moveDirection * moveAmount);
-
-        Vector3 pos = rigidbody.position;
+        Vector3 pos = transform.position;
         if (pos.y < -30 || pos.y > 30 || pos.x > 30 || pos.x < -30)
             gameObject.SetActive(false);
     }
@@ -62,5 +62,16 @@ public class Bullet : MonoBehaviour, NeedCharacterStat
     public void SetCharacterStat(CharacterStat characterStat)
     {
         bulletStat.SetCharacterStat(characterStat);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag.Equals("Monster"))
+        {
+            Character character = other.GetComponent<Character>();
+            character.Hit(bulletStat.Attack);
+            character.KnockBack(transform.position, bulletStat.KnockBack);
+            gameObject.SetActive(false);
+        }
     }
 }

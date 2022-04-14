@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class BulletStat : StatWithCharacterStat
+public class BulletStat : StatWithCharacterStat, StatHasMoveSpeed
 {
     /* Member Variable */
     [SerializeField]
@@ -27,4 +27,7 @@ public class BulletStat : StatWithCharacterStat
     public float KnockBack => knockBack;
     public float Scatter => Math.Max(0, scatter - (scatter * characterStat.BulletScatterResistance));
     public bool IsPenetrable => isPenetrable;
+
+    /* Has Move Speed */
+    public float GetMoveSpeed() => MoveSpeed;
 }

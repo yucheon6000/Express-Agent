@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class CharacterStat : Stat
+public class CharacterStat : Stat, StatHasMoveSpeed
 {
     public static CharacterStat Default => new CharacterStat();
 
@@ -30,7 +30,7 @@ public class CharacterStat : Stat
     private float bulletSpeed = 1;                 // 탄환 속도 (>= 1)
     [SerializeField]
     [Tooltip("탄환 산탄 저항")]
-    private float bulletscatterResistance = 0;     // 탄환 산탄 저항 (>= 0, <= 1)  // 1이면 모두 저항
+    private float bulletScatterResistance = 0;     // 탄환 산탄 저항 (>= 0, <= 1)  // 1이면 모두 저항
 
     /* Getter & Setter */
     public int Health { get { return health; } set { health = Math.Max(0, value); } }
@@ -40,5 +40,8 @@ public class CharacterStat : Stat
     public float AttackSpeed { get { return attackSpeed; } set { attackSpeed = Math.Max(1, value); } }
     public int BulletAmountStep { get { return bulletAmountStep; } set { bulletAmountStep = Math.Max(0, value); } }
     public float BulletSpeed { get { return bulletSpeed; } set { bulletSpeed = Math.Max(1, value); } }
-    public float BulletScatterResistance { get { return bulletscatterResistance; } set { bulletscatterResistance = Math.Clamp(value, 0f, 1f); } }
+    public float BulletScatterResistance { get { return bulletScatterResistance; } set { bulletScatterResistance = Math.Clamp(value, 0f, 1f); } }
+
+    /* Has Move Speed */
+    public float GetMoveSpeed() => MoveSpeed;
 }

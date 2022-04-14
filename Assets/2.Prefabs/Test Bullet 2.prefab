@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 721730411551481606}
   - component: {fileID: 7908417124944570366}
   m_Layer: 0
-  m_Name: Test Bullet
+  m_Name: Test Bullet 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2356771059136709977}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7309303687058869711}
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.85638046, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.4292453, b: 0.48977983, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -104,9 +104,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletStat:
     attack: 0
-    moveSpeed: 10
+    moveSpeed: 3
     knockBack: 0.3
-    scatter: 5
+    scatter: 10
     isPenetrable: 0
   movement: {fileID: 6717062040357961970}
   trailRenderer: {fileID: 8158439012644904763}
@@ -242,7 +242,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.13912964
+        value: 0.4176172
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -522,7 +522,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.68073237, b: 0, a: 1}
+      maxColor: {r: 1, g: 0.009896874, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -584,7 +584,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.37
+      scalar: 0.24
       minScalar: 0.24
       maxCurve:
         serializedVersion: 2
@@ -5084,8 +5084,8 @@ ParticleSystemRenderer:
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
-  m_MinParticleSize: 0
-  m_MaxParticleSize: 0.31
+  m_MinParticleSize: 0.06
+  m_MaxParticleSize: 0.06
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2

@@ -28,14 +28,14 @@ public class Weapon : MonoBehaviour, NeedCharacterStat
     }
 
     [ContextMenu("Start Trigger")]
-    private void StartTrigger()
+    public void StartTrigger()
     {
         foreach (Attack attack in attacks)
             attack.StartAttack();
     }
 
     [ContextMenu("Stop Trigger")]
-    private void StopTrigger()
+    public void StopTrigger()
     {
         foreach (Attack attack in attacks)
             attack.StopAttack();

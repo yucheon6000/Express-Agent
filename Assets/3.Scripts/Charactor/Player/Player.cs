@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
-    [SerializeField]
-    private float moveSpeed = 10f;
+    protected override void Start()
+    {
+        base.Start();
+        weapon.StartTrigger();
+    }
 
     private void Update()
     {
@@ -14,8 +17,9 @@ public class Player : MonoBehaviour
         float ver = Input.GetAxisRaw("Vertical");
 
         Vector3 moveDir = (Vector3.right * hor) + (Vector3.up * ver);
-        moveDir.Normalize();
 
-        transform.Translate(moveDir * moveSpeed * Time.deltaTime);
+        movement.SetMoveDirection(moveDir);
     }
+
+    protected override void OnDead() { }
 }
