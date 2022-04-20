@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class KnockBack : MonoBehaviour
 {
     [Header("[Movement]")]
     [SerializeField]
     private Movement movement;
+
+    [Header("[NavMeshAgent]")]
+    [SerializeField]
+    private NavMeshAgent agent;
 
     [Header("[Property]")]
     [SerializeField]
@@ -20,6 +25,7 @@ public class KnockBack : MonoBehaviour
     private IEnumerator KnockBackRoutine(Vector2 direction, float force)
     {
         movement.enabled = false;
+        agent.isStopped = true;
 
         float timer = 0;
         while (timer < knockBackTime)
@@ -31,6 +37,7 @@ public class KnockBack : MonoBehaviour
             yield return null;
         }
 
+        agent.isStopped = false;
         movement.enabled = true;
     }
 }

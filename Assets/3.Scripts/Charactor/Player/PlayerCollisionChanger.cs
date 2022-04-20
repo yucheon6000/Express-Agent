@@ -10,13 +10,9 @@ public class PlayerCollisionChanger : MonoBehaviour
     [SerializeField]
     private Collider2D[] colliders;
 
-    private void Awake()
-    {
-        DisableAllColliders();
-    }
-
     private void Start()
     {
+        DisableAllColliders();
         playerAngleDetector.AddPlayerAngleAction(OnPlayerAngleChanged);
     }
 

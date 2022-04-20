@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 public class Monster : Character
 {
+    [Header("[Monster]")]
+    [SerializeField]
+    private NavMeshAgent agent;
+
     [SerializeField]
     private CollisionDetector detector;
 
@@ -13,6 +18,9 @@ public class Monster : Character
     protected override void Start()
     {
         base.Start();
+
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
 
         detector.AddCollisionDetectAction((transform, _, _) =>
         {
@@ -26,15 +34,17 @@ public class Monster : Character
     {
         if (!target) return;
 
-        Vector2 moveDir = target.transform.position - transform.position;
+        agent.SetDestination(target.transform.position);
 
-        if (moveDir.sqrMagnitude <= 1)
-        {
-            movement.SetMoveDirection(Vector2.zero);
-            return;
-        }
+        // Vector2 moveDir = target.transform.position - transform.position;
 
-        movement.SetMoveDirection(moveDir);
+        // if (moveDir.sqrMagnitude <= 1)
+        // {
+        //     movement.SetMoveDirection(Vector2.zero);
+        //     return;
+        // }
+
+        // movement.SetMoveDirection(moveDir);
     }
 
     protected override void OnDead() { }

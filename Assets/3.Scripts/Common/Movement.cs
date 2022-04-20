@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    [Header("[ObstacleDetector (Nullable)]")]
+    [SerializeField]
+    private ObstacleDetector detector;
+
     private float moveSpeed = 0;
     private Vector2 moveDirection = Vector2.zero;
     private StatHasMoveSpeed stat = null;
@@ -27,6 +31,11 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(moveDirection * MoveSpeed * Time.deltaTime);
+        Vector2 moveForce = moveDirection * MoveSpeed * Time.deltaTime;
+
+        if (detector)
+            moveForce = detector.GetMovableForce(moveForce);
+
+        transform.Translate(moveForce);
     }
 }
