@@ -51,6 +51,11 @@ public class Player : Character
 
     private void UpdateMainPlayerMovement()
     {
+        if (knockBack.IsKnockBacking) return;
+
+        if (!movement.enabled)
+            movement.enabled = true;
+
         float hor = Input.GetAxisRaw("Horizontal");
         float ver = Input.GetAxisRaw("Vertical");
 
@@ -62,6 +67,23 @@ public class Player : Character
     private void UpdateSidekickPlayerMovement()
     {
         if (!agent || !mainPlayer) return;
+
+        if (movement.enabled)
+            movement.enabled = false;
+
+        // 넉백 중        
+        if (knockBack.IsKnockBacking)
+        {
+            if (!agent.isStopped) agent.isStopped = true;
+            return;
+        }
+
+        // 넉백 중 아님
+        if (!knockBack.IsKnockBacking)
+        {
+            if (agent.isStopped)
+                agent.isStopped = false;
+        }
 
         agent.speed = characterStat.MoveSpeed;
         agent.SetDestination(mainPlayer.transform.position);

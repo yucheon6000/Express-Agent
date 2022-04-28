@@ -7,4 +7,6 @@ public class StatWithCharacterStat : Stat, NeedCharacterStat
     {
         this.characterStat = characterStat;
     }
+
+    public CharacterStat CharacterStat => characterStat;
 }

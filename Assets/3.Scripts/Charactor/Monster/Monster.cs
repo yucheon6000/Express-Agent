@@ -32,8 +32,31 @@ public class Monster : Character
 
     private void Update()
     {
-        if (!target) return;
+        // 넉백 중        
+        if (knockBack.IsKnockBacking)
+        {
+            if (!agent.isStopped) agent.isStopped = true;
+            return;
+        }
 
+        // 넉백 중 아님
+        if (!knockBack.IsKnockBacking)
+        {
+            if (agent.isStopped)
+                agent.isStopped = false;
+
+            if (movement.enabled)
+                movement.enabled = false;
+        }
+
+        // 타켓 없을 경우
+        if (!target)
+        {
+            movement.SetMoveDirection(Vector2.zero);
+            return;
+        }
+
+        agent.speed = characterStat.MoveSpeed;
         agent.SetDestination(target.transform.position);
 
         // Vector2 moveDir = target.transform.position - transform.position;
@@ -48,4 +71,14 @@ public class Monster : Character
     }
 
     protected override void OnDead() { }
+
+    private void OnEnable()
+    {
+        target = null;
+    }
+
+    private void OnDisable()
+    {
+        ObjectPooler.ReturnToPool(this.gameObject);
+    }
 }

@@ -15,29 +15,44 @@ public class KnockBack : MonoBehaviour
 
     [Header("[Property]")]
     [SerializeField]
-    private float knockBackTime = 1;
+    private float knockBackTime = 0.3f;
+
+    private bool isKnockBacking = false;
+    public bool IsKnockBacking => isKnockBacking;
 
     public void StartKnockBack(Vector2 direction, float force)
     {
+        if (isKnockBacking) return;
         StartCoroutine(KnockBackRoutine(direction.normalized, force));
     }
 
     private IEnumerator KnockBackRoutine(Vector2 direction, float force)
     {
-        movement.enabled = false;
-        agent.isStopped = true;
+        isKnockBacking = true;
+
+        movement.enabled = true;
+        movement.MoveSpeedType = MoveSpeedType.Manual;
 
         float timer = 0;
-        while (timer < knockBackTime)
-        {
-            transform.Translate(direction * force * Time.deltaTime);
+        float percent = 0;
 
+        movement.SetMoveSpeed(force);
+        movement.SetMoveDirection(direction);
+
+        while (percent < 0.8f)
+        {
             timer += Time.deltaTime;
+            percent = timer / knockBackTime;
+
+            float newForce = (force / 2) * (1 + Mathf.Cos(Mathf.Lerp(0, Mathf.PI, percent)));
+
+            movement.SetMoveSpeed(newForce);
 
             yield return null;
         }
 
-        agent.isStopped = false;
-        movement.enabled = true;
+        movement.MoveSpeedType = MoveSpeedType.StatBased;
+
+        isKnockBacking = false;
     }
 }

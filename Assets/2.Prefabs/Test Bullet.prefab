@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6717062040357961970}
   - component: {fileID: 721730411551481606}
   - component: {fileID: 7908417124944570366}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Test Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ MonoBehaviour:
   bulletStat:
     attack: 0
     moveSpeed: 10
-    knockBack: 0.3
+    knockBack: 3
     scatter: 5
     isPenetrable: 0
   movement: {fileID: 6717062040357961970}
@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4da7f85d83a84485810e81bb0d8fa8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detector: {fileID: 0}
 --- !u!58 &721730411551481606
 CircleCollider2D:
   m_ObjectHideFlags: 0
