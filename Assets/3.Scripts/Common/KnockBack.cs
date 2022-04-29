@@ -20,10 +20,12 @@ public class KnockBack : MonoBehaviour
     private bool isKnockBacking = false;
     public bool IsKnockBacking => isKnockBacking;
 
+    private Coroutine coroutine = null;
+
     public void StartKnockBack(Vector2 direction, float force)
     {
         if (isKnockBacking) return;
-        StartCoroutine(KnockBackRoutine(direction.normalized, force));
+        coroutine = StartCoroutine(KnockBackRoutine(direction.normalized, force));
     }
 
     private IEnumerator KnockBackRoutine(Vector2 direction, float force)
@@ -54,5 +56,16 @@ public class KnockBack : MonoBehaviour
         movement.MoveSpeedType = MoveSpeedType.StatBased;
 
         isKnockBacking = false;
+        coroutine = null;
+    }
+
+    private void OnDisable()
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            coroutine = null;
+            isKnockBacking = false;
+        }
     }
 }

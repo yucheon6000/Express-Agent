@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
@@ -14,6 +15,12 @@ public class Monster : Character
     private CollisionDetector detector;
 
     private Transform target;
+
+    [Header("[UI]")]
+    [SerializeField]
+    private Slider slider;
+    [SerializeField]
+    private Transform sliderTransform;
 
     protected override void Start()
     {
@@ -32,6 +39,8 @@ public class Monster : Character
 
     private void Update()
     {
+        UpdateUI();
+
         // 넉백 중        
         if (knockBack.IsKnockBacking)
         {
@@ -70,11 +79,23 @@ public class Monster : Character
         // movement.SetMoveDirection(moveDir);
     }
 
-    protected override void OnDead() { }
+    private void UpdateUI()
+    {
+        slider.transform.position = Camera.main.WorldToScreenPoint(sliderTransform.position);
+        slider.value = currentHp / (float)characterStat.Health;
+    }
+
+    protected override void OnDead()
+    {
+        gameObject.SetActive(false);
+    }
 
     private void OnEnable()
     {
+        detector.SetActive(true);
+        currentHp = characterStat.Health;
         target = null;
+        UpdateUI();
     }
 
     private void OnDisable()

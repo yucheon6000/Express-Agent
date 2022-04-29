@@ -53,7 +53,7 @@ public abstract class Character : MonoBehaviour
 
     protected virtual void IncreaseHp(float attack)
     {
-        currentHp -= (int)attack;
+        currentHp += (int)attack;
         if (currentHp <= 0) OnDead();
     }
 

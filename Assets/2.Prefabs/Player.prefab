@@ -886,7 +886,7 @@ MonoBehaviour:
     characterType: 0
     health: 0
     moveSpeed: 5
-    attack: 0
+    attack: 1
     knockBack: 0
     knockBackResistance: 0
     attackSpeed: 1
@@ -897,8 +897,8 @@ MonoBehaviour:
   movement: {fileID: 625592623469265944}
   knockBack: {fileID: 625592623469265924}
   weapon: {fileID: 625592622859219801}
-  playerType: 0
-  mainPlayer: {fileID: 625592623469265947}
+  playerType: 1
+  mainPlayer: {fileID: 0}
 --- !u!114 &625592623469265944
 MonoBehaviour:
   m_ObjectHideFlags: 0
