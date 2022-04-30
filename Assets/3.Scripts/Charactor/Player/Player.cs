@@ -7,6 +7,11 @@ public enum PlayerType { Main, Sidekick }
 
 public class Player : Character
 {
+    private static Player main;
+    private static int currentCointCount = 0;
+    private static int currentStaminaCount = 0;
+
+    public static Player Main => main;
 
     [Header("[Player]")]
     [SerializeField]
@@ -16,6 +21,9 @@ public class Player : Character
 
     private NavMeshAgent agent;
     private PlayerAngleDetector angleDetector;
+    private PlayerCollision playerCollision;
+
+    public Vector3 TargetPosition => playerCollision.ColliderPosition;
 
     protected override void Awake()
     {
@@ -23,6 +31,7 @@ public class Player : Character
 
         agent = GetComponent<NavMeshAgent>();
         angleDetector = GetComponent<PlayerAngleDetector>();
+        playerCollision = GetComponentInChildren<PlayerCollision>();
     }
 
     protected override void Start()
@@ -46,6 +55,13 @@ public class Player : Character
         else
         {
             UpdateSidekickPlayerMovement();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            List<Coin> coins = ObjectPooler.GetAllPools<Coin>("Coin", true);
+            foreach (Coin coin in coins)
+                coin.StartTargeting();
         }
     }
 
@@ -97,7 +113,19 @@ public class Player : Character
         movement.SetMoveDirection(Vector2.zero);
         agent.enabled = playerType == PlayerType.Sidekick;
         angleDetector.enabled = playerType == PlayerType.Main;
+
+        if (playerType == PlayerType.Main) main = this;
     }
 
     protected override void OnDead() { }
+
+    public static void IncreaseCoinCount(int amount)
+    {
+        currentCointCount += amount;
+    }
+
+    public static void IncreaseStaminaCount(int amount)
+    {
+        currentStaminaCount += amount;
+    }
 }

@@ -9,18 +9,22 @@ public class PlayerColliderChanger : MonoBehaviour
 
     [SerializeField]
     private Collider2D[] colliders;
+    private int currentIndex = 0;
+
+    public Collider2D CurrentCollider => colliders[currentIndex];
 
     private void Start()
     {
         DisableAllColliders();
-        colliders[0].enabled = true;
+        colliders[currentIndex].enabled = true;
         playerAngleDetector.AddPlayerAngleAction(OnPlayerAngleChanged);
     }
 
     private void OnPlayerAngleChanged(PlayerAngle playerAngle)
     {
         DisableAllColliders();
-        Collider2D collider = colliders[(int)playerAngle];
+        currentIndex = (int)playerAngle;
+        Collider2D collider = colliders[currentIndex];
         if (collider) collider.enabled = true;
     }
 

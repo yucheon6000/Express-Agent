@@ -73,17 +73,17 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    public static List<GameObject> GetAllPools(string tag)
+    public static List<GameObject> GetAllPools(string tag, bool activeOnly = false)
     {
         if (!inst.poolDictionary.ContainsKey(tag))
             throw new Exception($"Pool with tag {tag} doesn't exist.");
 
-        return inst.spawnObjects.FindAll(x => x.name == tag);
+        return inst.spawnObjects.FindAll(x => ((activeOnly && x.activeSelf) || (!activeOnly)) && x.name == tag);
     }
 
-    public static List<T> GetAllPools<T>(string tag) where T : Component
+    public static List<T> GetAllPools<T>(string tag, bool activeOnly = false) where T : Component
     {
-        List<GameObject> objects = GetAllPools(tag);
+        List<GameObject> objects = GetAllPools(tag, activeOnly);
 
         if (!objects[0].TryGetComponent(out T component))
             throw new Exception("Component not found");

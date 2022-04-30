@@ -14,7 +14,13 @@ public class Monster : Character
     [SerializeField]
     private CollisionDetector detector;
 
-    private Transform target;
+    [Header("[Points]")]
+    [SerializeField]
+    private int coinAmout = 50;
+    [SerializeField]
+    private int staminaAmount = 100;
+
+    private Player target;
 
     [Header("[UI]")]
     [SerializeField]
@@ -31,7 +37,7 @@ public class Monster : Character
 
         detector.AddCollisionDetectAction((transform, _, _) =>
         {
-            target = transform;
+            target = transform.gameObject.GetComponentInParent<Player>();
             weapon.StartTrigger();
             detector.SetActive(false);
         });
@@ -66,7 +72,7 @@ public class Monster : Character
         }
 
         agent.speed = characterStat.MoveSpeed;
-        agent.SetDestination(target.transform.position);
+        agent.SetDestination(target.TargetPosition);
 
         // Vector2 moveDir = target.transform.position - transform.position;
 
@@ -87,6 +93,17 @@ public class Monster : Character
 
     protected override void OnDead()
     {
+        int staminaCount = (int)(staminaAmount / Stamina.StaminaAmount);
+        for (int i = 0; i < staminaCount; i++)
+        {
+            ObjectPooler.SpawnFromPool("Stamina", transform.position);
+        }
+
+        int coinCount = (int)(coinAmout / Coin.CointAmount);
+        for (int i = 0; i < coinCount; i++)
+        {
+            ObjectPooler.SpawnFromPool("Coin", transform.position);
+        }
         gameObject.SetActive(false);
     }
 

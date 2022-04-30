@@ -577,6 +577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 625592623469265947}
+  colliderChanger: {fileID: 5229402688815764070}
 --- !u!114 &5229402688815764070
 MonoBehaviour:
   m_ObjectHideFlags: 0
