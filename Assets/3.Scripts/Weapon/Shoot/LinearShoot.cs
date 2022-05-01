@@ -8,8 +8,7 @@ public class LinearShoot : ShootWithBullet
     [SerializeField]
     private LinearShootStat[] shootStats;
     private LinearShootStat shootStat;
-    private Steper<LinearShootStat> statSteper;
-    private int pervStep = 0;
+    private Stepper<LinearShootStat> statStepper;
 
     [Header("[Transform]")]
     [SerializeField]
@@ -26,8 +25,8 @@ public class LinearShoot : ShootWithBullet
 
     private void Awake()
     {
-        statSteper = new Steper<LinearShootStat>(shootStats);
-        shootStat = statSteper.GetStep(pervStep);
+        statStepper = new Stepper<LinearShootStat>(shootStats);
+        UpdateShootStat();
     }
 
     [ContextMenu("Start Shoot")]
@@ -35,8 +34,7 @@ public class LinearShoot : ShootWithBullet
     {
         if (isShooting) return;
 
-        if (pervStep != characterStat.BulletAmountStep)
-            shootStat = statSteper.GetStep(characterStat.BulletAmountStep);
+        UpdateShootStat();
 
         isShooting = true;
 
@@ -87,6 +85,11 @@ public class LinearShoot : ShootWithBullet
 
         isShooting = false;
         coroutine = null;
+    }
+
+    protected override void UpdateShootStat()
+    {
+        shootStat = statStepper.GetStep(attackLevel);
     }
 
     public override void SetCharacterStat(CharacterStat characterStat)

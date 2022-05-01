@@ -30,9 +30,6 @@ public class CharacterStat : Stat, StatHasMoveSpeed
     [Tooltip("공격 속도")]
     private float attackSpeed = 1;                 // 공격 속도 (>= 1)
     [SerializeField]
-    [Tooltip("탄환 수 단계")]
-    private int bulletAmountStep = 0;              // 탄환 수 단계 (>= 0)
-    [SerializeField]
     [Tooltip("탄환 속도")]
     private float bulletSpeed = 1;                 // 탄환 속도 (>= 1)
     [SerializeField]
@@ -47,7 +44,6 @@ public class CharacterStat : Stat, StatHasMoveSpeed
     public float KnockBack { get { return knockBack; } set { knockBack = Math.Max(0, value); } }
     public float KnockBackResistance { get { return knockBackResistance; } set { knockBackResistance = Math.Clamp(value, 0f, 1f); } }
     public float AttackSpeed { get { return attackSpeed; } set { attackSpeed = Math.Max(1, value); } }
-    public int BulletAmountStep { get { return bulletAmountStep; } set { bulletAmountStep = Math.Max(0, value); } }
     public float BulletSpeed { get { return bulletSpeed; } set { bulletSpeed = Math.Max(1, value); } }
     public float BulletScatterResistance { get { return bulletScatterResistance; } set { bulletScatterResistance = Math.Clamp(value, 0f, 1f); } }
 

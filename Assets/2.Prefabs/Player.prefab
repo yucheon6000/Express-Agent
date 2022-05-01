@@ -184,7 +184,6 @@ MonoBehaviour:
     knockBack: 0
     knockBackResistance: 0
     attackSpeed: 1
-    bulletAmountStep: 0
     bulletSpeed: 1
     bulletScatterResistance: 0
 --- !u!114 &625592622859219802
@@ -199,9 +198,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c57fa62184e34b59b1bbee17837feed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackStat:
-    shootDeltaTime: 0.5
+  attackStats:
+  - shootDeltaTime: 0.3
     shootDelayTimeAtStart: 0
+  attackLevel: 0
   shoot: {fileID: 625592622859219783}
 --- !u!114 &625592622859219783
 MonoBehaviour:
@@ -215,12 +215,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae26992d168e4cbb9cd605794b84322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackLevel: 0
   shoots:
   - {fileID: 625592622859219800}
   - {fileID: 625592622859219800}
-  shootStat:
-    breakable: 1
-    shootDeltaTime: 0.1
+  shootStats: []
 --- !u!114 &625592622859219800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc31e37e88c14d82819d211b4f8fb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: cb0fe37aaee1243e2bac7a98175865d1, type: 3}
   shootStats:
   - breakable: 1
@@ -906,7 +906,6 @@ MonoBehaviour:
     knockBack: 0
     knockBackResistance: 0
     attackSpeed: 1
-    bulletAmountStep: 2
     bulletSpeed: 1
     bulletScatterResistance: 0
   currentHp: 0

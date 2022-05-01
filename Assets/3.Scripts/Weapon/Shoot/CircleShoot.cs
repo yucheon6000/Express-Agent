@@ -8,8 +8,7 @@ public class CircleShoot : ShootWithBullet
     [SerializeField]
     private CircleShootStat[] shootStats;
     private CircleShootStat shootStat;
-    private Steper<CircleShootStat> statSteper;
-    private int pervStep = 0;
+    private Stepper<CircleShootStat> statStepper;
 
     [Header("[Transform]")]
     [SerializeField]
@@ -24,8 +23,8 @@ public class CircleShoot : ShootWithBullet
 
     private void Awake()
     {
-        statSteper = new Steper<CircleShootStat>(shootStats);
-        shootStat = statSteper.GetStep(pervStep);
+        statStepper = new Stepper<CircleShootStat>(shootStats);
+        UpdateShootStat();
     }
 
     [ContextMenu("Start Shoot")]
@@ -33,8 +32,7 @@ public class CircleShoot : ShootWithBullet
     {
         if (isShooting) return;
 
-        if (pervStep != characterStat.BulletAmountStep)
-            shootStat = statSteper.GetStep(characterStat.BulletAmountStep);
+        UpdateShootStat();
 
         isShooting = true;
         coroutine = StartCoroutine(ShootRoutine());
@@ -87,6 +85,11 @@ public class CircleShoot : ShootWithBullet
 
         isShooting = false;
         coroutine = null;
+    }
+
+    protected override void UpdateShootStat()
+    {
+        shootStat = statStepper.GetStep(attackLevel);
     }
 
     public override void SetCharacterStat(CharacterStat characterStat)

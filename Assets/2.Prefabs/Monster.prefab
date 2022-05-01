@@ -281,7 +281,6 @@ MonoBehaviour:
     knockBack: 0
     knockBackResistance: 0
     attackSpeed: 1
-    bulletAmountStep: 0
     bulletSpeed: 1
     bulletScatterResistance: 0
 --- !u!114 &6083123835717275943
@@ -296,9 +295,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c57fa62184e34b59b1bbee17837feed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackStat:
-    shootDeltaTime: 0.5
+  attackStats:
+  - shootDeltaTime: 0
     shootDelayTimeAtStart: 0
+  attackLevel: 0
   shoot: {fileID: 6083123835717275938}
 --- !u!114 &6083123835717275938
 MonoBehaviour:
@@ -312,11 +312,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffca61f89e3dd4ef7a4e4d6d6c2cfa1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackLevel: 0
   shoots:
   - {fileID: 6083123835717275940}
   - {fileID: 6083123835717275939}
-  shootStat:
-    breakable: 1
+  shootStats:
+  - breakable: 0
 --- !u!114 &6083123835717275940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,6 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc31e37e88c14d82819d211b4f8fb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: 9291f8f24ab304d269a02c5fcb59043f, type: 3}
   shootStats:
   - breakable: 0
@@ -352,6 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc31e37e88c14d82819d211b4f8fb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: 9291f8f24ab304d269a02c5fcb59043f, type: 3}
   shootStats:
   - breakable: 0
@@ -540,7 +543,6 @@ MonoBehaviour:
     knockBack: 3
     knockBackResistance: 0
     attackSpeed: 1
-    bulletAmountStep: 0
     bulletSpeed: 1.87
     bulletScatterResistance: 1
   currentHp: 0
@@ -549,6 +551,8 @@ MonoBehaviour:
   weapon: {fileID: 6083123835717275942}
   agent: {fileID: 6083123837041040439}
   detector: {fileID: 6083123835472197704}
+  coinAmout: 50
+  staminaAmount: 100
   slider: {fileID: 5255673175258694896}
   sliderTransform: {fileID: 9152191169475106726}
 --- !u!114 &6083123837041040443
@@ -614,6 +618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStatic: 0
+  pivot: {fileID: 0}
 --- !u!1 &6083123837079154671
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,10 +1,10 @@
 using System;
 
-public class Steper<T>
+public class Stepper<T>
 {
     private T[] steps;
 
-    public Steper(T[] steps)
+    public Stepper(T[] steps)
     {
         if (steps == null || steps.Length == 0)
             throw new System.Exception("steps 배열이 없거나, 비었습니다.");

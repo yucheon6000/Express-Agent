@@ -8,7 +8,11 @@ public class Attack : MonoBehaviour, NeedCharacterStat
 
     [Header("[Attack Stat]")]
     [SerializeField]
-    private AttackStat attackStat = AttackStat.Default;
+    private AttackStat[] attackStats;
+    private AttackStat attackStat;
+    private Stepper<AttackStat> attackStepper;
+    [SerializeField]
+    private int attackLevel = 0;
 
     [Header("[Shoot]")]
     [SerializeField]
@@ -21,10 +25,18 @@ public class Attack : MonoBehaviour, NeedCharacterStat
 
     private Coroutine coroutine;
 
+    private void Awake()
+    {
+        attackStepper = new Stepper<AttackStat>(attackStats);
+        UpdateAttackStat();
+    }
+
     [ContextMenu("Start Attack")]
     public void StartAttack()
     {
         if (isAttacking) return;
+
+        UpdateAttackStat();
 
         float leftTime = attackStat.ShootDeltaTime - (Time.time - lastAttackTime);
 
@@ -90,5 +102,20 @@ public class Attack : MonoBehaviour, NeedCharacterStat
         this.characterStat = characterStat;
         attackStat.SetCharacterStat(characterStat);
         shoot.SetCharacterStat(characterStat);
+    }
+
+    public int GetAttackLevel() => attackLevel;
+
+    public void SetAttackLevel(int level)
+    {
+        attackLevel = level;
+        UpdateAttackStat();
+
+        shoot.SetAttackLevel(attackLevel);
+    }
+
+    private void UpdateAttackStat()
+    {
+        attackStat = attackStepper.GetStep(attackLevel);
     }
 }
