@@ -115,6 +115,8 @@ public class Player : Character
 
         agent.speed = characterStat.MoveSpeed;
         agent.SetDestination(Player.main.transform.position);
+
+        angleDetector.SetAngleIndexByDirection(agent.velocity);
     }
 
     public override void Hit(float attack, float knockBack, Vector3 hitPosition)
@@ -137,7 +139,10 @@ public class Player : Character
         // 컴포넌트 활성화/비활성화
         movement.SetMoveDirection(Vector2.zero);
         agent.enabled = playerType == PlayerType.Sidekick;
-        angleDetector.enabled = playerType == PlayerType.Main;
+        if (playerType == PlayerType.Main)
+            angleDetector.StartMouseTargeting();
+        else
+            angleDetector.StopMouseTargeting();
 
         // 사이드킥이 되었을 때, 공격 중지
         if (playerType == PlayerType.Sidekick && weapon.IsTrigger)

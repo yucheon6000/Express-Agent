@@ -13,6 +13,8 @@ public class PlayerAngleDetector : MonoBehaviour
     private PlayerAngle playerAngle;
     public PlayerAngle PlayerAngle => playerAngle;
 
+    private bool isMouseTargeting = true;
+
     private class PlayerAngleEvent : UnityEvent<PlayerAngle> { }
     private PlayerAngleEvent playerAngleEvent = new PlayerAngleEvent();
 
@@ -32,22 +34,45 @@ public class PlayerAngleDetector : MonoBehaviour
         playerAngleEvent.RemoveListener(action);
     }
 
+    public void StartMouseTargeting()
+    {
+        isMouseTargeting = true;
+    }
+
+    public void StopMouseTargeting()
+    {
+        isMouseTargeting = false;
+    }
+
     private void Update()
     {
-        // 현재 PlayerAngle 상태 확인
+        if (!isMouseTargeting) return;
+
+        // 마우스 방향으로 PlayerAngle 지정
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 direction = mousePosition - targetTransform.position;
+        SetAngleIndexByDirection(direction);
+    }
+
+    public void SetAngleIndexByDirection(Vector3 direction)
+    {
         float degree = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         degree = (degree + 360) % 360;  // -180~180 -> 0~360
         int playerAngleIndex = (int)(degree / 22.5);
         playerAngleIndex = ((playerAngleIndex + 1) / 2) % 8;
         PlayerAngle newPlayerAngle = (PlayerAngle)playerAngleIndex;
 
+        // 계산된 PlayerAngle 지정
+        SetAngleIndex(newPlayerAngle);
+    }
+
+    public void SetAngleIndex(PlayerAngle angle)
+    {
         // 기존과 같은 상태면 리턴
-        if (newPlayerAngle == playerAngle) return;
+        if (angle == playerAngle) return;
 
         // 새로운 상태면 각 액션에 알림
-        playerAngle = newPlayerAngle;
+        playerAngle = angle;
         playerAngleEvent.Invoke(playerAngle);
     }
 }

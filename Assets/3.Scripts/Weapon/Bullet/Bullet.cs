@@ -24,7 +24,9 @@ public class Bullet : MonoBehaviour, NeedCharacterStat
     public void Init(Vector2 moveDirection, CharacterStat characterStat)
     {
         bulletStat.SetCharacterStat(characterStat);
-        movement.SetMoveDirection(ConvertMoveDirection(moveDirection));
+        Vector3 newMoveDir = ConvertMoveDirection(moveDirection);
+        RotateBullet(newMoveDir);
+        movement.SetMoveDirection(newMoveDir);
     }
 
     private Vector3 ConvertMoveDirection(Vector2 moveDirection)
@@ -39,6 +41,14 @@ public class Bullet : MonoBehaviour, NeedCharacterStat
         Vector3 newMoveDir = new Vector3(Mathf.Cos(theta), Mathf.Sin(theta));
 
         return newMoveDir.normalized;
+    }
+
+    private void RotateBullet(Vector2 moveDirection)
+    {
+        float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+        angle = (angle + 360) % 360;
+
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     private void Update()

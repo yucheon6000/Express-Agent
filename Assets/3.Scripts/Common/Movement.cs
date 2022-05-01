@@ -45,6 +45,6 @@ public class Movement : MonoBehaviour
         if (detector)
             moveForce = detector.GetMovableForce(moveForce);
 
-        transform.Translate(moveForce);
+        transform.Translate(moveForce, Space.World);
     }
 }

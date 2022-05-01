@@ -4928,3 +4928,4 @@ MonoBehaviour:
   maxMoveSpeed: 10
   scatterTime: 0.5
   scatterPower: 5
+  minCollisionDistance: 1

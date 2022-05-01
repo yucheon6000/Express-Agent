@@ -21,6 +21,9 @@ public class Stamina : Item
     private float currentScatterPower;
     private float scatterTimer = 0;
 
+    [SerializeField]
+    private float minCollisionDistance = 0.5f;
+
     private bool scattered = false;
 
     private Vector3 startPosition;
@@ -34,10 +37,10 @@ public class Stamina : Item
 
     private void Update()
     {
+        UpdateCollision();
+
         if (!scattered) UpdateScatter();
         else UpdateMove();
-
-        UpdateCollision();
     }
 
     private void UpdateScatter()
@@ -68,7 +71,7 @@ public class Stamina : Item
     private void UpdateCollision()
     {
         float distance = (Player.Main.TargetPosition - transform.position).sqrMagnitude;
-        if (distance > 0.3f) return;
+        if (distance > Mathf.Pow(minCollisionDistance, 2)) return;
 
         Player.IncreaseStaminaCount(staminaAmount);
         gameObject.SetActive(false);

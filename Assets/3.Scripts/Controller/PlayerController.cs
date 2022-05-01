@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private int mainPlayerIndex = 0;
     [SerializeField]
     private KeyCode KeyCodePlayerChange = KeyCode.Space;
+    [SerializeField]
+    private float minChangeModeDistance = 3f;
 
     [Header("[Cameara]")]
     [SerializeField]
@@ -31,6 +33,18 @@ public class PlayerController : MonoBehaviour
 
     private void ChangeMainPlayer(int step = 1)
     {
+        foreach (Player current in players)
+        {
+            foreach (Player other in players)
+            {
+                if (current == other) continue;
+
+                // 최소 거리 안 될 경우, 리턴
+                if ((current.TargetPosition - other.TargetPosition).sqrMagnitude > Mathf.Pow(minChangeModeDistance, 2))
+                    return;
+            }
+        }
+
         mainPlayerIndex += step;
         if (mainPlayerIndex >= players.Length) mainPlayerIndex = 0;
         if (mainPlayerIndex < 0) mainPlayerIndex = players.Length - 1;

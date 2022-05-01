@@ -16,6 +16,9 @@ public class Attack : MonoBehaviour, NeedCharacterStat
 
     private bool isAttacking = false;
     public bool IsAttacking => isAttacking;
+
+    private float lastAttackTime;
+
     private Coroutine coroutine;
 
     [ContextMenu("Start Attack")]
@@ -23,8 +26,10 @@ public class Attack : MonoBehaviour, NeedCharacterStat
     {
         if (isAttacking) return;
 
+        float leftTime = attackStat.ShootDeltaTime - (Time.time - lastAttackTime);
+
         isAttacking = true;
-        coroutine = StartCoroutine(AttackRoutine());
+        coroutine = StartCoroutine(AttackRoutine(leftTime));
     }
 
     [ContextMenu("Stop Attack")]
@@ -37,14 +42,19 @@ public class Attack : MonoBehaviour, NeedCharacterStat
         shoot.StopShoot();
         StopCoroutine(coroutine);
         coroutine = null;
+        lastAttackTime = Time.time;
     }
 
-    private IEnumerator AttackRoutine()
+    private IEnumerator AttackRoutine(float delay)
     {
         bool firstShoot = true;
         bool waited = false;
 
-        yield return new WaitForSeconds(attackStat.ShootDelayTimeAtStart);
+        if (delay > 0)
+            yield return new WaitForSeconds(delay);
+
+        if (attackStat.ShootDelayTimeAtStart > 0)
+            yield return new WaitForSeconds(attackStat.ShootDelayTimeAtStart);
 
         while (true)
         {

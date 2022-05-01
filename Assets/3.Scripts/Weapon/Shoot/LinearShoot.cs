@@ -39,6 +39,7 @@ public class LinearShoot : ShootWithBullet
             shootStat = statSteper.GetStep(characterStat.BulletAmountStep);
 
         isShooting = true;
+
         coroutine = StartCoroutine(ShootRoutine());
     }
 
@@ -50,8 +51,8 @@ public class LinearShoot : ShootWithBullet
         if (coroutine == null) return;
 
         isShooting = false;
-        coroutine = null;
         StopCoroutine(coroutine);
+        coroutine = null;
     }
 
     private IEnumerator ShootRoutine()
