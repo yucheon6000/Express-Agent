@@ -8,7 +8,9 @@ public class Weapon : MonoBehaviour, NeedCharacterStat
 
     [Header("[Attacks]")]
     [SerializeField]
-    private Attack[] attacks;
+    private List<Attack> attacks;
+    private bool isTrigger = false;
+    public bool IsTrigger => isTrigger;
 
     /* Debug */
     [Header("[@Debug]")]
@@ -30,6 +32,7 @@ public class Weapon : MonoBehaviour, NeedCharacterStat
     [ContextMenu("Start Trigger")]
     public void StartTrigger()
     {
+        isTrigger = true;
         foreach (Attack attack in attacks)
             attack.StartAttack();
     }
@@ -37,6 +40,7 @@ public class Weapon : MonoBehaviour, NeedCharacterStat
     [ContextMenu("Stop Trigger")]
     public void StopTrigger()
     {
+        isTrigger = false;
         foreach (Attack attack in attacks)
             attack.StopAttack();
     }
@@ -54,5 +58,12 @@ public class Weapon : MonoBehaviour, NeedCharacterStat
         this.characterStat = characterStat;
         foreach (Attack attack in attacks)
             attack.SetCharacterStat(characterStat);
+    }
+
+    public void AddAttack(Attack attack)
+    {
+        attacks.Add(attack);
+
+        if (isTrigger) attack.StartAttack();
     }
 }

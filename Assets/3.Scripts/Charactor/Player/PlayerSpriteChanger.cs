@@ -7,14 +7,8 @@ public class PlayerSpriteChanger : MonoBehaviour
     [SerializeField]
     private PlayerAngleDetector playerAngleDetector;
 
-    private SpriteRenderer spriteRenderer;
     [SerializeField]
-    private Sprite[] sprites;
-
-    private void Awake()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+    private Animator animator;
 
     private void Start()
     {
@@ -23,11 +17,8 @@ public class PlayerSpriteChanger : MonoBehaviour
 
     private void OnPlayerAngleChanged(PlayerAngle playerAngle)
     {
-        if (!spriteRenderer) return;
-        if ((int)playerAngle >= sprites.Length) return;
+        if (!animator) return;
 
-        Sprite sprite = sprites[(int)playerAngle];
-
-        spriteRenderer.sprite = sprite;
+        animator.SetFloat("angleIndex", (int)playerAngle);
     }
 }

@@ -40,8 +40,7 @@ public class PlayerController : MonoBehaviour
         foreach (Player player in players)
         {
             player.UpdatePlayerType(
-                player == mainPlayer ? PlayerType.Main : PlayerType.Sidekick,
-                mainPlayer
+                player == mainPlayer ? PlayerType.Main : PlayerType.Sidekick
             );
         }
 

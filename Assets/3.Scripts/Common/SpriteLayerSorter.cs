@@ -6,6 +6,8 @@ public class SpriteLayerSorter : MonoBehaviour
 {
     [SerializeField]
     private bool isStatic = false;
+    [SerializeField]
+    private Transform pivot = null;
 
     private IEnumerator Start()
     {
@@ -21,7 +23,8 @@ public class SpriteLayerSorter : MonoBehaviour
     private void UpdateZ()
     {
         Vector3 pos = transform.position;
-        pos.z = pos.y / 1000f;
+        pos.z = pivot ? pivot.transform.position.y : pos.y;
+        pos.z = (pos.z - 1000f) / 1000f;
         transform.position = pos;
     }
 }

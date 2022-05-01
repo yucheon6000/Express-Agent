@@ -16,8 +16,6 @@ public class Player : Character
     [Header("[Player]")]
     [SerializeField]
     private PlayerType playerType;      // 플레이어 타입
-    [SerializeField]
-    private Player mainPlayer;          // 메인 플레이어
 
     private NavMeshAgent agent;
     private PlayerAngleDetector angleDetector;
@@ -41,9 +39,7 @@ public class Player : Character
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
-        UpdatePlayerType(playerType, mainPlayer);
-
-        weapon.StartTrigger();
+        UpdatePlayerType(playerType);
     }
 
     private void Update()
@@ -51,6 +47,7 @@ public class Player : Character
         if (playerType == PlayerType.Main)
         {
             UpdateMainPlayerMovement();
+            UpdateMainPlayerAttack();
         }
         else
         {
@@ -80,9 +77,21 @@ public class Player : Character
         movement.SetMoveDirection(moveDir);
     }
 
+    private void UpdateMainPlayerAttack()
+    {
+        if (!weapon.IsTrigger && Input.GetMouseButton(0))
+        {
+            weapon.StartTrigger();
+        }
+        else if (weapon.IsTrigger && Input.GetMouseButtonUp(0))
+        {
+            weapon.StopTrigger();
+        }
+    }
+
     private void UpdateSidekickPlayerMovement()
     {
-        if (!agent || !mainPlayer) return;
+        if (!agent || !Player.main) return;
 
         if (movement.enabled)
             movement.enabled = false;
@@ -102,19 +111,25 @@ public class Player : Character
         }
 
         agent.speed = characterStat.MoveSpeed;
-        agent.SetDestination(mainPlayer.transform.position);
+        agent.SetDestination(Player.main.transform.position);
     }
 
-    public void UpdatePlayerType(PlayerType playerType, Player mainPlayer)
+    public void UpdatePlayerType(PlayerType playerType)
     {
-        this.playerType = playerType;
-        this.mainPlayer = mainPlayer;
+        // 스태틱 변수 main 지정
+        if (playerType == PlayerType.Main) main = this;
 
+        // 자신의 플레이어 타입 저장
+        this.playerType = playerType;
+
+        // 컴포넌트 활성화/비활성화
         movement.SetMoveDirection(Vector2.zero);
         agent.enabled = playerType == PlayerType.Sidekick;
         angleDetector.enabled = playerType == PlayerType.Main;
 
-        if (playerType == PlayerType.Main) main = this;
+        // 사이드킥이 되었을 때, 공격 중지
+        if (playerType == PlayerType.Sidekick && weapon.IsTrigger)
+            weapon.StopTrigger();
     }
 
     protected override void OnDead() { }
