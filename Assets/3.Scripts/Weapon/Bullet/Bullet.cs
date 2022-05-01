@@ -69,8 +69,11 @@ public class Bullet : MonoBehaviour, NeedCharacterStat
         if (bulletStat.CharacterStat.CharacterType == CharacterType.Player && other.tag.Equals(MonsterCollision.TAG))
         {
             Character character = other.GetComponentInParent<Character>();
-            character.Hit(bulletStat.Attack);
-            character.KnockBack(transform.position, bulletStat.KnockBack);
+            character.Hit(
+                bulletStat.Attack,
+                bulletStat.KnockBack,
+                transform.position
+            );
             gameObject.SetActive(false);
         }
         else if (bulletStat.CharacterStat.CharacterType == CharacterType.Monster && other.tag.Equals(PlayerCollision.TAG))

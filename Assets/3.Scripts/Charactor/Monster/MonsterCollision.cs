@@ -21,8 +21,11 @@ public class MonsterCollision : CharacterCollision
         if (other.tag.Equals(PlayerCollision.TAG))
         {
             PlayerCollision playerCol = other.GetComponent<PlayerCollision>();
-            playerCol.Hit(character.CharacterStat.Attack);
-            playerCol.KnockBack(transform.position, character.CharacterStat.KnockBack);
+            playerCol.Hit(
+                character.CharacterStat.Attack,
+                character.CharacterStat.KnockBack,
+                transform.position
+            );
             Debug.Log("HIT: Monster -> " + other.transform.parent.name);
         }
     }

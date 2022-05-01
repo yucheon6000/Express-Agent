@@ -336,15 +336,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAngleDetector: {fileID: 625592623469265946}
-  sprites:
-  - {fileID: 21300000, guid: 89491cc41d68344c7880178a5f882faa, type: 3}
-  - {fileID: 21300000, guid: 193010dcc0608454b992471f381fbba4, type: 3}
-  - {fileID: 21300000, guid: 483751e15f9d64f55b3c0943dfd9fd38, type: 3}
-  - {fileID: 21300000, guid: 8673e28755bc643f7aea245bfbe51df1, type: 3}
-  - {fileID: 21300000, guid: 2e437760e31d24a45bca8682f39d10be, type: 3}
-  - {fileID: 21300000, guid: fd03e2d9e708048399697fa92fd1c4d7, type: 3}
-  - {fileID: 21300000, guid: ed1fbd2035320455d892640c414d4727, type: 3}
-  - {fileID: 21300000, guid: 320541750852249f893ee2c78cffb14c, type: 3}
   animator: {fileID: 360090750}
 --- !u!212 &625592623155840108
 SpriteRenderer:
@@ -861,6 +852,7 @@ GameObject:
   m_Component:
   - component: {fileID: 625592623469265948}
   - component: {fileID: 625592623469265947}
+  - component: {fileID: 6346160921644144550}
   - component: {fileID: 625592623469265944}
   - component: {fileID: 625592623469265924}
   - component: {fileID: 625592623469265946}
@@ -922,7 +914,23 @@ MonoBehaviour:
   knockBack: {fileID: 625592623469265924}
   weapon: {fileID: 625592622859219801}
   playerType: 0
-  mainPlayer: {fileID: 0}
+--- !u!114 &6346160921644144550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625592623469265949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af98bc4a4266240938ff7b2fac5e0972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  godModeTime: 1.5
+  godModeFadeCount: 5
+  minAlpha: 0.3
+  maxAlpha: 1
+  spriteRenderer: {fileID: 625592623155840108}
 --- !u!114 &625592623469265944
 MonoBehaviour:
   m_ObjectHideFlags: 0

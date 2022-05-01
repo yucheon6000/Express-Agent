@@ -85,6 +85,8 @@ public class ObjectPooler : MonoBehaviour
     {
         List<GameObject> objects = GetAllPools(tag, activeOnly);
 
+        if (objects.Count == 0) return new List<T>();
+
         if (!objects[0].TryGetComponent(out T component))
             throw new Exception("Component not found");
 

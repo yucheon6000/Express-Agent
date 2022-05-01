@@ -20,6 +20,7 @@ public class Player : Character
     private NavMeshAgent agent;
     private PlayerAngleDetector angleDetector;
     private PlayerCollision playerCollision;
+    private PlayerGodMode godMode;
 
     public Vector3 TargetPosition => playerCollision.ColliderPosition;
 
@@ -30,6 +31,7 @@ public class Player : Character
         agent = GetComponent<NavMeshAgent>();
         angleDetector = GetComponent<PlayerAngleDetector>();
         playerCollision = GetComponentInChildren<PlayerCollision>();
+        godMode = GetComponent<PlayerGodMode>();
     }
 
     protected override void Start()
@@ -93,25 +95,35 @@ public class Player : Character
     {
         if (!agent || !Player.main) return;
 
-        if (movement.enabled)
-            movement.enabled = false;
-
         // 넉백 중        
         if (knockBack.IsKnockBacking)
         {
-            if (!agent.isStopped) agent.isStopped = true;
+            if (!agent.isStopped)
+                agent.isStopped = true;
+            if (!movement.enabled)
+                movement.enabled = true;
             return;
         }
-
         // 넉백 중 아님
-        if (!knockBack.IsKnockBacking)
+        else
         {
             if (agent.isStopped)
                 agent.isStopped = false;
+            if (movement.enabled)
+                movement.enabled = false;
         }
 
         agent.speed = characterStat.MoveSpeed;
         agent.SetDestination(Player.main.transform.position);
+    }
+
+    public override void Hit(float attack, float knockBack, Vector3 hitPosition)
+    {
+        if (godMode.IsGodMode) return;
+
+        godMode.StartGodMode();
+
+        base.Hit(attack, knockBack, hitPosition);
     }
 
     public void UpdatePlayerType(PlayerType playerType)
@@ -132,8 +144,6 @@ public class Player : Character
             weapon.StopTrigger();
     }
 
-    protected override void OnDead() { }
-
     public static void IncreaseCoinCount(int amount)
     {
         currentCointCount += amount;
@@ -143,4 +153,6 @@ public class Player : Character
     {
         currentStaminaCount += amount;
     }
+
+    protected override void OnDead() { }
 }

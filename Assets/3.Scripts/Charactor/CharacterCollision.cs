@@ -12,13 +12,8 @@ public class CharacterCollision : Collision
         base.Awake();
     }
 
-    public virtual void Hit(float attack)
+    public virtual void Hit(float attack, float knockBack, Vector3 hitPosition)
     {
-        character.Hit(attack);
-    }
-
-    public virtual void KnockBack(Vector2 hitPosition, float knockBack)
-    {
-        character.KnockBack(hitPosition, knockBack);
+        character.Hit(attack, knockBack, hitPosition);
     }
 }

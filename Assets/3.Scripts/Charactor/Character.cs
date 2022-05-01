@@ -36,12 +36,13 @@ public abstract class Character : MonoBehaviour
         weapon.SetCharacterStat(CharacterStat);
     }
 
-    public virtual void Hit(float attack)
+    public virtual void Hit(float attack, float knockBack, Vector3 hitPosition)
     {
         IncreaseHp(-attack);
+        KnockBack(hitPosition, knockBack);
     }
 
-    public virtual void KnockBack(Vector2 hitPosition, float knockBack)
+    protected virtual void KnockBack(Vector2 hitPosition, float knockBack)
     {
         if (!this.knockBack || characterStat.KnockBackResistance >= 1) return;
 
