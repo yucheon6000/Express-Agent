@@ -21,6 +21,7 @@ public class Player : Character
     private PlayerAngleDetector angleDetector;
     private PlayerCollision playerCollision;
     private PlayerGodMode godMode;
+    private PlayerAnimator[] animators;
 
     public Vector3 TargetPosition => playerCollision.ColliderPosition;
 
@@ -32,6 +33,7 @@ public class Player : Character
         angleDetector = GetComponent<PlayerAngleDetector>();
         playerCollision = GetComponentInChildren<PlayerCollision>();
         godMode = GetComponent<PlayerGodMode>();
+        animators = GetComponentsInChildren<PlayerAnimator>();
     }
 
     protected override void Start()
@@ -77,17 +79,29 @@ public class Player : Character
         Vector3 moveDir = (Vector3.right * hor) + (Vector3.up * ver);
 
         movement.SetMoveDirection(moveDir);
+
+        // 애니메이션
+        foreach (PlayerAnimator animator in animators)
+            animator.SetState(PlayerAnimator.IsMoving, moveDir.Equals(Vector3.zero) ? false : true);
     }
 
     private void UpdateMainPlayerAttack()
     {
-        if (!weapon.IsTrigger && Input.GetMouseButton(0))
+        if (!knockBack.IsKnockBacking && !weapon.IsTrigger && Input.GetMouseButton(0))
         {
             weapon.StartTrigger();
+
+            // 애니메이션
+            foreach (PlayerAnimator animator in animators)
+                animator.SetState(PlayerAnimator.IsAttacking, true);
         }
-        else if (weapon.IsTrigger && Input.GetMouseButtonUp(0))
+        else if ((weapon.IsTrigger && Input.GetMouseButtonUp(0)) || (weapon.IsTrigger && knockBack.IsKnockBacking))
         {
             weapon.StopTrigger();
+
+            // 애니메이션
+            foreach (PlayerAnimator animator in animators)
+                animator.SetState(PlayerAnimator.IsAttacking, false);
         }
     }
 
@@ -116,7 +130,12 @@ public class Player : Character
         agent.speed = characterStat.MoveSpeed;
         agent.SetDestination(Player.main.transform.position);
 
-        angleDetector.SetAngleIndexByDirection(agent.velocity);
+        // 애니메이션
+        foreach (PlayerAnimator animator in animators)
+            animator.SetState(PlayerAnimator.IsMoving, agent.velocity.Equals(Vector3.zero) ? false : true);
+
+        if (!agent.velocity.Equals(Vector3.zero))
+            angleDetector.SetAngleIndexByDirection(agent.velocity);
     }
 
     public override void Hit(float attack, float knockBack, Vector3 hitPosition)
@@ -126,6 +145,10 @@ public class Player : Character
         godMode.StartGodMode();
 
         base.Hit(attack, knockBack, hitPosition);
+
+        // 애니메이션
+        foreach (PlayerAnimator animator in animators)
+            animator.Hit(hitPosition.x > TargetPosition.x ? PlayerAnimator.HitLeft : PlayerAnimator.HitRight);
     }
 
     public void UpdatePlayerType(PlayerType playerType)
@@ -146,7 +169,13 @@ public class Player : Character
 
         // 사이드킥이 되었을 때, 공격 중지
         if (playerType == PlayerType.Sidekick && weapon.IsTrigger)
+        {
             weapon.StopTrigger();
+
+            // 애니메이션
+            foreach (PlayerAnimator animator in animators)
+                animator.SetState(PlayerAnimator.IsAttacking, false);
+        }
     }
 
     public static void IncreaseCoinCount(int amount)

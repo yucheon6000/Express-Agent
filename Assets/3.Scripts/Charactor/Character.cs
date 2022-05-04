@@ -47,6 +47,10 @@ public abstract class Character : MonoBehaviour
         if (!this.knockBack || characterStat.KnockBackResistance >= 1) return;
 
         float force = knockBack - (knockBack * characterStat.KnockBackResistance);
+        force = Mathf.Max(force, 0);
+
+        if (force == 0) return;
+
         Vector2 dir = (Vector2)transform.position - hitPosition;
 
         this.knockBack.StartKnockBack(dir, force);

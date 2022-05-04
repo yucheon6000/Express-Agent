@@ -28,6 +28,15 @@ public class KnockBack : MonoBehaviour
         coroutine = StartCoroutine(KnockBackRoutine(direction.normalized, force));
     }
 
+    public void StopKnockBack()
+    {
+        if (!isKnockBacking || coroutine == null) return;
+
+        isKnockBacking = false;
+        StopCoroutine(coroutine);
+        coroutine = null;
+    }
+
     private IEnumerator KnockBackRoutine(Vector2 direction, float force)
     {
         isKnockBacking = true;

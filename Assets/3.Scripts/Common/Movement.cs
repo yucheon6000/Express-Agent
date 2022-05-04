@@ -14,14 +14,18 @@ public class Movement : MonoBehaviour
     public MoveSpeedType MoveSpeedType { get; set; }
 
     private float moveSpeed = 0;
-    private Vector2 moveDirection = Vector2.zero;
-    public Vector2 MoveDirection => moveDirection;
-    private StatHasMoveSpeed stat = null;
-
     public float MoveSpeed =>
         (stat == null || MoveSpeedType == MoveSpeedType.Manual)
         ? moveSpeed
         : stat.GetMoveSpeed();
+
+    private Vector2 moveDirection = Vector2.zero;
+    public Vector2 MoveDirection => moveDirection;
+
+    private Vector3 movedForce = Vector2.zero;
+    public Vector3 MovedForce => movedForce;
+
+    private StatHasMoveSpeed stat = null;
 
     public void SetMoveSpeed(float moveSpeed)
     {
@@ -46,5 +50,7 @@ public class Movement : MonoBehaviour
             moveForce = detector.GetMovableForce(moveForce);
 
         transform.Translate(moveForce, Space.World);
+
+        movedForce = moveForce;
     }
 }
