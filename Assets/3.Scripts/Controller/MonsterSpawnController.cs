@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TMPro;
 
 public class MonsterSpawnController : MonoBehaviour
 {
@@ -16,12 +17,21 @@ public class MonsterSpawnController : MonoBehaviour
     private string targetTileName;
     private List<Vector2> targetTilePositions;
 
-    [Header("[Monster]")]
+    [Header("[Wave]")]
     [SerializeField]
-    private GameObject monsterPrefab;
+    private MonsterSpawnWave[] monsterSpawnWaves;
     [SerializeField]
-    private int targetCount;
+    private float waveDeltaTime = 5;
+    [SerializeField]
+    private int minWaveCount = 0;
+    [SerializeField]
+    private int maxWaveCount = 5;
 
+    private bool isStarted = false;
+
+    [Header("[UI]")]
+    [SerializeField]
+    private TextMeshProUGUI textWave;
 
     private void Start()
     {
@@ -42,22 +52,116 @@ public class MonsterSpawnController : MonoBehaviour
     {
         if (Input.GetKeyDown(spawnKeyCode))
         {
-            SpawnMonster();
+            StartSpawn();
         }
     }
 
-    private void SpawnMonster()
+    public void StartSpawn()
     {
-        List<Vector2> positions = new List<Vector2>(targetTilePositions);
+        if (isStarted) return;
 
+        isStarted = true;
+
+        StartCoroutine(SpawnRoutine());
+    }
+
+    private IEnumerator SpawnRoutine()
+    {
+        int minWaveCnt = Mathf.Min(Mathf.Min(minWaveCount, maxWaveCount), monsterSpawnWaves.Length);
+        int maxWaveCnt = Mathf.Min(Mathf.Max(minWaveCount, maxWaveCount), monsterSpawnWaves.Length);
+        int waveCnt = Random.Range(minWaveCnt, maxWaveCnt + 1);
+
+        Debug.Log($"{minWaveCnt}, {maxWaveCnt}, {waveCnt}");
+
+        for (int i = 0; i < waveCnt; i++)
+        {
+            // UI
+            textWave.gameObject.SetActive(true);
+            textWave.text = $"<size=40>WAVE</size>\n{i + 1}";
+            yield return new WaitForSeconds(0.5f);
+            textWave.gameObject.SetActive(false);
+
+            // 웨이브 시작
+            MonsterSpawnWave wave = monsterSpawnWaves[i];
+            yield return StartCoroutine(WaveRoutine(wave));
+
+            // 웨이브 종료
+            print($"End Wave {i}");
+            yield return new WaitForSeconds(waveDeltaTime);
+        }
+    }
+
+    private IEnumerator WaveRoutine(MonsterSpawnWave wave)
+    {
+
+        List<Vector2> spawnableTilePositions = new List<Vector2>(targetTilePositions);
+        List<GameObject> spawnedMonsterList = new List<GameObject>();
+
+        foreach (MonsterSpawnWaveUnit wUnit in wave.waveUnits)
+        {
+            if (!wUnit.Monster) continue;
+
+            SpawnMonster(wUnit.Monster.gameObject.name, wUnit.getSpawnCount(), ref spawnableTilePositions, ref spawnedMonsterList);
+        }
+
+        while (true)
+        {
+            bool flag = true;
+
+            foreach (GameObject monster in spawnedMonsterList)
+                if (monster.activeSelf)
+                {
+                    flag = false;
+                    break;
+                }
+
+            if (flag)
+                break;
+            else
+                yield return null;
+        }
+    }
+
+    private void SpawnMonster(string monsterName, int targetCount, ref List<Vector2> spawnableTilePositions, ref List<GameObject> spawnedMonsterList)
+    {
         for (int i = 0; i < targetCount; i++)
         {
-            if (positions.Count <= 0) break;
+            if (spawnableTilePositions.Count <= 0) break;
 
-            int idx = Random.Range(0, positions.Count);
-            Vector3 pos = positions[idx];
-            positions.RemoveAt(idx);
-            ObjectPooler.SpawnFromPool(monsterPrefab.name, pos, Quaternion.identity);
+            int idx = Random.Range(0, spawnableTilePositions.Count);
+            Vector3 pos = spawnableTilePositions[idx];
+
+            spawnableTilePositions.RemoveAt(idx);
+
+            GameObject monster = ObjectPooler.SpawnFromPool(monsterName, pos, Quaternion.identity);
+            spawnedMonsterList.Add(monster);
         }
+    }
+}
+
+[System.Serializable]
+public class MonsterSpawnWave
+{
+    public MonsterSpawnWaveUnit[] waveUnits;
+}
+
+[System.Serializable]
+public class MonsterSpawnWaveUnit
+{
+    [SerializeField]
+    private Monster monsterPrefab;
+    [SerializeField]
+    private int minMonsterCount;
+    [SerializeField]
+    private int maxMonsterCount;
+
+    public Monster Monster => monsterPrefab;
+
+    public int getSpawnCount()
+    {
+        int min = Mathf.Min(minMonsterCount, maxMonsterCount);
+        int max = Mathf.Max(minMonsterCount, maxMonsterCount);
+
+        return Random.Range(min, max + 1);
     }
 }
