@@ -8,14 +8,26 @@ public enum PlayerType { Main, Sidekick }
 public class Player : Character
 {
     private static Player main;
+    private new static int currentHp = 0;
+    public new static int CurrentHp => currentHp;
+    private static int maxHp = 0;
+    public static int MaxHp => maxHp;
     private static int currentCointCount = 0;
+    public static int CurrentCoinCount => currentCointCount;
     private static int currentStaminaCount = 0;
+    public static int CurrentStaminaCount => currentStaminaCount;
+    private static int maxStaminaCount = 0;
+    public static int MaxStaminaCount => maxStaminaCount;
 
     public static Player Main => main;
 
     [Header("[Player]")]
     [SerializeField]
     private PlayerType playerType;      // 플레이어 타입
+
+    [Header("[Stamina]")]
+    [SerializeField]
+    private int maxStamina = 200;
 
     private NavMeshAgent agent;
     private PlayerAngleDetector angleDetector;
@@ -24,6 +36,7 @@ public class Player : Character
     private PlayerAnimator[] animators;
 
     public Vector3 TargetPosition => playerCollision.ColliderPosition;
+
 
     protected override void Awake()
     {
@@ -34,6 +47,10 @@ public class Player : Character
         playerCollision = GetComponentInChildren<PlayerCollision>();
         godMode = GetComponent<PlayerGodMode>();
         animators = GetComponentsInChildren<PlayerAnimator>();
+
+        maxHp = Mathf.Max(maxHp, characterStat.Health);
+        currentHp = maxHp;
+        maxStaminaCount = Mathf.Max(maxStamina, maxStaminaCount);
     }
 
     protected override void Start()
@@ -142,9 +159,12 @@ public class Player : Character
     {
         if (godMode.IsGodMode) return;
 
+        if (playerType == PlayerType.Main)
+            IncreaseHp(-attack);
+
         godMode.StartGodMode();
 
-        base.Hit(attack, knockBack, hitPosition);
+        KnockBack(hitPosition, knockBack);
 
         // 애니메이션
         foreach (PlayerAnimator animator in animators)
@@ -178,6 +198,13 @@ public class Player : Character
         }
     }
 
+    protected override void IncreaseHp(float amount)
+    {
+        currentHp += (int)amount;
+        currentHp = Mathf.Clamp(currentHp, 0, maxHp);
+        if (currentHp <= 0) OnDead();
+    }
+
     public static void IncreaseCoinCount(int amount)
     {
         currentCointCount += amount;
@@ -186,6 +213,7 @@ public class Player : Character
     public static void IncreaseStaminaCount(int amount)
     {
         currentStaminaCount += amount;
+        currentStaminaCount = Mathf.Clamp(currentStaminaCount, 0, maxStaminaCount);
     }
 
     protected override void OnDead() { }

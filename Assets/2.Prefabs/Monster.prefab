@@ -539,7 +539,7 @@ MonoBehaviour:
     characterType: 1
     health: 100
     moveSpeed: 2
-    attack: 0
+    attack: 10
     knockBack: 3
     knockBackResistance: 0
     attackSpeed: 1

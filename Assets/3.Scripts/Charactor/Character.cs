@@ -11,6 +11,7 @@ public abstract class Character : MonoBehaviour
 
     [SerializeField]
     protected int currentHp;
+    public int CurrentHp => currentHp;
 
     [Header("[Movement]")]
     [SerializeField]
@@ -56,9 +57,9 @@ public abstract class Character : MonoBehaviour
         this.knockBack.StartKnockBack(dir, force);
     }
 
-    protected virtual void IncreaseHp(float attack)
+    protected virtual void IncreaseHp(float amount)
     {
-        currentHp += (int)attack;
+        currentHp += (int)amount;
         if (currentHp <= 0) OnDead();
     }
 
