@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Movement))]
 public class Stamina : Item
 {
-    private static readonly int staminaAmount = 10;
+    private static readonly int staminaAmount = 5;
     public static int StaminaAmount => staminaAmount;
 
     [SerializeField]

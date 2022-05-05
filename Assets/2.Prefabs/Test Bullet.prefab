@@ -104,9 +104,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletStat:
     attack: 10
-    moveSpeed: 10
+    moveSpeed: 6
     knockBack: 3
-    scatter: 5
+    scatter: 30
     isPenetrable: 0
   movement: {fileID: 6717062040357961970}
   trailRenderer: {fileID: 8158439012644904763}

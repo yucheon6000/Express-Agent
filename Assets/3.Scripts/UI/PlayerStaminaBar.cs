@@ -5,17 +5,36 @@ using UnityEngine.UI;
 
 public class PlayerStaminaBar : MonoBehaviour
 {
-    private Slider slider;
+    [SerializeField]
+    private GameObject[] barItems;
+    private int targetCount;
+    private int currentCount;
+    private float lastCountUpdate;
 
     private void Start()
     {
-        slider = GetComponent<Slider>();
+        foreach (GameObject barItem in barItems)
+            barItem.SetActive(false);
     }
 
     private void Update()
     {
-        float value = (float)Player.CurrentStaminaCount / (float)Player.MaxStaminaCount;
+        float HpPerItem = (float)Player.MaxStaminaCount / (float)barItems.Length;
+        targetCount = (int)((float)Player.CurrentStaminaCount / HpPerItem);
+        if (targetCount == currentCount) return;
 
-        slider.value = Mathf.Lerp(slider.value, value, Time.deltaTime * 6f);
+        if (Time.time - lastCountUpdate >= 0.03f)
+        {
+            currentCount += (int)Mathf.Sign(targetCount - currentCount);
+            lastCountUpdate = Time.time;
+
+            for (int i = 0; i < barItems.Length; i++)
+            {
+                if (i < currentCount)
+                    barItems[i].SetActive(true);
+                else
+                    barItems[i].SetActive(false);
+            }
+        }
     }
 }

@@ -551,8 +551,8 @@ MonoBehaviour:
   weapon: {fileID: 6083123835717275942}
   agent: {fileID: 6083123837041040439}
   detector: {fileID: 6083123835472197704}
-  coinAmout: 50
-  staminaAmount: 100
+  coinAmout: 3
+  staminaAmount: 30
   slider: {fileID: 5255673175258694896}
   sliderTransform: {fileID: 9152191169475106726}
 --- !u!114 &6083123837041040443

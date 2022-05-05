@@ -29,6 +29,7 @@ public class Attack : MonoBehaviour, NeedCharacterStat
     {
         attackStepper = new Stepper<AttackStat>(attackStats);
         UpdateAttackStat();
+        lastAttackTime = -attackStat.ShootDeltaTime;
     }
 
     [ContextMenu("Start Attack")]
@@ -112,6 +113,11 @@ public class Attack : MonoBehaviour, NeedCharacterStat
         UpdateAttackStat();
 
         shoot.SetAttackLevel(attackLevel);
+    }
+
+    public void IncreaseAttackLevel(int level)
+    {
+        SetAttackLevel(GetAttackLevel() + level);
     }
 
     private void UpdateAttackStat()

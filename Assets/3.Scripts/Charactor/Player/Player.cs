@@ -63,6 +63,7 @@ public class Player : Character
         UpdatePlayerType(playerType);
     }
 
+    private float lastStaminaDown = 0;
     private void Update()
     {
         if (playerType == PlayerType.Main)
@@ -80,6 +81,30 @@ public class Player : Character
             List<Coin> coins = ObjectPooler.GetAllPools<Coin>("Coin", true);
             foreach (Coin coin in coins)
                 coin.StartTargeting();
+        }
+
+        if (playerType == PlayerType.Main && Time.timeScale < 1)
+        {
+            if (Time.time - lastStaminaDown > 0.3f)
+            {
+                currentStaminaCount -= 10;
+                lastStaminaDown = Time.time;
+
+                if (currentStaminaCount <= 0)
+                {
+                    Time.timeScale = 1;
+                    currentStaminaCount = 0;
+                }
+            }
+        }
+
+        if (playerType == PlayerType.Main && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Time.timeScale = 0.4f;
+        }
+        else if (playerType == PlayerType.Main && Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            Time.timeScale = 1;
         }
     }
 
@@ -198,10 +223,22 @@ public class Player : Character
         }
     }
 
-    protected override void IncreaseHp(float amount)
+    public static void IncreaseCurrentHp(float amount)
     {
         currentHp += (int)amount;
         currentHp = Mathf.Clamp(currentHp, 0, maxHp);
+    }
+
+    public static void IncreaseMaxHp(float amount)
+    {
+        maxHp += (int)amount;
+    }
+
+    public override void IncreaseHp(float amount)
+    {
+        if (playerType == PlayerType.Sidekick) return;
+
+        IncreaseCurrentHp(amount);
         if (currentHp <= 0) OnDead();
     }
 

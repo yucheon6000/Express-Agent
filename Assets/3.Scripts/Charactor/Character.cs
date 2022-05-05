@@ -57,7 +57,7 @@ public abstract class Character : MonoBehaviour
         this.knockBack.StartKnockBack(dir, force);
     }
 
-    protected virtual void IncreaseHp(float amount)
+    public virtual void IncreaseHp(float amount)
     {
         currentHp += (int)amount;
         if (currentHp <= 0) OnDead();

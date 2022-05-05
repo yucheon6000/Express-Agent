@@ -63,6 +63,7 @@ public class Weapon : MonoBehaviour, NeedCharacterStat
     public void AddAttack(Attack attack)
     {
         attacks.Add(attack);
+        attack.SetCharacterStat(characterStat);
 
         if (isTrigger) attack.StartAttack();
     }

@@ -29,6 +29,12 @@ public class MonsterSpawnController : MonoBehaviour
 
     private bool isStarted = false;
 
+    private bool playerIsReady = false;
+
+    [Header("[Controller]")]
+    [SerializeField]
+    private PlayerAbilityController playerAbilityController;
+
     [Header("[UI]")]
     [SerializeField]
     private TextMeshProUGUI textWave;
@@ -56,6 +62,11 @@ public class MonsterSpawnController : MonoBehaviour
         }
     }
 
+    public void PlayerIsReady()
+    {
+        playerIsReady = true;
+    }
+
     public void StartSpawn()
     {
         if (isStarted) return;
@@ -71,8 +82,6 @@ public class MonsterSpawnController : MonoBehaviour
         int maxWaveCnt = Mathf.Min(Mathf.Max(minWaveCount, maxWaveCount), monsterSpawnWaves.Length);
         int waveCnt = Random.Range(minWaveCnt, maxWaveCnt + 1);
 
-        Debug.Log($"{minWaveCnt}, {maxWaveCnt}, {waveCnt}");
-
         for (int i = 0; i < waveCnt; i++)
         {
             // UI
@@ -87,7 +96,18 @@ public class MonsterSpawnController : MonoBehaviour
 
             // 웨이브 종료
             print($"End Wave {i}");
-            yield return new WaitForSeconds(waveDeltaTime);
+            playerAbilityController.StartDisplay(waveDeltaTime);
+
+            float timer = 0;
+            playerIsReady = false;
+            while (timer < waveDeltaTime)
+            {
+                timer += Time.deltaTime;
+
+                if (playerIsReady) break;
+
+                yield return null;
+            }
         }
     }
 

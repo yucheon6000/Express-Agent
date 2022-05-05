@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Movement))]
 public class Coin : Item
 {
-    private static readonly int coinAmount = 10;
+    private static readonly int coinAmount = 1;
     public static int CointAmount => coinAmount;
 
     [SerializeField]

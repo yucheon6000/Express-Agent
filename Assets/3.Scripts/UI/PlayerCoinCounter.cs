@@ -18,6 +18,6 @@ public class PlayerCoinCounter : MonoBehaviour
         if (prevCnt == Player.CurrentCoinCount) return;
 
         prevCnt = Player.CurrentCoinCount;
-        text.text = prevCnt.ToString();
+        text.text = prevCnt.ToString().PadLeft(4, '0');
     }
 }

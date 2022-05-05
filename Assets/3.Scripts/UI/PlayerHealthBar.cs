@@ -5,18 +5,37 @@ using UnityEngine.UI;
 
 public class PlayerHealthBar : MonoBehaviour
 {
-    private Slider slider;
+    [SerializeField]
+    private GameObject[] barItems;
+    private int targetCount;
+    private int currentCount;
+    private float lastCountUpdate;
 
     private void Start()
     {
-        slider = GetComponent<Slider>();
+        foreach (GameObject barItem in barItems)
+            barItem.SetActive(false);
     }
 
     private void Update()
     {
-        float value = (float)Player.CurrentHp / (float)Player.MaxHp;
-        value = Mathf.Lerp(slider.value, value, Time.deltaTime * 6f);
+        float HpPerItem = (float)Player.MaxHp / (float)barItems.Length;
+        targetCount = (int)((float)Player.CurrentHp / HpPerItem);
 
-        slider.value = value;
+        if (targetCount == currentCount) return;
+
+        if (Time.time - lastCountUpdate >= 0.03f)
+        {
+            currentCount += (int)Mathf.Sign(targetCount - currentCount);
+            lastCountUpdate = Time.time;
+
+            for (int i = 0; i < barItems.Length; i++)
+            {
+                if (i < currentCount)
+                    barItems[i].SetActive(true);
+                else
+                    barItems[i].SetActive(false);
+            }
+        }
     }
 }
