@@ -33,11 +33,14 @@ public class PlayerController : MonoBehaviour
 
     private void ChangeMainPlayer(int step = 1)
     {
+        if (Player.CurrentStaminaCount < (Player.MaxStaminaCount / 4)) return;
+
         foreach (Player current in players)
         {
             foreach (Player other in players)
             {
                 if (current == other) continue;
+
 
                 // 최소 거리 안 될 경우, 리턴
                 if ((current.TargetPosition - other.TargetPosition).sqrMagnitude > Mathf.Pow(minChangeModeDistance, 2))
@@ -57,6 +60,8 @@ public class PlayerController : MonoBehaviour
                 player == mainPlayer ? PlayerType.Main : PlayerType.Sidekick
             );
         }
+
+        Player.IncreaseStaminaCount(-(Player.MaxStaminaCount / 4));
 
         targetCamera.SetTargetTransform(mainPlayer.transform);
     }

@@ -109,6 +109,12 @@ public class MonsterSpawnController : MonoBehaviour
                 yield return null;
             }
         }
+
+        List<GameObject> coins = ObjectPooler.GetAllPools("Coin", true);
+        foreach (GameObject coin in coins)
+        {
+            coin.GetComponent<Coin>().StartTargeting();
+        }
     }
 
     private IEnumerator WaveRoutine(MonsterSpawnWave wave)
