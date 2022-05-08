@@ -14,6 +14,9 @@ public class Monster : Character
     [SerializeField]
     private CollisionDetector detector;
 
+    [SerializeField]
+    private Animator animator;
+
     [Header("[Points]")]
     [SerializeField]
     private int coinAmout = 50;
@@ -28,6 +31,8 @@ public class Monster : Character
     [SerializeField]
     private Transform sliderTransform;
 
+    private bool isDead = false;
+
     protected override void Start()
     {
         base.Start();
@@ -40,6 +45,7 @@ public class Monster : Character
             target = transform.gameObject.GetComponentInParent<Player>();
             weapon.StartTrigger();
             detector.SetActive(false);
+            animator.SetBool("isMoving", true);
         });
     }
 
@@ -73,16 +79,6 @@ public class Monster : Character
 
         agent.speed = characterStat.MoveSpeed;
         agent.SetDestination(target.TargetPosition);
-
-        // Vector2 moveDir = target.transform.position - transform.position;
-
-        // if (moveDir.sqrMagnitude <= 1)
-        // {
-        //     movement.SetMoveDirection(Vector2.zero);
-        //     return;
-        // }
-
-        // movement.SetMoveDirection(moveDir);
     }
 
     private void UpdateUI()
@@ -91,8 +87,20 @@ public class Monster : Character
         slider.value = currentHp / (float)characterStat.Health;
     }
 
+    public override void Hit(float attack, float knockBack, Vector3 hitPosition)
+    {
+        animator.Play("Hit", -1);
+        base.Hit(attack, knockBack, hitPosition);
+    }
+
     protected override void OnDead()
     {
+        if (isDead) return;
+
+        isDead = true;
+
+        animator.SetBool("isDead", true);
+
         int staminaCount = (int)(staminaAmount / Stamina.StaminaAmount);
         for (int i = 0; i < staminaCount; i++)
         {
@@ -104,11 +112,25 @@ public class Monster : Character
         {
             ObjectPooler.SpawnFromPool("Coin", transform.position);
         }
+
+        agent.enabled = false;
+        Invoke("Inactive", 1.05f);
+    }
+
+    private void Inactive()
+    {
         gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
+        isDead = false;
+
+        agent.enabled = true;
+
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isDead", false);
+
         detector.SetActive(true);
         currentHp = characterStat.Health;
         target = null;

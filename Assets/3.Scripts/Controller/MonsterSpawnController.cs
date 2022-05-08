@@ -87,7 +87,7 @@ public class MonsterSpawnController : MonoBehaviour
             // UI
             textWave.gameObject.SetActive(true);
             textWave.text = $"<size=40>WAVE</size>\n{i + 1}";
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(2f);
             textWave.gameObject.SetActive(false);
 
             // 웨이브 시작
