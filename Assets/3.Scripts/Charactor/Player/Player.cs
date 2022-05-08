@@ -35,6 +35,13 @@ public class Player : Character
     private PlayerGodMode godMode;
     private PlayerAnimator[] animators;
 
+    [SerializeField]
+    private CollisionDetector monsterDetector;
+    [SerializeField]
+    private Transform targetMonster;
+    [SerializeField]
+    private bool isSidekickAttacking = false;
+
     public Vector3 TargetPosition => playerCollision.ColliderPosition;
 
 
@@ -47,6 +54,7 @@ public class Player : Character
         playerCollision = GetComponentInChildren<PlayerCollision>();
         godMode = GetComponent<PlayerGodMode>();
         animators = GetComponentsInChildren<PlayerAnimator>();
+        monsterDetector = GetComponentInChildren<CollisionDetector>();
 
         maxHp = Mathf.Max(maxHp, characterStat.Health);
         currentHp = maxHp;
@@ -56,6 +64,21 @@ public class Player : Character
     protected override void Start()
     {
         base.Start();
+
+        monsterDetector.AddCollisionDetectAction((Transform other, string otherTag, DetectType detectType) =>
+        {
+            if (!targetMonster || !targetMonster.gameObject.activeSelf)
+            {
+                targetMonster = other.transform.parent.transform;
+                return;
+            }
+
+            float curMonsterDistance = Vector3.Distance(targetMonster.position, TargetPosition);
+            float newMonsterDistance = Vector3.Distance(other.position, TargetPosition);
+
+            if (newMonsterDistance < curMonsterDistance)
+                targetMonster = other.transform.parent.transform;
+        });
 
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -172,12 +195,77 @@ public class Player : Character
         agent.speed = characterStat.MoveSpeed;
         agent.SetDestination(Player.main.transform.position);
 
+        if (isSidekickAttacking) return;
+
         // 애니메이션
         foreach (PlayerAnimator animator in animators)
             animator.SetState(PlayerAnimator.IsMoving, agent.velocity.Equals(Vector3.zero) ? false : true);
 
         if (!agent.velocity.Equals(Vector3.zero))
             angleDetector.SetAngleIndexByDirection(agent.velocity);
+    }
+
+    private void StartSidekickRoutine()
+    {
+        StartCoroutine(UPDATE_SIDEKICK_PLAYER_ATTACK_ROUTINE);
+    }
+
+    private void StopSidekickRoutine()
+    {
+        StopCoroutine(UPDATE_SIDEKICK_PLAYER_ATTACK_ROUTINE);
+        isSidekickAttacking = false;
+        weapon.StopTrigger();
+    }
+
+    private static readonly string UPDATE_SIDEKICK_PLAYER_ATTACK_ROUTINE = "UpdateSidekickPlayerAttackRoutine";
+    private IEnumerator UpdateSidekickPlayerAttackRoutine()
+    {
+        float timer = 0;
+        float attackTime = 5;
+        float attackingTime = 3;
+        float minMainPlayerDistance = 4f;
+
+        while (true)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= attackTime
+                && targetMonster && targetMonster.gameObject.activeSelf
+                && Vector2.Distance(TargetPosition, Player.main.TargetPosition) <= minMainPlayerDistance)
+            {
+                // 공격 시작
+                isSidekickAttacking = true;
+                timer = 0;
+                foreach (PlayerAnimator animator in animators)
+                    animator.SetState(PlayerAnimator.IsAttacking, true);
+                weapon.StartTrigger();
+                print("START ATTAK");
+
+                // 공격 중
+                while (timer < attackingTime
+                        && targetMonster && targetMonster.gameObject.activeSelf
+                        && Vector2.Distance(TargetPosition, Player.main.TargetPosition) <= minMainPlayerDistance)
+                {
+                    timer += Time.deltaTime;
+
+                    // 몬스터 방향 바라보기
+                    if (targetMonster && targetMonster.gameObject.activeSelf)
+                        angleDetector.SetAngleIndexByDirection(targetMonster.position - TargetPosition);
+
+                    yield return null;
+                }
+
+                // 공격 끝
+                isSidekickAttacking = false;
+                timer = 0;
+                foreach (PlayerAnimator animator in animators)
+                    animator.SetState(PlayerAnimator.IsAttacking, false);
+                weapon.StopTrigger();
+                print("START ATTAK");
+            }
+
+            yield return null;
+        }
     }
 
     public override void Hit(float attack, float knockBack, Vector3 hitPosition)
@@ -221,6 +309,12 @@ public class Player : Character
             foreach (PlayerAnimator animator in animators)
                 animator.SetState(PlayerAnimator.IsAttacking, false);
         }
+
+        // 사이드킥 공격 루틴 시작 또는 정지
+        if (playerType == PlayerType.Sidekick)
+            StartSidekickRoutine();
+        else
+            StopSidekickRoutine();
     }
 
     public static void IncreaseCurrentHp(float amount)

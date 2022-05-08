@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Attack : MonoBehaviour, NeedCharacterStat
 {
@@ -22,6 +23,10 @@ public class Attack : MonoBehaviour, NeedCharacterStat
     public bool IsAttacking => isAttacking;
 
     private float lastAttackTime;
+
+    [Header("[UI]")]
+    [SerializeField]
+    private Image imageAttackGage;
 
     private Coroutine coroutine;
 
@@ -66,8 +71,12 @@ public class Attack : MonoBehaviour, NeedCharacterStat
         if (delay > 0)
             yield return new WaitForSeconds(delay);
 
+        // Shoot 처음 쉬는 시간
         if (attackStat.ShootDelayTimeAtStart > 0)
+        {
+            StartCoroutine(FillAttackGageUI(attackStat.ShootDelayTimeAtStart));
             yield return new WaitForSeconds(attackStat.ShootDelayTimeAtStart);
+        }
 
         while (true)
         {
@@ -79,8 +88,12 @@ public class Attack : MonoBehaviour, NeedCharacterStat
                 continue;
             }
 
+            // Shoot 사이 시간
             if (attackStat.ShootDeltaTime > 0 && firstShoot == false)
+            {
+                StartCoroutine(FillAttackGageUI(attackStat.ShootDeltaTime));
                 yield return new WaitForSeconds(attackStat.ShootDeltaTime);
+            }
 
             // 해당 분기가 없으면 시작과 동시에 끝나는 Shoot일 경우, 무한루프 문제 발생
             // 최소 한 프레임은 쉬어줘야 함
@@ -94,6 +107,25 @@ public class Attack : MonoBehaviour, NeedCharacterStat
             firstShoot = false;
             waited = false;
         }
+    }
+
+    private IEnumerator FillAttackGageUI(float time)
+    {
+        if (!imageAttackGage) yield break;
+
+        float timer = 0;
+
+        while (timer < time)
+        {
+            timer += Time.deltaTime;
+
+            if (imageAttackGage)
+                imageAttackGage.fillAmount = timer / time;
+
+            yield return null;
+        };
+
+        imageAttackGage.fillAmount = 1;
     }
 
     public void SetCharacterStat(CharacterStat characterStat)

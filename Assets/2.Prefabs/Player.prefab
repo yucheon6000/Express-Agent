@@ -159,7 +159,7 @@ Transform:
   - {fileID: 625592624268409942}
   - {fileID: 625592623299045191}
   m_Father: {fileID: 625592623469265948}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &625592622859219801
 MonoBehaviour:
@@ -882,6 +882,7 @@ Transform:
   - {fileID: 565921359597326550}
   - {fileID: 625592623436535016}
   - {fileID: 625592624191721605}
+  - {fileID: 3133145771286982882}
   - {fileID: 8673281944384108330}
   - {fileID: 625592622859219804}
   m_Father: {fileID: 0}
@@ -914,6 +915,10 @@ MonoBehaviour:
   knockBack: {fileID: 625592623469265924}
   weapon: {fileID: 625592622859219801}
   playerType: 0
+  maxStamina: 200
+  monsterDetector: {fileID: 0}
+  targetMonster: {fileID: 0}
+  isSidekickAttacking: 0
 --- !u!114 &6346160921644144550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1690,5 +1695,93 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 625592623469265948}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5648117755968858770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3133145771286982882}
+  - component: {fileID: 3312807230109572445}
+  - component: {fileID: 385136962500822888}
+  - component: {fileID: 5514271322064650386}
+  m_Layer: 7
+  m_Name: Monster Detector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3133145771286982882
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5648117755968858770}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 625592623469265948}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3312807230109572445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5648117755968858770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08482b27d2e7f4aeea6914f4fa88ad2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetItems:
+  - tag: Monster Collision
+    enter: 1
+    stay: 1
+    exit: 0
+--- !u!58 &385136962500822888
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5648117755968858770}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 4.34
+--- !u!50 &5514271322064650386
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5648117755968858770}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
