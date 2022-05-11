@@ -10,6 +10,7 @@ public class CharacterCollision : Collision
     protected override void Awake()
     {
         base.Awake();
+        character = GetComponentInParent<Character>();
     }
 
     public virtual void Hit(float attack, float knockBack, Vector3 hitPosition)

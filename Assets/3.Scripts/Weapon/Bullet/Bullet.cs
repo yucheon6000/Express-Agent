@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour, NeedCharacterStat
 {
     [Header("[Bullet Stat]")]
     [SerializeField]
-    private BulletStat bulletStat;
+    protected BulletStat bulletStat;
 
     [Header("[Movement]")]
     [SerializeField]
@@ -16,20 +16,23 @@ public class Bullet : MonoBehaviour, NeedCharacterStat
     [SerializeField]
     private TrailRenderer trailRenderer;
 
-    private void Start()
+    protected virtual void Start()
     {
-        movement.SetStat(bulletStat);
+        if (movement)
+            movement.SetStat(bulletStat);
     }
 
-    public void Init(Vector2 moveDirection, CharacterStat characterStat)
+    public virtual void Init(Vector2 moveDirection, CharacterStat characterStat)
     {
         bulletStat.SetCharacterStat(characterStat);
         Vector3 newMoveDir = ConvertMoveDirection(moveDirection);
         RotateBullet(newMoveDir);
-        movement.SetMoveDirection(newMoveDir);
+
+        if (movement)
+            movement.SetMoveDirection(newMoveDir);
     }
 
-    private Vector3 ConvertMoveDirection(Vector2 moveDirection)
+    protected Vector3 ConvertMoveDirection(Vector2 moveDirection)
     {
         float standardAngle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
         standardAngle = (standardAngle + 360) % 360;
@@ -43,7 +46,7 @@ public class Bullet : MonoBehaviour, NeedCharacterStat
         return newMoveDir.normalized;
     }
 
-    private void RotateBullet(Vector2 moveDirection)
+    protected void RotateBullet(Vector2 moveDirection)
     {
         float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
         angle = (angle + 360) % 360;
@@ -51,34 +54,37 @@ public class Bullet : MonoBehaviour, NeedCharacterStat
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         Vector3 pos = transform.position;
         if (pos.y < -30 || pos.y > 30 || pos.x > 30 || pos.x < -30)
             gameObject.SetActive(false);
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
-        if (trailRenderer != null)
+        if (trailRenderer)
             trailRenderer.Clear();
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         ObjectPooler.ReturnToPool(gameObject);
     }
 
-    public void SetCharacterStat(CharacterStat characterStat)
+    public virtual void SetCharacterStat(CharacterStat characterStat)
     {
         bulletStat.SetCharacterStat(characterStat);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        if (bulletStat.CharacterStat.CharacterType == CharacterType.Player && other.tag.Equals(MonsterCollision.TAG))
+        // Player -> Monster
+        // Monster -> Player
+        if (bulletStat.CharacterStat.CharacterType == CharacterType.Player && other.tag.Equals(MonsterCollision.TAG)
+            || bulletStat.CharacterStat.CharacterType == CharacterType.Monster && other.tag.Equals(PlayerCollision.TAG))
         {
-            Character character = other.GetComponentInParent<Character>();
+            CharacterCollision character = other.GetComponent<CharacterCollision>();
             character.Hit(
                 bulletStat.Attack,
                 bulletStat.KnockBack,
@@ -86,13 +92,13 @@ public class Bullet : MonoBehaviour, NeedCharacterStat
             );
             gameObject.SetActive(false);
         }
-        else if (bulletStat.CharacterStat.CharacterType == CharacterType.Monster && other.tag.Equals(PlayerCollision.TAG))
-        {
 
-        }
+        // Bullet -> Obstacle
         else if (other.tag.Equals("Obstacle"))
         {
             gameObject.SetActive(false);
         }
     }
+
+    public CharacterType GetOwner() => bulletStat.CharacterStat.CharacterType;
 }

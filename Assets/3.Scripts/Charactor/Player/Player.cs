@@ -35,12 +35,14 @@ public class Player : Character
     private PlayerGodMode godMode;
     private PlayerAnimator[] animators;
 
-    [SerializeField]
+    // 사이드킥 자동 공격
     private CollisionDetector monsterDetector;
-    [SerializeField]
     private Transform targetMonster;
-    [SerializeField]
     private bool isSidekickAttacking = false;
+
+    [Header("[Change Attck]")]
+    [SerializeField]
+    private Shoot changeAttackShoot;
 
     public Vector3 TargetPosition => playerCollision.ColliderPosition;
 
@@ -59,6 +61,9 @@ public class Player : Character
         maxHp = Mathf.Max(maxHp, characterStat.Health);
         currentHp = maxHp;
         maxStaminaCount = Mathf.Max(maxStamina, maxStaminaCount);
+
+        // 변경 공격
+        changeAttackShoot.SetCharacterStat(characterStat);
     }
 
     protected override void Start()
@@ -83,7 +88,7 @@ public class Player : Character
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
-        UpdatePlayerType(playerType);
+        UpdatePlayerType(playerType, true);
     }
 
     private float lastStaminaDown = 0;
@@ -290,7 +295,7 @@ public class Player : Character
             animator.Hit(hitPosition.x > TargetPosition.x ? PlayerAnimator.HitLeft : PlayerAnimator.HitRight);
     }
 
-    public void UpdatePlayerType(PlayerType playerType)
+    public void UpdatePlayerType(PlayerType playerType, bool init = false)
     {
         // 스태틱 변수 main 지정
         if (playerType == PlayerType.Main) main = this;
@@ -321,6 +326,12 @@ public class Player : Character
             StartSidekickRoutine();
         else
             StopSidekickRoutine();
+
+        if (!init && playerType == PlayerType.Main)
+        {
+            print("asdasdsa");
+            changeAttackShoot.StartShoot();
+        }
     }
 
     public static void IncreaseCurrentHp(float amount)

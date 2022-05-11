@@ -6,16 +6,15 @@ public class PlayerCollision : CharacterCollision
 {
     public static readonly string TAG = "Player Collision";
 
-    [SerializeField]
     private Player player;
-    [SerializeField]
     private PlayerColliderChanger colliderChanger;
 
     protected override void Awake()
     {
         base.Awake();
         gameObject.tag = TAG;
-        character = player;
+        player = character.GetComponent<Player>();
+        colliderChanger = player.GetComponentInChildren<PlayerColliderChanger>();
     }
 
     private void Update()
@@ -26,7 +25,10 @@ public class PlayerCollision : CharacterCollision
     private Vector3 colliderPosition;
     private void UpdateColliderPosition()
     {
-        colliderPosition = colliderChanger.CurrentCollider.bounds.center;
+        if (colliderChanger)
+            colliderPosition = colliderChanger.CurrentCollider.bounds.center;
+        else
+            colliderPosition = transform.position;
     }
 
     protected override Vector3 GetColliderPosition()

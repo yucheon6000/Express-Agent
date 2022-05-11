@@ -6,14 +6,13 @@ public class MonsterCollision : CharacterCollision
 {
     public static readonly string TAG = "Monster Collision";
 
-    [SerializeField]
     private Monster monster;
 
     protected override void Awake()
     {
         base.Awake();
         gameObject.tag = TAG;
-        character = monster;
+        monster = character.GetComponent<Monster>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

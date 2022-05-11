@@ -8,6 +8,7 @@ TagManager:
   - Monster
   - Monster Collision
   - Obstacle
+  - Bullet
   layers:
   - Default
   - TransparentFX

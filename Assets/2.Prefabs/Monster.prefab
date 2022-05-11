@@ -231,9 +231,7 @@ GameObject:
   - component: {fileID: 6083123835717275941}
   - component: {fileID: 6083123835717275942}
   - component: {fileID: 6083123835717275943}
-  - component: {fileID: 6083123835717275938}
   - component: {fileID: 6083123835717275940}
-  - component: {fileID: 6083123835717275939}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -271,7 +269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f59fb1017224a45bfbd88d90c52238f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attacks: []
+  attacks:
+  - {fileID: 6083123835717275943}
   debugMode: 0
   debugCharactorStat:
     characterType: 0
@@ -296,28 +295,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackStats:
-  - shootDeltaTime: 0
+  - shootDeltaTime: 5
     shootDelayTimeAtStart: 0
   attackLevel: 0
-  shoot: {fileID: 6083123835717275938}
---- !u!114 &6083123835717275938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6083123835717275945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffca61f89e3dd4ef7a4e4d6d6c2cfa1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackLevel: 0
-  shoots:
-  - {fileID: 6083123835717275940}
-  - {fileID: 6083123835717275939}
-  shootStats:
-  - breakable: 0
+  shoot: {fileID: 6083123835717275940}
+  imageAttackGage: {fileID: 0}
 --- !u!114 &6083123835717275940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,38 +316,14 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2356771059136709977, guid: 9291f8f24ab304d269a02c5fcb59043f, type: 3}
   shootStats:
   - breakable: 0
-    bulletCount: 10
-    bulletDeltaTime: 0.05
+    bulletCount: 4
+    bulletDeltaTime: 0
     bulletStartAngle: 0
-    bulletDeltaAngle: 36
+    bulletDeltaAngle: 90
     bulletIndexAtStart: 0
     spawnCircleRadius: 0.8
   spawnCircleCenterTransform: {fileID: 6083123837079154668}
   spawnCircleStandardTransform: {fileID: 6083123837100346668}
---- !u!114 &6083123835717275939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6083123835717275945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcc31e37e88c14d82819d211b4f8fb1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackLevel: 0
-  bulletPrefab: {fileID: 2356771059136709977, guid: 9291f8f24ab304d269a02c5fcb59043f, type: 3}
-  shootStats:
-  - breakable: 0
-    bulletCount: 10
-    bulletDeltaTime: 0.05
-    bulletStartAngle: 0
-    bulletDeltaAngle: 36
-    bulletIndexAtStart: 0
-    spawnCircleRadius: 0.8
-  spawnCircleCenterTransform: {fileID: 6083123837079154668}
-  spawnCircleStandardTransform: {fileID: 6083123836973523330}
 --- !u!1 &6083123836611934408
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +532,7 @@ MonoBehaviour:
   detector: {fileID: 6083123835472197704}
   animator: {fileID: 1991285708}
   coinAmout: 3
-  staminaAmount: 30
+  staminaAmount: 20
   slider: {fileID: 5255673175258694896}
   sliderTransform: {fileID: 9152191169475106726}
 --- !u!114 &6083123837041040443
@@ -749,7 +707,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df4112b63df445e48570b1eae2c29f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monster: {fileID: 6083123837041040442}
 --- !u!61 &8069820276010044940
 BoxCollider2D:
   m_ObjectHideFlags: 0
