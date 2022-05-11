@@ -32,6 +32,7 @@ public class Weapon : MonoBehaviour, NeedCharacterStat
     [ContextMenu("Start Trigger")]
     public void StartTrigger()
     {
+        if (isTrigger) return;
         isTrigger = true;
         foreach (Attack attack in attacks)
             attack.StartAttack();
@@ -40,6 +41,7 @@ public class Weapon : MonoBehaviour, NeedCharacterStat
     [ContextMenu("Stop Trigger")]
     public void StopTrigger()
     {
+        if (!isTrigger) return;
         isTrigger = false;
         foreach (Attack attack in attacks)
             attack.StopAttack();

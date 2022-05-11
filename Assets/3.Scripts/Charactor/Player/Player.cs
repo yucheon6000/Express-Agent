@@ -221,15 +221,17 @@ public class Player : Character
     private IEnumerator UpdateSidekickPlayerAttackRoutine()
     {
         float timer = 0;
-        float attackTime = 5;
-        float attackingTime = 3;
+        float attackDelayTime = 5;
+        float attackTime = 3;
         float minMainPlayerDistance = 4f;
 
         while (true)
         {
+            if (knockBack.IsKnockBacking)
+                timer = 0;
             timer += Time.deltaTime;
 
-            if (timer >= attackTime
+            if (timer >= attackDelayTime
                 && targetMonster && targetMonster.gameObject.activeSelf
                 && Vector2.Distance(TargetPosition, Player.main.TargetPosition) <= minMainPlayerDistance)
             {
@@ -238,19 +240,23 @@ public class Player : Character
                 timer = 0;
                 foreach (PlayerAnimator animator in animators)
                     animator.SetState(PlayerAnimator.IsAttacking, true);
-                weapon.StartTrigger();
-                print("START ATTAK");
 
                 // 공격 중
-                while (timer < attackingTime
+                while (timer < attackTime
                         && targetMonster && targetMonster.gameObject.activeSelf
                         && Vector2.Distance(TargetPosition, Player.main.TargetPosition) <= minMainPlayerDistance)
                 {
                     timer += Time.deltaTime;
 
                     // 몬스터 방향 바라보기
-                    if (targetMonster && targetMonster.gameObject.activeSelf)
-                        angleDetector.SetAngleIndexByDirection(targetMonster.position - TargetPosition);
+                    angleDetector.SetAngleIndexByDirection(targetMonster.position - TargetPosition);
+
+                    // 공격
+                    weapon.StartTrigger();
+
+                    // 부딪히면 공격 종료
+                    if (knockBack.IsKnockBacking)
+                        break;
 
                     yield return null;
                 }

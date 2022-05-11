@@ -115,6 +115,8 @@ public class MonsterSpawnController : MonoBehaviour
         {
             coin.GetComponent<Coin>().StartTargeting();
         }
+
+        isStarted = false;
     }
 
     private IEnumerator WaveRoutine(MonsterSpawnWave wave)

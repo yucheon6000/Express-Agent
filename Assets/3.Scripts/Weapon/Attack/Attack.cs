@@ -22,7 +22,8 @@ public class Attack : MonoBehaviour, NeedCharacterStat
     private bool isAttacking = false;
     public bool IsAttacking => isAttacking;
 
-    private float lastAttackTime;
+    private bool attacked = false;              // 실제로 공격을 했는지 확인하는 변수
+    private float lastAttackTime;               // 마지막으로 공격이 끝난 시점 (장전을 시작한 시점)
 
     [Header("[UI]")]
     [SerializeField]
@@ -43,6 +44,7 @@ public class Attack : MonoBehaviour, NeedCharacterStat
         if (isAttacking) return;
 
         UpdateAttackStat();
+        attacked = false;
 
         float leftTime = attackStat.ShootDeltaTime - (Time.time - lastAttackTime);
 
@@ -60,7 +62,15 @@ public class Attack : MonoBehaviour, NeedCharacterStat
         shoot.StopShoot();
         StopCoroutine(coroutine);
         coroutine = null;
+
+        // 실제로 공격 안했으면 리턴
+        if (!attacked) return;
+        // 이미 지금 장전 중이면 리턴
+        if (attackStat.ShootDeltaTime - (Time.time - lastAttackTime) > 0) return;
+
+        // 실제로 공격했으면 마지막 공격 시간 저장 및 게이징
         lastAttackTime = Time.time;
+        StartCoroutine(FillAttackGageUI(attackStat.ShootDeltaTime));
     }
 
     private IEnumerator AttackRoutine(float delay)
@@ -91,6 +101,7 @@ public class Attack : MonoBehaviour, NeedCharacterStat
             // Shoot 사이 시간
             if (attackStat.ShootDeltaTime > 0 && firstShoot == false)
             {
+                lastAttackTime = Time.time;
                 StartCoroutine(FillAttackGageUI(attackStat.ShootDeltaTime));
                 yield return new WaitForSeconds(attackStat.ShootDeltaTime);
             }
@@ -103,6 +114,7 @@ public class Attack : MonoBehaviour, NeedCharacterStat
                 waited = true;
             }
 
+            attacked = true;
             shoot.StartShoot();
             firstShoot = false;
             waited = false;
