@@ -30,12 +30,17 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetBool(state, value);
     }
 
-
     public static readonly int HitLeft = 0;
     public static readonly int HitRight = 4;
     public void Hit(int hitDirection)
     {
         animator.SetFloat("hitDirection", hitDirection);
         animator.Play("Hit", -1);
+    }
+
+    public void SetAnimationSpeedPercent(float percet)
+    {
+        percet = Mathf.Clamp(percet, 0, 1);
+        animator.speed = percet;
     }
 }

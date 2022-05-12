@@ -14,10 +14,11 @@ public class Movement : MonoBehaviour
     public MoveSpeedType MoveSpeedType { get; set; }
 
     private float moveSpeed = 0;
+    private float moveSpeedPercent = 1;
     public float MoveSpeed =>
         (stat == null || MoveSpeedType == MoveSpeedType.Manual)
-        ? moveSpeed
-        : stat.GetMoveSpeed();
+        ? moveSpeed * moveSpeedPercent
+        : stat.GetMoveSpeed() * moveSpeedPercent;
 
     private Vector2 moveDirection = Vector2.zero;
     public Vector2 MoveDirection => moveDirection;
@@ -52,5 +53,15 @@ public class Movement : MonoBehaviour
         transform.Translate(moveForce, Space.World);
 
         movedForce = moveForce;
+    }
+
+    /// <summary>
+    /// 이동 속도의 퍼센트를 조절하는 함수
+    /// </summary>
+    /// <param name="percent">이동 속도에 곱해줄 퍼센트(0~1)</param>
+    public void SetMoveSpeedPercent(float percent)
+    {
+        percent = Mathf.Clamp(percent, 0f, 1f);
+        moveSpeedPercent = percent;
     }
 }

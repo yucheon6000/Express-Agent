@@ -25,6 +25,10 @@ public class Player : Character
     [SerializeField]
     private PlayerType playerType;      // 플레이어 타입
 
+    [Header("[Change Attck]")]
+    [SerializeField]
+    private Shoot changeAttackShoot;
+
     [Header("[Stamina]")]
     [SerializeField]
     private int maxStamina = 200;
@@ -34,15 +38,14 @@ public class Player : Character
     private PlayerCollision playerCollision;
     private PlayerGodMode godMode;
     private PlayerAnimator[] animators;
+    [Header("[Component]")]
+    [SerializeField]
+    private PlayerAnimator bottomAnimator;
 
     // 사이드킥 자동 공격
     private CollisionDetector monsterDetector;
     private Transform targetMonster;
     private bool isSidekickAttacking = false;
-
-    [Header("[Change Attck]")]
-    [SerializeField]
-    private Shoot changeAttackShoot;
 
     public Vector3 TargetPosition => playerCollision.ColliderPosition;
 
@@ -91,49 +94,21 @@ public class Player : Character
         UpdatePlayerType(playerType, true);
     }
 
-    private float lastStaminaDown = 0;
     private void Update()
     {
         if (playerType == PlayerType.Main)
         {
-            UpdateMainPlayerMovement();
-            UpdateMainPlayerAttack();
+            UpdateMainPlayerMovement();             // 메인 플레이어 이동
+            UpdateMainPlayerAttack();               // 메인 플레이어 공격
+            UpdateMainPlayerFocusMode();            // 메인 플레이어 집중 모드
         }
         else
         {
-            UpdateSidekickPlayerMovement();
+            UpdateSidekickPlayerMovement();         // 사이드킥 플레이어 이동
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            List<Coin> coins = ObjectPooler.GetAllPools<Coin>("Coin", true);
-            foreach (Coin coin in coins)
-                coin.StartTargeting();
-        }
-
-        if (playerType == PlayerType.Main && Time.timeScale < 1)
-        {
-            if (Time.time - lastStaminaDown > 0.3f)
-            {
-                currentStaminaCount -= 10;
-                lastStaminaDown = Time.time;
-
-                if (currentStaminaCount <= 0)
-                {
-                    Time.timeScale = 1;
-                    currentStaminaCount = 0;
-                }
-            }
-        }
-
-        if (playerType == PlayerType.Main && Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            Time.timeScale = 0.4f;
-        }
-        else if (playerType == PlayerType.Main && Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            Time.timeScale = 1;
-        }
+        // 뒤로 뛰는지 확인 -> 속도 변경
+        CheckRunnigBackward();
     }
 
     private void UpdateMainPlayerMovement()
@@ -175,6 +150,34 @@ public class Player : Character
         }
     }
 
+    private float lastStaminaDown = 0;
+    private void UpdateMainPlayerFocusMode()
+    {
+        if (playerType == PlayerType.Main && Time.timeScale < 1)
+        {
+            if (Time.time - lastStaminaDown > 0.3f)
+            {
+                currentStaminaCount -= 10;
+                lastStaminaDown = Time.time;
+
+                if (currentStaminaCount <= 0)
+                {
+                    Time.timeScale = 1;
+                    currentStaminaCount = 0;
+                }
+            }
+        }
+
+        if (playerType == PlayerType.Main && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Time.timeScale = 0.4f;
+        }
+        else if (playerType == PlayerType.Main && Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            Time.timeScale = 1;
+        }
+    }
+
     private void UpdateSidekickPlayerMovement()
     {
         if (!agent || !Player.main) return;
@@ -208,6 +211,32 @@ public class Player : Character
 
         if (!agent.velocity.Equals(Vector3.zero))
             angleDetector.SetAngleIndexByDirection(agent.velocity);
+    }
+
+    private void CheckRunnigBackward()
+    {
+        // 실제 보고 있는 방향
+        PlayerAngle directionAngle = angleDetector.PlayerAngle;
+
+        // 걷는 방향
+        PlayerAngle moveAngle;
+        if (playerType == PlayerType.Main)
+            moveAngle = PlayerAngleDetector.DirectionToPlayerAngle(movement.MoveDirection);
+        else
+            moveAngle = PlayerAngleDetector.DirectionToPlayerAngle(agent.velocity);
+
+        // 방향 차이
+        int diff = Mathf.Min((moveAngle - directionAngle + 8) % 8, (directionAngle - moveAngle + 8) % 8);
+
+        // 속도 퍼센트
+        float speedPercent = diff >= 3 ? 0.6f : 1f;
+        if (playerType == PlayerType.Main) print((int)directionAngle + "," + (int)moveAngle + "," + diff);
+
+        // 이동 속도 변경
+        movement.SetMoveSpeedPercent(speedPercent);
+
+        // 애니메이션 속도 변경
+        bottomAnimator.SetAnimationSpeedPercent(speedPercent);
     }
 
     private void StartSidekickRoutine()

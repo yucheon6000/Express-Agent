@@ -590,8 +590,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b7406199032425d92aaeceef7304be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 625592623469265947}
-  colliderChanger: {fileID: 5229402688815764070}
 --- !u!114 &5229402688815764070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -918,6 +916,7 @@ MonoBehaviour:
   weapon: {fileID: 625592622859219801}
   playerType: 0
   maxStamina: 200
+  bottomAnimator: {fileID: 8241265624109847707}
   changeAttackShoot: {fileID: 3377409324060058635}
 --- !u!114 &6346160921644144550
 MonoBehaviour:

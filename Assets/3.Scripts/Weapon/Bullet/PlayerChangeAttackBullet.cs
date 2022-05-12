@@ -20,9 +20,6 @@ public class PlayerChangeAttackBullet : Bullet
         frame = 0;
         monsters.Clear();
         bullets.Clear();
-
-        // 파티클 생성
-        ObjectPooler.SpawnFromPool(particlePrefab.name, transform.position);
     }
 
     protected override void Update()
@@ -44,6 +41,9 @@ public class PlayerChangeAttackBullet : Bullet
 
             bulletMovement.SetMoveDirection(bullet.transform.position - transform.position);
         }
+
+        // 파티클 생성
+        ObjectPooler.SpawnFromPool(particlePrefab.name, transform.position);
 
         gameObject.SetActive(false);
     }

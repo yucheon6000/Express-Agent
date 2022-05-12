@@ -56,14 +56,8 @@ public class PlayerAngleDetector : MonoBehaviour
 
     public void SetAngleIndexByDirection(Vector3 direction)
     {
-        float degree = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        degree = (degree + 360) % 360;  // -180~180 -> 0~360
-        int playerAngleIndex = (int)(degree / 22.5);
-        playerAngleIndex = ((playerAngleIndex + 1) / 2) % 8;
-        PlayerAngle newPlayerAngle = (PlayerAngle)playerAngleIndex;
-
         // 계산된 PlayerAngle 지정
-        SetAngleIndex(newPlayerAngle);
+        SetAngleIndex(DirectionToPlayerAngle(direction));
     }
 
     public void SetAngleIndex(PlayerAngle angle)
@@ -74,5 +68,15 @@ public class PlayerAngleDetector : MonoBehaviour
         // 새로운 상태면 각 액션에 알림
         playerAngle = angle;
         playerAngleEvent.Invoke(playerAngle);
+    }
+
+    public static PlayerAngle DirectionToPlayerAngle(Vector3 direction)
+    {
+        float degree = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        degree = (degree + 360) % 360;  // -180~180 -> 0~360
+        int playerAngleIndex = (int)(degree / 22.5);
+        playerAngleIndex = ((playerAngleIndex + 1) / 2) % 8;
+        PlayerAngle playerAngle = (PlayerAngle)playerAngleIndex;
+        return playerAngle;
     }
 }
