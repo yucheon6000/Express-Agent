@@ -15,7 +15,6 @@ public class PlayerAbilityController : MonoBehaviour
     private bool display = false;
     private float displayTimer = 0;
 
-    [Header("[Controller]")]
     [SerializeField]
     private MonsterSpawnController monsterSpawnController;
 
@@ -58,6 +57,8 @@ public class PlayerAbilityController : MonoBehaviour
 
     private void Start()
     {
+        monsterSpawnController.onClearWaveEvent.AddListener(StartDisplay);
+
         canvasAbility.gameObject.SetActive(false);
 
         foreach (PlayerAbilityQueue queue in abilityQueues)
@@ -84,11 +85,13 @@ public class PlayerAbilityController : MonoBehaviour
 
     public void OnClickAbility(Ability ability)
     {
-        print("CLICK");
         PlayerAbilityQueue queue = seletedAbilities[ability];
         queue.SelectItem(ability);
+
         StopDisplay();
-        monsterSpawnController.PlayerIsReady();
+
+        if (monsterSpawnController)
+            monsterSpawnController.SkipWaveDeltaTime();
     }
 
     public void StopDisplay()

@@ -18,9 +18,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private TargetCamera targetCamera;
 
+    [Header("[Doors]")]
+    [SerializeField]
+    private DoorCollision[] doors;
+
     private void Start()
     {
         ChangeMainPlayer(0);
+        foreach (DoorCollision door in doors)
+        {
+            door.onEnterDoorEvent.AddListener((Vector3 targetPosition, GameObject fromMap, GameObject toMap) =>
+            {
+                toMap.SetActive(true);
+                foreach (Player player in players)
+                {
+                    player.MoveTo(targetPosition);
+                }
+                fromMap.SetActive(false);
+            });
+        }
     }
 
     private void Update()

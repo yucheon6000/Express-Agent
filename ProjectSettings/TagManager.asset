@@ -9,6 +9,7 @@ TagManager:
   - Monster Collision
   - Obstacle
   - Bullet
+  - Door
   layers:
   - Default
   - TransparentFX

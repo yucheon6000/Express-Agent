@@ -53,7 +53,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3100944114377215456, guid: 15df74c8d80f14c84a989a867a2eb459, type: 3}
       propertyPath: m_Name
-      value: Ground Tile 3
+      value: Wall Tile 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100944114377215456, guid: 15df74c8d80f14c84a989a867a2eb459, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5565093404075274020, guid: 15df74c8d80f14c84a989a867a2eb459, type: 3}
       propertyPath: m_Sprite

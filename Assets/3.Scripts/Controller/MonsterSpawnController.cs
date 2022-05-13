@@ -1,35 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 using TMPro;
 
 public class MonsterSpawnController : MonoBehaviour
 {
+    public class OnClearWave : UnityEvent<float> { }    // waveDeltaTime
+    [HideInInspector]
+    public OnClearWave onClearWaveEvent = new OnClearWave();
+
+    public class OnClearStage : UnityEvent { }
+    [HideInInspector]
+    public OnClearStage onClearStageEvent = new OnClearStage();
+
     [Header("[KeyCode]")]
     [SerializeField]
     private KeyCode spawnKeyCode = KeyCode.M;
-
-    [Header("[Tilemap]")]
-    [SerializeField]
-    private Tilemap tilemap;
-    [SerializeField]
-    private string targetTileName;
-    private List<Vector2> targetTilePositions;
-
-    [Header("[Wave]")]
-    [SerializeField]
-    private MonsterSpawnWave[] monsterSpawnWaves;
-    [SerializeField]
-    private float waveDeltaTime = 5;
-    [SerializeField]
-    private int minWaveCount = 0;
-    [SerializeField]
-    private int maxWaveCount = 5;
-
-    private bool isStarted = false;
-
-    private bool playerIsReady = false;
 
     [Header("[Controller]")]
     [SerializeField]
@@ -39,49 +27,48 @@ public class MonsterSpawnController : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI textWave;
 
-    private void Start()
-    {
-        // 타켓 타일 위치 목록 저장
-        targetTilePositions = new List<Vector2>();
-
-        for (int i = 0; i < tilemap.transform.childCount; i++)
-        {
-            Transform tile = tilemap.transform.GetChild(i);
-            if (tile.name.IndexOf(targetTileName) != -1)
-            {
-                targetTilePositions.Add(tile.transform.position);
-            }
-        }
-    }
+    private bool isStarted = false;
+    private bool skipWaveDeltaTime = false;
+    private MonsterSpawnControlInfo controlInfo;
 
     private void Update()
     {
         if (Input.GetKeyDown(spawnKeyCode))
         {
-            StartSpawn();
+            if (controlInfo != null)
+                StartSpawn(controlInfo);
         }
     }
 
-    public void PlayerIsReady()
+    public void SkipWaveDeltaTime()
     {
-        playerIsReady = true;
+        // 어빌리티를 선택했을 경우
+        skipWaveDeltaTime = true;
     }
 
-    public void StartSpawn()
+    public void StartSpawn(MonsterSpawnControlInfo info)
     {
         if (isStarted) return;
-
+        controlInfo = info;
         isStarted = true;
 
-        StartCoroutine(SpawnRoutine());
+        StartCoroutine(SpawnRoutine(info));
     }
 
-    private IEnumerator SpawnRoutine()
+    private IEnumerator SpawnRoutine(MonsterSpawnControlInfo info)
     {
-        int minWaveCnt = Mathf.Min(Mathf.Min(minWaveCount, maxWaveCount), monsterSpawnWaves.Length);
-        int maxWaveCnt = Mathf.Min(Mathf.Max(minWaveCount, maxWaveCount), monsterSpawnWaves.Length);
+        int minWaveCnt = Mathf.Min(Mathf.Min(info.minWaveCount, info.maxWaveCount), info.monsterSpawnWaves.Length);
+        int maxWaveCnt = Mathf.Min(Mathf.Max(info.minWaveCount, info.maxWaveCount), info.monsterSpawnWaves.Length);
         int waveCnt = Random.Range(minWaveCnt, maxWaveCnt + 1);
 
+        // stageDelayTimeAtStart초 만큼 쉬면서
+        // 스테이지 시작 UI 활성화
+        textWave.gameObject.SetActive(true);
+        textWave.text = $"<size=40>STAGE</size>\nSTART!";
+        yield return new WaitForSeconds(info.stageDelayTimeAtStart);
+        textWave.gameObject.SetActive(false);
+
+        // 스테이지 시작
         for (int i = 0; i < waveCnt; i++)
         {
             // UI
@@ -91,35 +78,48 @@ public class MonsterSpawnController : MonoBehaviour
             textWave.gameObject.SetActive(false);
 
             // 웨이브 시작
-            MonsterSpawnWave wave = monsterSpawnWaves[i];
-            yield return StartCoroutine(WaveRoutine(wave));
+            MonsterSpawnWave wave = info.monsterSpawnWaves[i];
+            yield return StartCoroutine(WaveRoutine(wave, info.targetTilePositions));
 
             // 웨이브 종료
-            print($"End Wave {i}");
-            playerAbilityController.StartDisplay(waveDeltaTime);
+            onClearWaveEvent.Invoke(info.waveDeltaTime);
 
+            // 웨이브 사이 시간동안 기다림
+            // 중간에 플레이어가 어빌리티 선택을 완료해 준비되면 바로 다음 웨이브 시작
             float timer = 0;
-            playerIsReady = false;
-            while (timer < waveDeltaTime)
+            skipWaveDeltaTime = false;
+            while (timer < info.waveDeltaTime)
             {
                 timer += Time.deltaTime;
 
-                if (playerIsReady) break;
+                if (skipWaveDeltaTime) break;
 
                 yield return null;
             }
         }
 
+        // 스테이지 클리어 UI 활성화
+        textWave.gameObject.SetActive(true);
+        textWave.text = $"<size=40>STAGE</size>\nCLEAR!";
+
+        // 스테이지 끝나면 코인 획득
         List<GameObject> coins = ObjectPooler.GetAllPools("Coin", true);
         foreach (GameObject coin in coins)
         {
             coin.GetComponent<Coin>().StartTargeting();
         }
 
+        // stageDelayTimeAtEnd초 만큼 쉬고
+        // 스테이지 클리어 UI 비활성화
+        yield return new WaitForSeconds(info.stageDelayTimeAtEnd);
+        textWave.gameObject.SetActive(false);
+
+        // 이벤트 호출
+        onClearStageEvent.Invoke();
         isStarted = false;
     }
 
-    private IEnumerator WaveRoutine(MonsterSpawnWave wave)
+    private IEnumerator WaveRoutine(MonsterSpawnWave wave, List<Vector2> targetTilePositions)
     {
 
         List<Vector2> spawnableTilePositions = new List<Vector2>(targetTilePositions);
@@ -165,6 +165,19 @@ public class MonsterSpawnController : MonoBehaviour
             spawnedMonsterList.Add(monster);
         }
     }
+}
+
+[System.Serializable]
+public class MonsterSpawnControlInfo
+{
+    public float stageDelayTimeAtStart;
+    public float stageDelayTimeAtEnd;
+    public MonsterSpawnWave[] monsterSpawnWaves;
+    public float waveDeltaTime = 5;
+    public int minWaveCount = 0;
+    public int maxWaveCount = 5;
+    [HideInInspector]
+    public List<Vector2> targetTilePositions;
 }
 
 [System.Serializable]

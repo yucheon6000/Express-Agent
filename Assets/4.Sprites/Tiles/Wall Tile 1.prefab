@@ -123,11 +123,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3307708620771496442, guid: e44dc4d06d8d64ad9aa1766e8f58e831, type: 3}
       propertyPath: m_Name
-      value: Ground Tile 1
+      value: Wall Tile 1
       objectReference: {fileID: 0}
     - target: {fileID: 3307708620771496442, guid: e44dc4d06d8d64ad9aa1766e8f58e831, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3307708620771496442, guid: e44dc4d06d8d64ad9aa1766e8f58e831, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4557029840916793559, guid: e44dc4d06d8d64ad9aa1766e8f58e831, type: 3}
       propertyPath: m_Enabled

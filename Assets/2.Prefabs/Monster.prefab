@@ -532,7 +532,7 @@ MonoBehaviour:
   detector: {fileID: 6083123835472197704}
   animator: {fileID: 1991285708}
   coinAmout: 3
-  staminaAmount: 20
+  staminaAmount: 40
   slider: {fileID: 5255673175258694896}
   sliderTransform: {fileID: 9152191169475106726}
 --- !u!114 &6083123837041040443

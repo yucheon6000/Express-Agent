@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum PlayerSex { Man, Woman }
 public enum PlayerType { Main, Sidekick }
 
 public class Player : Character
@@ -24,6 +25,10 @@ public class Player : Character
     [Header("[Player]")]
     [SerializeField]
     private PlayerType playerType;      // 플레이어 타입
+    [SerializeField]
+    private PlayerSex playerSex;
+    [SerializeField]
+    private ParticleSystem focusModeParticle;
 
     [Header("[Change Attck]")]
     [SerializeField]
@@ -67,6 +72,9 @@ public class Player : Character
 
         // 변경 공격
         changeAttackShoot.SetCharacterStat(characterStat);
+
+        // 집중 모드 정지
+        StopFocusMode();
     }
 
     protected override void Start()
@@ -151,9 +159,13 @@ public class Player : Character
     }
 
     private float lastStaminaDown = 0;
+    private float focusMoveSpeedPercent = 1;
+    private bool isFocusMode = false;
     private void UpdateMainPlayerFocusMode()
     {
-        if (playerType == PlayerType.Main && Time.timeScale < 1)
+        if (playerType != PlayerType.Main) return;
+
+        if (isFocusMode)
         {
             if (Time.time - lastStaminaDown > 0.3f)
             {
@@ -162,19 +174,56 @@ public class Player : Character
 
                 if (currentStaminaCount <= 0)
                 {
-                    Time.timeScale = 1;
+                    StopFocusMode();
                     currentStaminaCount = 0;
                 }
             }
         }
 
-        if (playerType == PlayerType.Main && Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            StartFocusMode();
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            StopFocusMode();
+        }
+    }
+
+    private void StartFocusMode()
+    {
+        if (playerType != PlayerType.Main) return;
+        if (currentStaminaCount < 10) return;
+
+        isFocusMode = true;
+
+        if (playerSex == PlayerSex.Man)
+        {
+            focusMoveSpeedPercent = 1.5f;
+            var emission = focusModeParticle.emission;
+            emission.rateOverDistance = 3;
+        }
+        else
         {
             Time.timeScale = 0.4f;
+            focusModeParticle.gameObject.SetActive(true);
         }
-        else if (playerType == PlayerType.Main && Input.GetKeyUp(KeyCode.LeftShift))
+    }
+
+    private void StopFocusMode()
+    {
+        isFocusMode = false;
+        Time.timeScale = 1;
+        focusMoveSpeedPercent = 1;
+
+        if (playerSex == PlayerSex.Man)
         {
-            Time.timeScale = 1;
+            var emission = focusModeParticle.emission;
+            emission.rateOverDistance = 0;
+        }
+        else
+        {
+            focusModeParticle.gameObject.SetActive(false);
         }
     }
 
@@ -230,7 +279,7 @@ public class Player : Character
 
         // 속도 퍼센트
         float speedPercent = diff >= 3 ? 0.6f : 1f;
-        if (playerType == PlayerType.Main) print((int)directionAngle + "," + (int)moveAngle + "," + diff);
+        speedPercent *= focusMoveSpeedPercent;  // 집중 모드 속도 퍼센트 곱
 
         // 이동 속도 변경
         movement.SetMoveSpeedPercent(speedPercent);
@@ -356,11 +405,14 @@ public class Player : Character
         else
             StopSidekickRoutine();
 
+        // 플레이어 변경 공격
         if (!init && playerType == PlayerType.Main)
         {
-            print("asdasdsa");
             changeAttackShoot.StartShoot();
         }
+
+        // 집중 모드 정지
+        StopFocusMode();
     }
 
     public static void IncreaseCurrentHp(float amount)
@@ -394,4 +446,13 @@ public class Player : Character
     }
 
     protected override void OnDead() { }
+
+    public void MoveTo(Vector3 position)
+    {
+        agent.enabled = false;
+        transform.position = position;
+
+        if (playerType == PlayerType.Sidekick)
+            agent.enabled = true;
+    }
 }

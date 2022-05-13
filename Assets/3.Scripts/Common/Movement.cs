@@ -61,7 +61,7 @@ public class Movement : MonoBehaviour
     /// <param name="percent">이동 속도에 곱해줄 퍼센트(0~1)</param>
     public void SetMoveSpeedPercent(float percent)
     {
-        percent = Mathf.Clamp(percent, 0f, 1f);
+        percent = Mathf.Max(0, percent);
         moveSpeedPercent = percent;
     }
 }
