@@ -74,7 +74,7 @@ public class LinearShoot : ShootWithBullet
 
                 // 총알 생성
                 Bullet bullet = ObjectPooler.SpawnFromPool<Bullet>(bulletPrefab.name, spawnPosition);
-                bullet.Init(moveDir, characterStat);
+                bullet.Init(new BulletInitInfo(transform, moveDir, characterStat, attackLevel));
             }
 
             count++;

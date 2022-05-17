@@ -99,17 +99,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2356771059136709977}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f5565667d17642a7a307ec1b3c5ae74, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b0c263df17c8499abf2675be282a30c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletStat:
-    attack: 3
+  bulletStats:
+  - attack: 5
     moveSpeed: 3
-    knockBack: 0.3
-    scatter: 10
-    isPenetrable: 0
+    knockBack: 3
+    scatter: 0
   movement: {fileID: 6717062040357961970}
-  trailRenderer: {fileID: 8158439012644904763}
 --- !u!114 &6717062040357961970
 MonoBehaviour:
   m_ObjectHideFlags: 0

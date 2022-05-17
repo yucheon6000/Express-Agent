@@ -46,14 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e662c1b3624c842edb843ad0723391de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletStat:
-    attack: 10
+  bulletStats:
+  - attack: 20
     moveSpeed: 0
-    knockBack: 20
+    knockBack: 10
     scatter: 0
-    isPenetrable: 0
   movement: {fileID: 0}
-  trailRenderer: {fileID: 0}
   particlePrefab: {fileID: 3393526244297628791, guid: 70d48b72e6f1146a39f819739d78b692, type: 3}
 --- !u!58 &721730411551481606
 CircleCollider2D:

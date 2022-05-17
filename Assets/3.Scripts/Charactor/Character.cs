@@ -25,6 +25,8 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     protected Weapon weapon;
 
+    public virtual Vector3 TargetPosition => transform.position;
+
     protected virtual void Awake()
     {
         currentHp = characterStat.Health;

@@ -74,7 +74,7 @@ public class CircleShoot : ShootWithBullet
 
                 // 총알 생성
                 Bullet bullet = ObjectPooler.SpawnFromPool<Bullet>(bulletPrefab.name, spawnPosition);
-                bullet.Init(spawnDir, characterStat);
+                bullet.Init(new BulletInitInfo(transform, spawnDir, characterStat, attackLevel));
             }
 
             count++;

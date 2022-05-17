@@ -18,15 +18,12 @@ public class BulletStat : StatWithCharacterStat, StatHasMoveSpeed
     [Tooltip("산탄")]
     private float scatter = 0;             // 산탄 (>= 0)
     [SerializeField]
-    [Tooltip("관통 여부")]
-    private bool isPenetrable = false;     // 관통 여부
 
     /* Getter & Setter */
     public float Attack => attack * characterStat.Attack;
     public float MoveSpeed => moveSpeed * characterStat.BulletSpeed;
     public float KnockBack => knockBack;
     public float Scatter => Math.Max(0, scatter - (scatter * characterStat.BulletScatterResistance));
-    public bool IsPenetrable => isPenetrable;
 
     /* Has Move Speed */
     public float GetMoveSpeed() => MoveSpeed;

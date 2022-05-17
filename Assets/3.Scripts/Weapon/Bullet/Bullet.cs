@@ -1,35 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Bullet : MonoBehaviour, NeedCharacterStat
+public abstract class Bullet : MonoBehaviour
 {
     [Header("[Bullet Stat]")]
     [SerializeField]
+    protected BulletStat[] bulletStats;
     protected BulletStat bulletStat;
+    protected Stepper<BulletStat> stepper;
 
     [Header("[Movement]")]
     [SerializeField]
-    private Movement movement;
+    protected Movement movement;
 
-    [Header("[Trail Renderer]")]
-    [SerializeField]
-    private TrailRenderer trailRenderer;
+    protected BulletInitInfo info;
+
+    protected virtual void Awake()
+    {
+        stepper = new Stepper<BulletStat>(bulletStats);
+    }
 
     protected virtual void Start()
     {
         if (movement)
             movement.SetStat(bulletStat);
+
+        bulletStat = stepper.GetStep(0);
     }
 
-    public virtual void Init(Vector2 moveDirection, CharacterStat characterStat)
+    public virtual void Init(BulletInitInfo info)
     {
-        bulletStat.SetCharacterStat(characterStat);
-        Vector3 newMoveDir = ConvertMoveDirection(moveDirection);
-        RotateBullet(newMoveDir);
-
+        bulletStat = stepper.GetStep(info.attackLevel);
+        bulletStat.SetCharacterStat(info.characterStat);
         if (movement)
-            movement.SetMoveDirection(newMoveDir);
+            movement.SetStat(bulletStat);
+        this.info = info;
     }
 
     protected Vector3 ConvertMoveDirection(Vector2 moveDirection)
@@ -57,14 +64,8 @@ public class Bullet : MonoBehaviour, NeedCharacterStat
     protected virtual void Update()
     {
         Vector3 pos = transform.position;
-        if (pos.y < -30 || pos.y > 30 || pos.x > 30 || pos.x < -30)
+        if (pos.y < -200 || pos.y > 200 || pos.x > 200 || pos.x < -200)
             gameObject.SetActive(false);
-    }
-
-    protected virtual void OnEnable()
-    {
-        if (trailRenderer)
-            trailRenderer.Clear();
     }
 
     protected virtual void OnDisable()
@@ -72,33 +73,75 @@ public class Bullet : MonoBehaviour, NeedCharacterStat
         ObjectPooler.ReturnToPool(gameObject);
     }
 
-    public virtual void SetCharacterStat(CharacterStat characterStat)
-    {
-        bulletStat.SetCharacterStat(characterStat);
-    }
-
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         // Player -> Monster
         // Monster -> Player
-        if (bulletStat.CharacterStat.CharacterType == CharacterType.Player && other.tag.Equals(MonsterCollision.TAG)
-            || bulletStat.CharacterStat.CharacterType == CharacterType.Monster && other.tag.Equals(PlayerCollision.TAG))
+        if (IsEnemy(other))
         {
-            CharacterCollision character = other.GetComponent<CharacterCollision>();
-            character.Hit(
-                bulletStat.Attack,
-                bulletStat.KnockBack,
-                transform.position
-            );
-            gameObject.SetActive(false);
+            OnTriggerEnterEnemy(other);
         }
 
         // Bullet -> Obstacle
-        else if (other.tag.Equals("Obstacle"))
+        else if (IsObstacle(other))
         {
-            gameObject.SetActive(false);
+            OnTriggerEnterObstacle();
         }
     }
 
+    protected bool IsEnemy(Collider2D other)
+    {
+        return bulletStat.CharacterStat.CharacterType == CharacterType.Player && other.tag.Equals(MonsterCollision.TAG)
+            || bulletStat.CharacterStat.CharacterType == CharacterType.Monster && other.tag.Equals(PlayerCollision.TAG);
+    }
+
+    protected bool IsObstacle(Collider2D other)
+    {
+        return other.CompareTag("Obstacle");
+    }
+
+    protected virtual void OnTriggerEnterEnemy(Collider2D enemy)
+    {
+        CharacterCollision enemyCollision = enemy.GetComponent<CharacterCollision>();
+        HitEnemy(enemyCollision);
+        gameObject.SetActive(false);
+    }
+
+    protected virtual void OnTriggerEnterObstacle()
+    {
+        HitObstacle();
+        gameObject.SetActive(false);
+    }
+
+    protected virtual void HitEnemy(CharacterCollision enemy)
+    {
+        enemy.Hit(
+            bulletStat.Attack,
+            bulletStat.KnockBack,
+            transform.position
+        );
+    }
+
+    protected virtual void HitObstacle()
+    {
+    }
+
     public CharacterType GetOwner() => bulletStat.CharacterStat.CharacterType;
+    public Transform GetOwnerTransform() => info.ownerTransform;
+}
+
+public class BulletInitInfo
+{
+    public Transform ownerTransform;
+    public Vector3 moveDirection;
+    public CharacterStat characterStat;
+    public int attackLevel;
+
+    public BulletInitInfo(Transform ownerTransform, Vector3 moveDirection, CharacterStat characterStat, int attackLevel)
+    {
+        this.ownerTransform = ownerTransform;
+        this.moveDirection = moveDirection;
+        this.characterStat = characterStat;
+        this.attackLevel = attackLevel;
+    }
 }

@@ -52,7 +52,7 @@ public class Player : Character
     private Transform targetMonster;
     private bool isSidekickAttacking = false;
 
-    public Vector3 TargetPosition => playerCollision.ColliderPosition;
+    public override Vector3 TargetPosition => playerCollision.ColliderPosition;
 
 
     protected override void Awake()

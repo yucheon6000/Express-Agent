@@ -14,9 +14,8 @@ public class PlayerChangeAttackBullet : Bullet
     [SerializeField]
     private GameObject particlePrefab;
 
-    protected override void OnEnable()
+    protected void OnEnable()
     {
-        base.OnEnable();
         frame = 0;
         monsters.Clear();
         bullets.Clear();

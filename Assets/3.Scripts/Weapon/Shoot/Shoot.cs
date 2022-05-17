@@ -9,7 +9,7 @@ public abstract class Shoot : MonoBehaviour, NeedCharacterStat
     protected bool isShooting = false;
     public bool IsShooting => isShooting;
 
-    [Header("[Attack Level]")]
+    [Header("[Attack Level (Debug)]")]
     [SerializeField]
     protected int attackLevel = 0;
 
