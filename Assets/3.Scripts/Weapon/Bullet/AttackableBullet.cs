@@ -15,6 +15,16 @@ public class AttackableBullet : StraightBullet
     private bool onHitEnemy = false;
     [SerializeField]
     private bool onHitObstacle = false;
+    [SerializeField]
+    private BulletDisabler onBulletDisabler = null;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        if (onBulletDisabler)
+            onBulletDisabler.bulletDisableEvent.AddListener(StartAttack);
+    }
 
     public override void Init(BulletInitInfo info)
     {
@@ -49,7 +59,7 @@ public class AttackableBullet : StraightBullet
 
     protected override void OnDisable()
     {
-        base.OnDisable();
         attack.StopAttack();
+        base.OnDisable();
     }
 }

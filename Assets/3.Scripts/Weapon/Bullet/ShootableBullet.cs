@@ -13,6 +13,16 @@ public class ShootableBullet : StraightBullet
     private bool onHitEnemy = false;
     [SerializeField]
     private bool onHitObstacle = false;
+    [SerializeField]
+    private BulletDisabler onBulletDisabler = null;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        if (onBulletDisabler)
+            onBulletDisabler.bulletDisableEvent.AddListener(StartShoot);
+    }
 
     public override void Init(BulletInitInfo info)
     {

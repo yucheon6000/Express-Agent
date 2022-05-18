@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 7055867133327877313}
   - component: {fileID: 721730411551481606}
   - component: {fileID: 7908417124944570366}
+  - component: {fileID: 8108841055751061029}
   m_Layer: 7
   m_Name: Turning Bullet
   m_TagString: Bullet
@@ -233,8 +234,9 @@ MonoBehaviour:
   movement: {fileID: 7055867133327877313}
   attack: {fileID: 1061640777424282081}
   onInit: 0
-  onHitEnemy: 1
-  onHitObstacle: 1
+  onHitEnemy: 0
+  onHitObstacle: 0
+  onBulletDisabler: {fileID: 8108841055751061029}
 --- !u!114 &7055867133327877313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +287,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &8108841055751061029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2356771059136709977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f56d354ffcf4bd0af4214f09c7fce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeTrigger: 1
+  timeLimit: 3
+  distanceTrigger: 0
+  distanceLimit: 0
 --- !u!1 &3570167626951808118
 GameObject:
   m_ObjectHideFlags: 0
