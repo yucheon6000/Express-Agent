@@ -58,6 +58,10 @@ public class Player : Character
     [SerializeField]
     private PlayerAttackListDisplayer playerAttackListDisplayer;
 
+    [Header("@TEST")]
+    [SerializeField]
+    private bool mouseDirectionMode = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -419,6 +423,10 @@ public class Player : Character
 
         // UI 업데이트
         playerAttackListDisplayer.Display(playerType == PlayerType.Main);
+
+        // 마우스 추적 모드
+        if (mouseDirectionMode)
+            weapon.ActiveMouseDirectionMode(playerType == PlayerType.Main);
     }
 
     public static void IncreaseCurrentHp(float amount)

@@ -69,4 +69,12 @@ public class Weapon : MonoBehaviour, NeedCharacterStat
 
         if (isTrigger) attack.StartAttack();
     }
+
+    protected bool mouseDirectionMode = false;
+    public void ActiveMouseDirectionMode(bool enable)
+    {
+        mouseDirectionMode = enable;
+        foreach (Attack attack in attacks)
+            attack.ActiveMouseDirectionMode(mouseDirectionMode);
+    }
 }

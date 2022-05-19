@@ -26,4 +26,10 @@ public abstract class Shoot : MonoBehaviour, NeedCharacterStat
     {
         attackLevel = level;
     }
+
+    protected bool mouseDirectionMode = false;
+    public void ActiveMouseDirectionMode(bool enable)
+    {
+        mouseDirectionMode = enable;
+    }
 }

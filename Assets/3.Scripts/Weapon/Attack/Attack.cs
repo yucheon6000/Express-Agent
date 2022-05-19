@@ -117,6 +117,7 @@ public class Attack : MonoBehaviour, NeedCharacterStat
             }
 
             attacked = true;
+            shoot.ActiveMouseDirectionMode(mouseDirectionMode);
             shoot.StartShoot();
             firstShoot = false;
             waited = false;
@@ -172,5 +173,11 @@ public class Attack : MonoBehaviour, NeedCharacterStat
     private void UpdateAttackStat()
     {
         attackStat = attackStepper.GetStep(attackLevel);
+    }
+
+    protected bool mouseDirectionMode = false;
+    public void ActiveMouseDirectionMode(bool enable)
+    {
+        mouseDirectionMode = enable;
     }
 }

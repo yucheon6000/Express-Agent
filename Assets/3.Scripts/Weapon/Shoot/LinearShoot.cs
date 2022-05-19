@@ -70,7 +70,8 @@ public class LinearShoot : ShootWithBullet
                     + (spawnDir * shootStat.BulletDeltaDistance * count);
 
                 // 이동 방향
-                Vector2 moveDir = directionTransform.position - spawnTransform.position;
+                Vector3 directionPoint = mouseDirectionMode ? Camera.main.ScreenToWorldPoint(Input.mousePosition) : directionTransform.position;
+                Vector2 moveDir = directionPoint - spawnTransform.position;
 
                 // 총알 생성
                 Bullet bullet = ObjectPooler.SpawnFromPool<Bullet>(bulletPrefab.name, spawnPosition);

@@ -60,7 +60,8 @@ public class CircleShoot : ShootWithBullet
             if (count >= shootStat.BulletIndexAtStart)
             {
                 // 기준(시작) 각도 (standardAngle)
-                Vector3 standardDir = spawnCircleStandardTransform.position - spawnCircleCenterTransform.position;
+                Vector3 directionPoint = mouseDirectionMode ? Camera.main.ScreenToWorldPoint(Input.mousePosition) : spawnCircleStandardTransform.position;
+                Vector3 standardDir = directionPoint - spawnCircleCenterTransform.position;
                 float standardAngle = Mathf.Atan2(standardDir.y, standardDir.x) * Mathf.Rad2Deg;
                 standardAngle = (standardAngle + shootStat.BulletStartAngle + 360) % 360;
 
