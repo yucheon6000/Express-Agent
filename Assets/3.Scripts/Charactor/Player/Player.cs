@@ -54,6 +54,9 @@ public class Player : Character
 
     public override Vector3 TargetPosition => playerCollision.ColliderPosition;
 
+    [Header("UI")]
+    [SerializeField]
+    private PlayerAttackListDisplayer playerAttackListDisplayer;
 
     protected override void Awake()
     {
@@ -413,6 +416,9 @@ public class Player : Character
 
         // 집중 모드 정지
         StopFocusMode();
+
+        // UI 업데이트
+        playerAttackListDisplayer.Display(playerType == PlayerType.Main);
     }
 
     public static void IncreaseCurrentHp(float amount)

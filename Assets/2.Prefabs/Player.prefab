@@ -852,6 +852,7 @@ MonoBehaviour:
   changeAttackShoot: {fileID: 3377409324060058635}
   maxStamina: 200
   bottomAnimator: {fileID: 8241265624109847707}
+  playerAttackListDisplayer: {fileID: 5403945452850500405}
 --- !u!114 &6346160921644144550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2486,6 +2487,7 @@ GameObject:
   - component: {fileID: 5448291578695747617}
   - component: {fileID: 4249031774081597988}
   - component: {fileID: 8615288746817847592}
+  - component: {fileID: 5403945452850500405}
   m_Layer: 5
   m_Name: Image Attack List
   m_TagString: Untagged
@@ -2552,6 +2554,72 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5403945452850500405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6277795724761932209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df62823aa16a943da8d1aa6eb600a97f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 5448291578695747617}
+  on: 0
+  onTime: 0.3
+  onCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.12043356
+      outSlope: 0.12043356
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.78333336
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 3.3254697
+      outSlope: 3.3254697
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.03333336
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  onPosition: {x: 30, y: 0, z: 10}
+  offTime: 0.3
+  offCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  offPosition: {x: -130, y: 0, z: 0}
 --- !u!1 &6761538735827576105
 GameObject:
   m_ObjectHideFlags: 0
