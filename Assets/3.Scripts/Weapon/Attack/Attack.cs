@@ -75,6 +75,8 @@ public class Attack : MonoBehaviour, NeedCharacterStat
 
     private IEnumerator AttackRoutine(float delay)
     {
+        if (!shoot) yield break;
+
         bool firstShoot = true;
         bool waited = false;
 
@@ -146,7 +148,9 @@ public class Attack : MonoBehaviour, NeedCharacterStat
 
         this.characterStat = characterStat;
         attackStat.SetCharacterStat(characterStat);
-        shoot.SetCharacterStat(characterStat);
+
+        if (shoot)
+            shoot.SetCharacterStat(characterStat);
     }
 
     public int GetAttackLevel() => attackLevel;
@@ -156,7 +160,8 @@ public class Attack : MonoBehaviour, NeedCharacterStat
         attackLevel = level;
         UpdateAttackStat();
 
-        shoot.SetAttackLevel(attackLevel);
+        if (shoot)
+            shoot.SetAttackLevel(attackLevel);
     }
 
     public void IncreaseAttackLevel(int level)

@@ -6,6 +6,7 @@ public class PenetrativeBullet : StraightBullet
 {
     [Header("[PenetrativeBullet]")]
     [SerializeField]
+    [Tooltip("충돌이 시작할 때만 공격합니다.")]
     private bool isEnterTrigger = true;
 
     // 다단 히트
@@ -14,6 +15,10 @@ public class PenetrativeBullet : StraightBullet
     private float multipleAttackTimer = 0;
     private Dictionary<Collider2D, CharacterCollision> enemies = new Dictionary<Collider2D, CharacterCollision>();
     private bool isAttackStarted = false;
+
+    [SerializeField]
+    [Tooltip("장애물(Obstacle)을 무시합니다.")]
+    private bool ignoreObstacle = false;
 
     public override void Init(BulletInitInfo info)
     {
@@ -48,6 +53,12 @@ public class PenetrativeBullet : StraightBullet
             if (!isAttackStarted)
                 isAttackStarted = true;
         }
+    }
+
+    protected override void OnTriggerEnterObstacle()
+    {
+        if (!ignoreObstacle)
+            base.OnTriggerEnterObstacle();
     }
 
     private void OnTriggerExit2D(Collider2D other)

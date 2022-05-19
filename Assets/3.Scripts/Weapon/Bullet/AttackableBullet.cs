@@ -17,6 +17,8 @@ public class AttackableBullet : StraightBullet
     private bool onHitObstacle = false;
     [SerializeField]
     private BulletDisabler onBulletDisabler = null;
+    [SerializeField]
+    private bool ignoreEnemy = false;
 
     protected override void Start()
     {
@@ -32,6 +34,12 @@ public class AttackableBullet : StraightBullet
 
         if (onInit)
             StartAttack();
+    }
+
+    protected override void OnTriggerEnterEnemy(Collider2D enemy)
+    {
+        if (!ignoreEnemy)
+            base.OnTriggerEnterEnemy(enemy);
     }
 
     protected override void HitEnemy(CharacterCollision enemy)
