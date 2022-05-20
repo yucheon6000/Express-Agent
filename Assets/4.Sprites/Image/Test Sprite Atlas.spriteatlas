@@ -368,6 +368,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d545eb86b8c4a47e9805c1aec7b303f0, type: 3}
   - {fileID: 21300000, guid: c7551c8611d464f07ab8d7cb446e2763, type: 3}
   - {fileID: 21300000, guid: 7b83989682ba24fd299fa74b245a5b51, type: 3}
+  - {fileID: 21300000, guid: e16a3f96a36f3409f89fe13c9610f30b, type: 3}
   - {fileID: 21300000, guid: 191472a6d81414316b6f205b94ee228a, type: 3}
   - {fileID: 21300000, guid: 3b585ba6af8484629b041599bdeefbc5, type: 3}
   - {fileID: 21300000, guid: d6fb07b6dc0f74baca181dc6b587b495, type: 3}
@@ -1126,6 +1127,7 @@ SpriteAtlas:
   - MC_RG_L_7_05
   - MC_B_U_1_02
   - MC_RG_L_3_04
+  - C_Shadow
   - WC_BG_U_5_08
   - MC_RG_U_5_01
   - WC_BG_U_1_02

@@ -172,7 +172,7 @@ MonoBehaviour:
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: bbc1a82278b654df282be1746588823f, type: 3}
   shootStats:
-  - breakable: 0
+  - breakable: 1
     bulletCount: 1
     bulletDeltaTime: 0
     bulletStartDistance: 0
