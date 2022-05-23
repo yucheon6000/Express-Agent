@@ -13,6 +13,8 @@ public abstract class Character : MonoBehaviour
     protected int currentHp;
     public int CurrentHp => currentHp;
 
+    protected bool isDead = false;
+
     [Header("[Movement]")]
     [SerializeField]
     protected Movement movement;

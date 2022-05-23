@@ -10,6 +10,8 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    private bool isDead = false;
+
     private void Start()
     {
         playerAngleDetector.AddPlayerAngleAction(OnPlayerAngleChanged);
@@ -18,6 +20,7 @@ public class PlayerAnimator : MonoBehaviour
     private void OnPlayerAngleChanged(PlayerAngle playerAngle)
     {
         if (!animator) return;
+        if (isDead) return;
 
         animator.SetFloat("angleIndex", (int)playerAngle);
     }
@@ -27,6 +30,7 @@ public class PlayerAnimator : MonoBehaviour
 
     public void SetState(string state, bool value)
     {
+        if (isDead) return;
         animator.SetBool(state, value);
     }
 
@@ -34,7 +38,7 @@ public class PlayerAnimator : MonoBehaviour
     public static readonly int HitRight = 4;
     public void Hit(int hitDirection)
     {
-        animator.SetFloat("hitDirection", hitDirection);
+        if (isDead) return;
         animator.Play("Hit", -1);
     }
 
@@ -42,5 +46,13 @@ public class PlayerAnimator : MonoBehaviour
     {
         percet = Mathf.Clamp(percet, 0, 1);
         animator.speed = percet;
+    }
+
+    public void Dead()
+    {
+        if (isDead) return;
+
+        isDead = true;
+        animator.Play("Dead", -1);
     }
 }

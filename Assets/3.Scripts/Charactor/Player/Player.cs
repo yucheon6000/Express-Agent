@@ -22,6 +22,8 @@ public class Player : Character
 
     public static Player Main => main;
 
+    private static List<Player> players = new List<Player>();
+
     [Header("[Player]")]
     [SerializeField]
     private PlayerType playerType;      // 플레이어 타입
@@ -65,6 +67,8 @@ public class Player : Character
     protected override void Awake()
     {
         base.Awake();
+
+        players.Add(this);
 
         agent = GetComponent<NavMeshAgent>();
         angleDetector = GetComponent<PlayerAngleDetector>();
@@ -111,6 +115,8 @@ public class Player : Character
 
     private void Update()
     {
+        if (isDead) return;
+
         if (playerType == PlayerType.Main)
         {
             UpdateMainPlayerMovement();             // 메인 플레이어 이동
@@ -366,10 +372,13 @@ public class Player : Character
 
     public override void Hit(float attack, float knockBack, Vector3 hitPosition)
     {
+        if (isDead) return;
         if (godMode.IsGodMode) return;
 
         if (playerType == PlayerType.Main)
             IncreaseHp(-attack);
+
+        if (isDead) return;
 
         godMode.StartGodMode();
 
@@ -382,6 +391,8 @@ public class Player : Character
 
     public void UpdatePlayerType(PlayerType playerType, bool init = false)
     {
+        if (isDead) return;
+
         // 스태틱 변수 main 지정
         if (playerType == PlayerType.Main) main = this;
 
@@ -433,6 +444,11 @@ public class Player : Character
     {
         currentHp += (int)amount;
         currentHp = Mathf.Clamp(currentHp, 0, maxHp);
+
+        // 쥭음 처리
+        if (currentHp <= 0)
+            foreach (var player in players)
+                player.OnDead();
     }
 
     public static void IncreaseMaxHp(float amount)
@@ -442,10 +458,9 @@ public class Player : Character
 
     public override void IncreaseHp(float amount)
     {
-        if (playerType == PlayerType.Sidekick) return;
-
-        IncreaseCurrentHp(amount);
-        if (currentHp <= 0) OnDead();
+        // 체력 감소
+        if (playerType == PlayerType.Main)
+            IncreaseCurrentHp(amount);
     }
 
     public static void IncreaseCoinCount(int amount)
@@ -459,7 +474,23 @@ public class Player : Character
         currentStaminaCount = Mathf.Clamp(currentStaminaCount, 0, maxStaminaCount);
     }
 
-    protected override void OnDead() { }
+    protected override void OnDead()
+    {
+        if (isDead) return;
+        isDead = true;
+
+        // 멈춤
+        movement.MoveSpeedType = MoveSpeedType.Manual;
+        movement.SetMoveSpeed(0);
+        movement.SetMoveDirection(Vector2.zero);
+
+        // 사이드킥 공격 멈춤
+        StopSidekickRoutine();
+
+        // 애니메이션
+        foreach (PlayerAnimator animator in animators)
+            animator.Dead();
+    }
 
     public void MoveTo(Vector3 position)
     {
