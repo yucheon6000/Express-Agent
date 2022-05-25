@@ -67,7 +67,7 @@ public class AttackableBullet : StraightBullet
 
     protected override void OnDisable()
     {
-        attack.StopAttack();
+        // attack.StopAttack();
         base.OnDisable();
     }
 }

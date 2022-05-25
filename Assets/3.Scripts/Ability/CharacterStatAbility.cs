@@ -16,6 +16,7 @@ public class CharacterStatAbility : Ability
     private Character character;
     [SerializeField]
     private CharacterStatType targetStat;
+    public CharacterStatType TargetStat => targetStat;
     [SerializeField]
     private bool percent = false;
     [SerializeField]
@@ -67,7 +68,12 @@ public class CharacterStatAbility : Ability
                 character.CharacterStat.BulletScatterResistance += percent ? character.CharacterStat.BulletScatterResistance * (amount / 100) : amount;
                 break;
         }
-        
+
         base.OnClickAbility();
+    }
+
+    public void SetCharacter(Character character)
+    {
+        this.character = character;
     }
 }

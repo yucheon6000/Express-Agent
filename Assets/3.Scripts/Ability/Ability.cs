@@ -17,6 +17,7 @@ public abstract class Ability : MonoBehaviour
     [Multiline]
     [SerializeField]
     protected string abilityDescription;
+    public string AbilityDescription => abilityDescription;
 
     public OnClickAbilityEvent onClickAbilityEvent = new OnClickAbilityEvent();
 
@@ -33,11 +34,15 @@ public abstract class Ability : MonoBehaviour
     private void Start()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(OnClickAbility);
+        if (button)
+            button.onClick.AddListener(OnClickAbility);
 
-        textName.text = abilityName;
-        textSubName.text = abilitySubName;
-        textDescription.text = abilityDescription;
+        if (textName)
+            textName.text = abilityName;
+        if (textSubName)
+            textSubName.text = abilitySubName;
+        if (textDescription)
+            textDescription.text = abilityDescription;
     }
 
     public virtual void OnClickAbility()

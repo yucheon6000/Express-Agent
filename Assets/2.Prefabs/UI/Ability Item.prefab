@@ -280,7 +280,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2856250545819052279}
   - component: {fileID: 9110857326844336592}
-  - component: {fileID: 1968577872658042182}
   - component: {fileID: 1858002370810509393}
   - component: {fileID: 2030440216}
   m_Layer: 5
@@ -321,28 +320,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6342299770515716866}
   m_CullTransparentMesh: 1
---- !u!114 &1968577872658042182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6342299770515716866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4827e4d0eaf6743fe9da3768d00554a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: "HP \uD68C\uBCF5"
-  abilitySubName: "HP\uAC00 \uC465"
-  abilityDescription: "HP\uAC00 20\uD504\uB85C \uD68C\uBCF5\uB429\uB2C8\uB2E4."
-  textName: {fileID: 6631173248956749243}
-  textSubName: {fileID: 5114696341558154695}
-  textDescription: {fileID: 9094291248566640455}
-  character: {fileID: 0}
-  targetStat: 0
-  percent: 0
-  amount: 0
 --- !u!114 &1858002370810509393
 MonoBehaviour:
   m_ObjectHideFlags: 0

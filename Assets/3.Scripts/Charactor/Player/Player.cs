@@ -23,6 +23,7 @@ public class Player : Character
     public static Player Main => main;
 
     private static List<Player> players = new List<Player>();
+    public static List<Player> Players => new List<Player>(players);
 
     [Header("[Player]")]
     [SerializeField]
