@@ -12,11 +12,14 @@ public class MonsterCollision : CharacterCollision
     {
         base.Awake();
         gameObject.tag = TAG;
+        print(character);
         monster = character.GetComponent<Monster>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (monster.IsDead) return;
+
         if (other.tag.Equals(PlayerCollision.TAG))
         {
             PlayerCollision playerCol = other.GetComponent<PlayerCollision>();

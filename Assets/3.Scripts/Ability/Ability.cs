@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 
+[ExecuteInEditMode]
 public abstract class Ability : MonoBehaviour
 {
     public class OnClickAbilityEvent : UnityEvent<Ability> { }
@@ -37,6 +38,17 @@ public abstract class Ability : MonoBehaviour
         if (button)
             button.onClick.AddListener(OnClickAbility);
 
+        Display();
+    }
+
+    private void OnEnable()
+    {
+        Display();
+    }
+
+    [ContextMenu("Display")]
+    private void Display()
+    {
         if (textName)
             textName.text = abilityName;
         if (textSubName)

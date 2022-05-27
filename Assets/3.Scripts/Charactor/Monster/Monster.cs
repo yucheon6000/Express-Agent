@@ -5,102 +5,51 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public class Monster : Character
+public abstract class Monster : Character
 {
     [Header("[Monster]")]
-    [SerializeField]
-    private NavMeshAgent agent;
-
-    [SerializeField]
-    private CollisionDetector detector;
-
-    [SerializeField]
-    private Animator animator;
-
     [Header("[Points]")]
     [SerializeField]
     private int coinAmout = 50;
     [SerializeField]
     private int staminaAmount = 100;
 
-    private Player target;
-
     [Header("[UI]")]
     [SerializeField]
-    private Slider slider;
+    private Slider hpSlider;
     [SerializeField]
-    private Transform sliderTransform;
+    private Transform hpSliderTransform;
 
-    private bool isDead = false;
-
-    protected override void Start()
-    {
-        base.Start();
-
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
-
-        detector.AddCollisionDetectAction((transform, _, _) =>
-        {
-            target = transform.gameObject.GetComponentInParent<Player>();
-            weapon.StartTrigger();
-            detector.SetActive(false);
-            animator.SetBool("isMoving", true);
-        });
-    }
-
-    private void Update()
+    protected virtual void Update()
     {
         UpdateUI();
-
-        // 넉백 중        
-        if (knockBack.IsKnockBacking)
-        {
-            if (!agent.isStopped) agent.isStopped = true;
-            return;
-        }
-
-        // 넉백 중 아님
-        if (!knockBack.IsKnockBacking)
-        {
-            if (agent.isStopped)
-                agent.isStopped = false;
-
-            if (movement.enabled)
-                movement.enabled = false;
-        }
-
-        // 타켓 없을 경우
-        if (!target)
-        {
-            movement.SetMoveDirection(Vector2.zero);
-            return;
-        }
-
-        agent.speed = characterStat.MoveSpeed;
-        agent.SetDestination(target.TargetPosition);
     }
 
-    private void UpdateUI()
+    protected virtual void UpdateUI()
     {
-        slider.transform.position = Camera.main.WorldToScreenPoint(sliderTransform.position);
-        slider.value = currentHp / (float)characterStat.Health;
-    }
+        // HP UI 업데이트
+        if (isDead && hpSlider.gameObject.activeSelf)
+        {
+            hpSlider.gameObject.SetActive(false);
+        }
+        else if (!isDead && !hpSlider.gameObject.activeSelf)
+        {
+            hpSlider.gameObject.SetActive(true);
+        }
 
-    public override void Hit(float attack, float knockBack, Vector3 hitPosition)
-    {
-        animator.Play("Hit", -1);
-        base.Hit(attack, knockBack, hitPosition);
+        hpSlider.transform.position = Camera.main.WorldToScreenPoint(hpSliderTransform.position);
+        hpSlider.value = currentHp / (float)characterStat.Health;
     }
 
     protected override void OnDead()
     {
         if (isDead) return;
-
         isDead = true;
+        CreateCoinAndStamina();
+    }
 
-        animator.SetBool("isDead", true);
-
+    protected void CreateCoinAndStamina()
+    {
         int staminaCount = (int)(staminaAmount / Stamina.StaminaAmount);
         for (int i = 0; i < staminaCount; i++)
         {
@@ -112,33 +61,23 @@ public class Monster : Character
         {
             ObjectPooler.SpawnFromPool("Coin", transform.position);
         }
-
-        agent.enabled = false;
-        Invoke("Inactive", 1.05f);
     }
 
-    private void Inactive()
+    protected void Inactive()
     {
         gameObject.SetActive(false);
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         isDead = false;
-
-        agent.enabled = true;
-
-        animator.SetBool("isMoving", false);
-        animator.SetBool("isDead", false);
-
-        detector.SetActive(true);
         currentHp = characterStat.Health;
-        target = null;
         UpdateUI();
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
+        weapon.StopTrigger();
         ObjectPooler.ReturnToPool(this.gameObject);
     }
 }
