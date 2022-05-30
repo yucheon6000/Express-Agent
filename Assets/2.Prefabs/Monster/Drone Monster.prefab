@@ -535,7 +535,7 @@ MonoBehaviour:
     health: 30
     moveSpeed: 4
     attack: 3
-    knockBack: 0
+    knockBack: 1
     knockBackResistance: 0
     attackSpeed: 1
     bulletSpeed: 1

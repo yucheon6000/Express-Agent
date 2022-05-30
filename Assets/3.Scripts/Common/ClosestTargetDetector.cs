@@ -36,6 +36,8 @@ public class ClosestTargetDetector : MonoBehaviour
         if (!target && detectType != DetectType.Exit)
         {
             target = targetTransform;
+            float dist = (pivot.position - targetTransform.position).sqrMagnitude;
+            onUpdatedClosestTarget.Invoke(target, dist);
             return;
         }
 

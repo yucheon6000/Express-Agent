@@ -11,6 +11,8 @@ public class Weapon : MonoBehaviour, NeedCharacterStat
     private List<Attack> attacks;
     private bool isTrigger = false;
     public bool IsTrigger => isTrigger;
+    private bool isMinimumMode = false;
+    public bool IsMinimumMode => isMinimumMode;
 
     /* Debug */
     [Header("[@Debug]")]
@@ -35,7 +37,10 @@ public class Weapon : MonoBehaviour, NeedCharacterStat
         if (isTrigger) return;
         isTrigger = true;
         foreach (Attack attack in attacks)
+        {
+            attack.SetMinimumMode(isMinimumMode);
             attack.StartAttack();
+        }
     }
 
     [ContextMenu("Stop Trigger")]
@@ -67,7 +72,11 @@ public class Weapon : MonoBehaviour, NeedCharacterStat
         attacks.Add(attack);
         attack.SetCharacterStat(characterStat);
 
-        if (isTrigger) attack.StartAttack();
+        if (isTrigger)
+        {
+            attack.SetMinimumMode(isMinimumMode);
+            attack.StartAttack();
+        }
     }
 
     protected bool mouseDirectionMode = false;
@@ -76,5 +85,13 @@ public class Weapon : MonoBehaviour, NeedCharacterStat
         mouseDirectionMode = enable;
         foreach (Attack attack in attacks)
             attack.ActiveMouseDirectionMode(mouseDirectionMode);
+    }
+
+    public void SetMinimumMode(bool value)
+    {
+        isMinimumMode = value;
+
+        foreach (Attack attack in attacks)
+            attack.SetMinimumMode(isMinimumMode);
     }
 }

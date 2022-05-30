@@ -71,6 +71,8 @@ public class DroneMonster : Monster
 
     public override void Hit(float attack, float knockBack, Vector3 hitPosition)
     {
+        if (isDead) return;
+
         animator.Play("Hit", -1);
         base.Hit(attack, knockBack, hitPosition);
     }
@@ -83,7 +85,7 @@ public class DroneMonster : Monster
         agent.ResetPath();
         agent.enabled = false;
 
-        animator.SetBool("isDead", true);
+        animator.Play("Death", -1);
         Invoke("Inactive", 1.05f);
     }
 
@@ -91,8 +93,12 @@ public class DroneMonster : Monster
     {
         base.OnEnable();
 
+        movement.enabled = true;
         agent.enabled = true;
-        target = null;
+
+        Transform targetTransform = detector.Target;
+        if (targetTransform)
+            target = targetTransform.GetComponent<Player>();
 
         animator.SetBool("isMoving", false);
         animator.SetBool("isDead", false);

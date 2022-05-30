@@ -10,6 +10,10 @@ public abstract class Bullet : MonoBehaviour
     protected BulletStat[] bulletStats;
     protected BulletStat bulletStat;
     protected Stepper<BulletStat> stepper;
+    [SerializeField]
+    protected bool autoFlipY;
+    [SerializeField]
+    protected SpriteRenderer spriteRenderer;
 
     [Header("[Movement]")]
     [SerializeField]
@@ -20,6 +24,13 @@ public abstract class Bullet : MonoBehaviour
     protected virtual void Awake()
     {
         stepper = new Stepper<BulletStat>(bulletStats);
+
+        if (!autoFlipY) return;
+
+        if (!spriteRenderer)
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        if (!spriteRenderer)
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     protected virtual void Start()
@@ -59,6 +70,15 @@ public abstract class Bullet : MonoBehaviour
         angle = (angle + 360) % 360;
 
         transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        if (autoFlipY && spriteRenderer)
+        {
+            if (90 <= angle && angle < 270)
+                spriteRenderer.flipY = true;
+            else
+                spriteRenderer.flipY = false;
+        }
+
     }
 
     protected virtual void Update()

@@ -9,11 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2356771059136709974}
+  - component: {fileID: 8221794084590226984}
   - component: {fileID: 2356771059136709975}
   - component: {fileID: 9162937615314643276}
   - component: {fileID: 6717062040357961970}
   - component: {fileID: 3441272312401705336}
   - component: {fileID: 7908417124944570366}
+  - component: {fileID: 7859486660922510810}
   m_Layer: 7
   m_Name: Bullet Man 5
   m_TagString: Bullet
@@ -36,6 +38,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &8221794084590226984
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2356771059136709977}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 6d8f6c22580c946bb935b9517ed058c0, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 6d8f6c22580c946bb935b9517ed058c0, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!212 &2356771059136709975
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -77,8 +95,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3625043607559282579, guid: 045b15ec09bba42448d89db77fa6f20a, type: 3}
-  m_Color: {r: 1, g: 0.85638046, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: b4b57e4e3b4fb4b8daeb1517fa383a5e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -105,6 +123,8 @@ MonoBehaviour:
     moveSpeed: 3
     knockBack: 1.2
     scatter: 20
+  autoFlipY: 0
+  spriteRenderer: {fileID: 0}
   movement: {fileID: 6717062040357961970}
   isEnterTrigger: 0
   multipleAttackDeltaTime: 0.5
@@ -139,7 +159,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.5}
+    oldSize: {x: 1.1666666, y: 0.75}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -147,14 +167,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.02734375, y: 0.25}
-      - {x: -0.5, y: 0.02734375}
-      - {x: -0.5, y: -0.015625}
-      - {x: -0.0703125, y: -0.25}
-      - {x: 0.02734375, y: -0.25}
-      - {x: 0.5, y: -0.02734375}
-      - {x: 0.5, y: 0.015625}
-      - {x: 0.0703125, y: 0.25}
+    - - {x: -0.54137206, y: -0.13504575}
+      - {x: -0.5421229, y: 0.116035804}
+      - {x: -0.4162237, y: 0.3830378}
+      - {x: 0.5847701, y: 0.058044855}
+      - {x: -0.39254647, y: -0.37380397}
 --- !u!50 &7908417124944570366
 Rigidbody2D:
   serializedVersion: 4
@@ -176,3 +193,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &7859486660922510810
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2356771059136709977}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cdf5051f724c343de8240103fc6f9dec, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

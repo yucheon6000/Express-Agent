@@ -39,7 +39,7 @@ public class Player : Character
 
     [Header("[Stamina]")]
     [SerializeField]
-    private int maxStamina = 200;
+    private int maxStamina = 100;
 
     private NavMeshAgent agent;
     private PlayerAngleDetector angleDetector;
@@ -439,6 +439,10 @@ public class Player : Character
         // 마우스 추적 모드
         if (mouseDirectionMode)
             weapon.ActiveMouseDirectionMode(playerType == PlayerType.Main);
+
+        // 사이드킥 플레이어 공격 레벨 0으로 변경
+        // 메인 플레이어 공격 레벨 정상화
+        weapon.SetMinimumMode(playerType == PlayerType.Sidekick);
     }
 
     public static void IncreaseCurrentHp(float amount)

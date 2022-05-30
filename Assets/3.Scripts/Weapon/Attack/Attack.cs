@@ -14,6 +14,8 @@ public class Attack : MonoBehaviour, NeedCharacterStat
     private Stepper<AttackStat> attackStepper;
     [SerializeField]
     private int attackLevel = 0;
+    private bool isMinimumMode = false;
+    public bool IsMinimumMode => isMinimumMode;
 
     [Header("[Shoot]")]
     [SerializeField]
@@ -156,6 +158,11 @@ public class Attack : MonoBehaviour, NeedCharacterStat
 
     public int GetAttackLevel() => attackLevel;
 
+    public void IncreaseAttackLevel(int level)
+    {
+        SetAttackLevel(GetAttackLevel() + level);
+    }
+
     public void SetAttackLevel(int level)
     {
         attackLevel = level;
@@ -163,11 +170,6 @@ public class Attack : MonoBehaviour, NeedCharacterStat
 
         if (shoot)
             shoot.SetAttackLevel(attackLevel);
-    }
-
-    public void IncreaseAttackLevel(int level)
-    {
-        SetAttackLevel(GetAttackLevel() + level);
     }
 
     private void UpdateAttackStat()
@@ -179,5 +181,12 @@ public class Attack : MonoBehaviour, NeedCharacterStat
     public void ActiveMouseDirectionMode(bool enable)
     {
         mouseDirectionMode = enable;
+    }
+
+    public void SetMinimumMode(bool value)
+    {
+        isMinimumMode = value;
+        if (isMinimumMode) SetAttackLevel(0);
+        else SetAttackLevel(attackLevel);
     }
 }

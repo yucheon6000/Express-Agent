@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private KeyCode KeyCodePlayerChange = KeyCode.Space;
     [SerializeField]
     private float minChangeModeDistance = 3f;
+    [SerializeField]
+    private int changeStaminaAmount = 25;
 
     [Header("[Cameara]")]
     [SerializeField]
@@ -49,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     private void ChangeMainPlayer(int step = 1)
     {
-        if (Player.CurrentStaminaCount < (Player.MaxStaminaCount / 4)) return;
+        if (Player.CurrentStaminaCount < changeStaminaAmount) return;
 
         foreach (Player current in players)
         {
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
             );
         }
 
-        Player.IncreaseStaminaCount(-(Player.MaxStaminaCount / 4));
+        Player.IncreaseStaminaCount(-changeStaminaAmount);
 
         targetCamera.SetTargetTransform(mainPlayer.transform);
     }
