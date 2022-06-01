@@ -64,4 +64,16 @@ public class Movement : MonoBehaviour
         percent = Mathf.Max(0, percent);
         moveSpeedPercent = percent;
     }
+
+    public void Move(float moveSpeed, Vector2 moveDirection)
+    {
+        moveDirection.Normalize();
+        Vector2 moveForce = moveDirection * moveSpeed * Time.deltaTime;
+
+        if (detector)
+            moveForce = detector.GetMovableForce(moveForce);
+
+        transform.Translate(moveForce, Space.World);
+        // movedForce = moveForce;
+    }
 }

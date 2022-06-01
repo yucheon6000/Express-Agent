@@ -12,7 +12,6 @@ public class MonsterCollision : CharacterCollision
     {
         base.Awake();
         gameObject.tag = TAG;
-        print(character);
         monster = character.GetComponent<Monster>();
     }
 

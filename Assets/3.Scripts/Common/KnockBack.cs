@@ -41,14 +41,8 @@ public class KnockBack : MonoBehaviour
     {
         isKnockBacking = true;
 
-        movement.enabled = true;
-        movement.MoveSpeedType = MoveSpeedType.Manual;
-
         float timer = 0;
         float percent = 0;
-
-        movement.SetMoveSpeed(force);
-        movement.SetMoveDirection(direction);
 
         while (percent < 0.8f)
         {
@@ -57,12 +51,11 @@ public class KnockBack : MonoBehaviour
 
             float newForce = (force / 2) * (1 + Mathf.Cos(Mathf.Lerp(0, Mathf.PI, percent)));
 
-            movement.SetMoveSpeed(newForce);
+            if (movement && movement.enabled)
+                movement.Move(newForce, direction);
 
             yield return null;
         }
-
-        movement.MoveSpeedType = MoveSpeedType.StatBased;
 
         isKnockBacking = false;
         coroutine = null;
