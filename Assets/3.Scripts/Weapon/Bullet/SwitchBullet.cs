@@ -13,8 +13,6 @@ public class SwitchBullet : StraightBullet
 
     [SerializeField]
     private Behaviour[] enableComponents;
-    [SerializeField]
-    private SpriteRenderer spriteRenderer;
 
     public override void Init(BulletInitInfo info)
     {

@@ -55,12 +55,11 @@ MonoBehaviour:
     knockBack: 3
     scatter: 0
   autoFlipY: 0
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 3520673923525688914}
   movement: {fileID: 6717062040357961970}
   enableDistance: 1.5
   enableComponents:
   - {fileID: 721730411551481606}
-  spriteRenderer: {fileID: 0}
 --- !u!114 &6717062040357961970
 MonoBehaviour:
   m_ObjectHideFlags: 0
