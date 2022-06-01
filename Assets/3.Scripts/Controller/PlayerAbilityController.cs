@@ -15,9 +15,6 @@ public class PlayerAbilityController : MonoBehaviour
     private bool display = false;
     private float displayTimer = 0;
 
-    [SerializeField]
-    private MonsterSpawnController monsterSpawnController;
-
     [Header("[UI]")]
     [SerializeField]
     private GameObject canvasAbility;
@@ -57,7 +54,7 @@ public class PlayerAbilityController : MonoBehaviour
 
     private void Start()
     {
-        monsterSpawnController.onClearWaveEvent.AddListener(StartDisplay);
+        MonsterSpawnController.onClearWaveEvent.AddListener(StartDisplay);
 
         canvasAbility.gameObject.SetActive(false);
 
@@ -90,8 +87,7 @@ public class PlayerAbilityController : MonoBehaviour
 
         StopDisplay();
 
-        if (monsterSpawnController)
-            monsterSpawnController.SkipWaveDeltaTime();
+        MonsterSpawnController.SkipWaveDeltaTime();
     }
 
     public void StopDisplay()

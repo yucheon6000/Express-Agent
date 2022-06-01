@@ -7,13 +7,17 @@ using TMPro;
 
 public class MonsterSpawnController : MonoBehaviour
 {
+    public class OnStartStage : UnityEvent<int> { }     // stageIndex
+    [HideInInspector]
+    public static OnStartStage onStartStageEvent = new OnStartStage();
+
     public class OnClearWave : UnityEvent<float> { }    // waveDeltaTime
     [HideInInspector]
-    public OnClearWave onClearWaveEvent = new OnClearWave();
+    public static OnClearWave onClearWaveEvent = new OnClearWave();
 
-    public class OnClearStage : UnityEvent { }
+    public class OnClearStage : UnityEvent<int> { }     // stageIndex
     [HideInInspector]
-    public OnClearStage onClearStageEvent = new OnClearStage();
+    public static OnClearStage onClearStageEvent = new OnClearStage();
 
     [Header("[KeyCode]")]
     [SerializeField]
@@ -28,7 +32,7 @@ public class MonsterSpawnController : MonoBehaviour
     private TextMeshProUGUI textWave;
 
     private bool isStarted = false;
-    private bool skipWaveDeltaTime = false;
+    private static bool skipWaveDeltaTime = false;
     private MonsterSpawnControlInfo controlInfo;
 
     private void Update()
@@ -40,7 +44,7 @@ public class MonsterSpawnController : MonoBehaviour
         }
     }
 
-    public void SkipWaveDeltaTime()
+    public static void SkipWaveDeltaTime()
     {
         // 어빌리티를 선택했을 경우
         skipWaveDeltaTime = true;
@@ -61,10 +65,12 @@ public class MonsterSpawnController : MonoBehaviour
         int maxWaveCnt = Mathf.Min(Mathf.Max(info.minWaveCount, info.maxWaveCount), info.monsterSpawnWaves.Length);
         int waveCnt = Random.Range(minWaveCnt, maxWaveCnt + 1);
 
+        onStartStageEvent.Invoke(info.stageIndex);
+
         // stageDelayTimeAtStart초 만큼 쉬면서
         // 스테이지 시작 UI 활성화
         textWave.gameObject.SetActive(true);
-        textWave.text = $"<size=40>STAGE</size>\nSTART!";
+        textWave.text = $"<size=40>STAGE {info.stageIndex + 1}</size>\nSTART!";
         yield return new WaitForSeconds(info.stageDelayTimeAtStart);
         textWave.gameObject.SetActive(false);
 
@@ -117,7 +123,7 @@ public class MonsterSpawnController : MonoBehaviour
         textWave.gameObject.SetActive(false);
 
         // 이벤트 호출
-        onClearStageEvent.Invoke();
+        onClearStageEvent.Invoke(info.stageIndex);
         isStarted = false;
     }
 
@@ -172,6 +178,7 @@ public class MonsterSpawnController : MonoBehaviour
 [System.Serializable]
 public class MonsterSpawnControlInfo
 {
+    public int stageIndex;
     public float stageDelayTimeAtStart;
     public float stageDelayTimeAtEnd;
     public MonsterSpawnWave[] monsterSpawnWaves;

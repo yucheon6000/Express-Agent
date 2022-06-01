@@ -19,6 +19,12 @@ public class MonsterSpawnTrigger : MonoBehaviour
 
     private new Collider2D collider2D;
 
+    private void Awake()
+    {
+        if (!monsterSpawnController)
+            monsterSpawnController = GameObject.FindObjectOfType<MonsterSpawnController>();
+    }
+
     private void Start()
     {
         // 타켓 타일 위치 목록 저장

@@ -9,31 +9,60 @@ public class DoorCollision : Collision
     public OnEnterDoor onEnterDoorEvent = new OnEnterDoor();
 
     [SerializeField]
+    private int stageIndex;
+
+    [SerializeField]
     private GameObject fromMap;
     [SerializeField]
     private GameObject toMap;
     [SerializeField]
     private Transform targetPosition;
+    private bool playerIsEnter = false;
+
+    [SerializeField]
+    private Animator animator;
+    [SerializeField]
+    private float animateTime;
+
+    [Header("@Debug")]
     [SerializeField]
     private bool isOpen = false;
-    private bool playerIsEnter = false;
     [SerializeField]
-    private MonsterSpawnController monsterSpawnController;
+    private bool finishedAnimation = false;
 
     private void Start()
     {
-        monsterSpawnController.onClearStageEvent.AddListener(this.Open);
+        MonsterSpawnController.onStartStageEvent.AddListener(this.Close);
+        MonsterSpawnController.onClearStageEvent.AddListener(this.Open);
     }
 
-    private void Open()
+    private void Close(int stageIndex)
     {
+        if (this.stageIndex != stageIndex) return;
+
+        animator.Play("Close", -1);
+    }
+
+    private void Open(int stageIndex)
+    {
+        if (this.stageIndex != stageIndex) return;
+
         isOpen = true;
-        print("Door is opened");
+        StartCoroutine(OpenRoutine());
+    }
+
+    private IEnumerator OpenRoutine()
+    {
+        animator.Play("Open", -1);
+
+        yield return new WaitForSeconds(animateTime);
+
+        finishedAnimation = true;
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (!isOpen) return;
+        if (!isOpen || !finishedAnimation) return;
         if (playerIsEnter) return;
         if (!other.CompareTag(PlayerCollision.TAG)) return;
         if (other.GetComponentInParent<Player>() != Player.Main) return;
