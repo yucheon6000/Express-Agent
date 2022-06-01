@@ -91,11 +91,13 @@ public class MonsterSpawnController : MonoBehaviour
             while (timer < info.waveDeltaTime)
             {
                 timer += Time.deltaTime;
+                Player.CantAttack(true);    // 공격 금지
 
                 if (skipWaveDeltaTime) break;
 
                 yield return null;
             }
+            Player.CantAttack(false);
         }
 
         // 스테이지 클리어 UI 활성화

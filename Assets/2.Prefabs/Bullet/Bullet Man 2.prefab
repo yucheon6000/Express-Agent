@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b8f5496a5ea61402a8fd188f99317fbc, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.65882355}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -151,6 +151,8 @@ MonoBehaviour:
     moveSpeed: 8
     knockBack: 0
     scatter: 10
+  autoFlipY: 0
+  spriteRenderer: {fileID: 0}
   movement: {fileID: 6717062040357961970}
   isEnterTrigger: 1
   multipleAttackDeltaTime: 1

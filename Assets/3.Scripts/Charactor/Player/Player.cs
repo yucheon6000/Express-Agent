@@ -19,6 +19,8 @@ public class Player : Character
     public static int CurrentStaminaCount => currentStaminaCount;
     private static int maxStaminaCount = 0;
     public static int MaxStaminaCount => maxStaminaCount;
+    private static bool cantAttack = false;
+    public static bool CantAttack(bool cant) => cantAttack = cant;
 
     public static Player Main => main;
 
@@ -51,15 +53,23 @@ public class Player : Character
     private PlayerAnimator bottomAnimator;
 
     // 사이드킥 자동 공격
+    [Header("[Sidekick Auto Attack]")]
+    [SerializeField]
+    private float sidekickAttackDelayTime = 5;
+    [SerializeField]
+    private float sidekickAttackTime = 3;
+    [SerializeField]
+    private float sidekickMinMainPlayerDistance = 4;
     private CollisionDetector monsterDetector;
     private Transform targetMonster;
     private bool isSidekickAttacking = false;
 
     public override Vector3 TargetPosition => playerCollision.ColliderPosition;
 
-    [Header("UI")]
+    [Header("[UI]")]
     [SerializeField]
     private PlayerAttackListDisplayer playerAttackListDisplayer;
+
 
     [Header("@TEST")]
     [SerializeField]
@@ -154,7 +164,8 @@ public class Player : Character
 
     private void UpdateMainPlayerAttack()
     {
-        if (!knockBack.IsKnockBacking && !weapon.IsTrigger && Input.GetMouseButton(0))
+        // 공격 시작
+        if (!knockBack.IsKnockBacking && !weapon.IsTrigger && Input.GetMouseButton(0) && !cantAttack)
         {
             weapon.StartTrigger();
 
@@ -162,7 +173,9 @@ public class Player : Character
             foreach (PlayerAnimator animator in animators)
                 animator.SetState(PlayerAnimator.IsAttacking, true);
         }
-        else if ((weapon.IsTrigger && Input.GetMouseButtonUp(0)) || (weapon.IsTrigger && knockBack.IsKnockBacking))
+
+        // 공격 중지
+        else if (weapon.IsTrigger && (Input.GetMouseButtonUp(0) || knockBack.IsKnockBacking || cantAttack))
         {
             weapon.StopTrigger();
 
@@ -318,9 +331,6 @@ public class Player : Character
     private IEnumerator UpdateSidekickPlayerAttackRoutine()
     {
         float timer = 0;
-        float attackDelayTime = 5;
-        float attackTime = 3;
-        float minMainPlayerDistance = 4f;
 
         while (true)
         {
@@ -328,9 +338,9 @@ public class Player : Character
                 timer = 0;
             timer += Time.deltaTime;
 
-            if (timer >= attackDelayTime
+            if (timer >= sidekickAttackDelayTime
                 && targetMonster && targetMonster.gameObject.activeSelf
-                && Vector2.Distance(TargetPosition, Player.main.TargetPosition) <= minMainPlayerDistance)
+                && Vector2.Distance(TargetPosition, Player.main.TargetPosition) <= sidekickMinMainPlayerDistance)
             {
                 // 공격 시작
                 isSidekickAttacking = true;
@@ -339,9 +349,9 @@ public class Player : Character
                     animator.SetState(PlayerAnimator.IsAttacking, true);
 
                 // 공격 중
-                while (timer < attackTime
+                while (timer < sidekickAttackTime
                         && targetMonster && targetMonster.gameObject.activeSelf
-                        && Vector2.Distance(TargetPosition, Player.main.TargetPosition) <= minMainPlayerDistance)
+                        && Vector2.Distance(TargetPosition, Player.main.TargetPosition) <= sidekickMinMainPlayerDistance)
                 {
                     timer += Time.deltaTime;
 
