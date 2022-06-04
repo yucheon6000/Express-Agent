@@ -19,6 +19,8 @@ public abstract class Ability : MonoBehaviour
     [SerializeField]
     protected string abilityDescription;
     public string AbilityDescription => abilityDescription;
+    [SerializeField]
+    protected Sprite abilityIconSprite;
 
     public OnClickAbilityEvent onClickAbilityEvent = new OnClickAbilityEvent();
 
@@ -29,6 +31,8 @@ public abstract class Ability : MonoBehaviour
     protected TextMeshProUGUI textSubName;
     [SerializeField]
     protected TextMeshProUGUI textDescription;
+    [SerializeField]
+    protected Image imageIcon;
 
     protected Button button;
 
@@ -55,6 +59,8 @@ public abstract class Ability : MonoBehaviour
             textSubName.text = abilitySubName;
         if (textDescription)
             textDescription.text = abilityDescription;
+        if (imageIcon)
+            imageIcon.sprite = abilityIconSprite;
     }
 
     public virtual void OnClickAbility()

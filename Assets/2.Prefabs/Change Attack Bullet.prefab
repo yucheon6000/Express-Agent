@@ -51,8 +51,14 @@ MonoBehaviour:
     moveSpeed: 0
     knockBack: 10
     scatter: 0
+  autoFlipY: 0
+  spriteRenderer: {fileID: 0}
   movement: {fileID: 0}
   particlePrefab: {fileID: 3393526244297628791, guid: 70d48b72e6f1146a39f819739d78b692, type: 3}
+  circleCollider: {fileID: 721730411551481606}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!58 &721730411551481606
 CircleCollider2D:
   m_ObjectHideFlags: 0

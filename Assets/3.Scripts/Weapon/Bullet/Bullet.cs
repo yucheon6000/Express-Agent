@@ -11,6 +11,8 @@ public abstract class Bullet : MonoBehaviour
     protected BulletStat bulletStat;
     protected Stepper<BulletStat> stepper;
     [SerializeField]
+    protected bool autoRotate = true;
+    [SerializeField]
     protected bool autoFlipY;
     [SerializeField]
     protected SpriteRenderer spriteRenderer;
@@ -20,6 +22,14 @@ public abstract class Bullet : MonoBehaviour
     protected Movement movement;
 
     protected BulletInitInfo info;
+
+    [Header("[Particle]")]
+    [SerializeField]
+    protected GameObject spawnParticlePrefab;
+    [SerializeField]
+    protected GameObject hitMonsterParticlePrefab;
+    [SerializeField]
+    protected GameObject hitObstacleParticlePrefab;
 
     protected virtual void Awake()
     {
@@ -66,6 +76,8 @@ public abstract class Bullet : MonoBehaviour
 
     protected void RotateBullet(Vector2 moveDirection)
     {
+        if (!autoRotate) return;
+
         float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
         angle = (angle + 360) % 360;
 
@@ -78,7 +90,6 @@ public abstract class Bullet : MonoBehaviour
             else
                 spriteRenderer.flipY = false;
         }
-
     }
 
     protected virtual void Update()

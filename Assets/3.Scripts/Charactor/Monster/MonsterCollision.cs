@@ -27,7 +27,6 @@ public class MonsterCollision : CharacterCollision
                 character.CharacterStat.KnockBack,
                 transform.position
             );
-            Debug.Log("HIT: Monster -> " + other.transform.parent.name);
         }
     }
 }

@@ -4,65 +4,62 @@ using UnityEngine;
 
 public class PlayerChangeAttackBullet : Bullet
 {
-    private List<MonsterCollision> monsters = new List<MonsterCollision>();
-    private List<Bullet> bullets = new List<Bullet>();
-
-    private int targetFrame = 3;
-    private int frame = 0;      // 총알 생성 후, 몬스터 및 총알의 충돌을 위해 쉬는 프레임 계산기
-
-
+    [Header("[PlayerChangeAttackBullet]")]
     [SerializeField]
     private GameObject particlePrefab;
+    [SerializeField]
+    private CircleCollider2D circleCollider;
+    [SerializeField]
+    private LayerMask layerMask;
+
+    private int frameCount = 0;
 
     protected void OnEnable()
     {
-        frame = 0;
-        monsters.Clear();
-        bullets.Clear();
+        frameCount = 0;
+
+        // 파티클 생성
+        Vector3 pos = transform.position;
+        pos.z = -1;
+        ObjectPooler.SpawnFromPool(particlePrefab.name, pos);
     }
 
     protected override void Update()
     {
-        frame++;
-        if (frame < targetFrame) return;
+        frameCount++;
+        if (frameCount < 3) return;
 
-        foreach (MonsterCollision monster in monsters)
+        // 충동 범위 안에 있는 오브젝트
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(circleCollider.bounds.center, circleCollider.bounds.extents.x, layerMask);
+
+        // 공격
+        foreach (var other in colliders)
         {
-            if (!monster.transform.parent.gameObject.activeSelf) continue;
+            if (other.CompareTag("Bullet"))
+            {
+                Bullet bullet = other.GetComponent<Bullet>();
 
-            monster.Hit(bulletStat.Attack, bulletStat.KnockBack, transform.position);
+                if (!bullet) continue;
+                if (bullet.GetOwner() == CharacterType.Player) continue;
+
+                Movement bulletMovement = bullet.GetComponent<Movement>();
+
+                if (!bulletMovement || !bulletMovement.gameObject.activeSelf) continue;
+
+                bulletMovement.SetMoveDirection(bullet.transform.position - transform.position);
+            }
+            else if (other.CompareTag(MonsterCollision.TAG))
+            {
+                MonsterCollision monster = other.GetComponent<MonsterCollision>();
+
+                if (!monster) continue;
+                if (!monster.transform.parent.gameObject.activeSelf) continue;
+
+                monster.Hit(bulletStat.Attack, bulletStat.KnockBack, transform.position);
+            }
         }
 
-        foreach (Bullet bullet in bullets)
-        {
-            Movement bulletMovement = bullet.GetComponent<Movement>();
-            if (!bulletMovement || !bulletMovement.gameObject.activeSelf) continue;
-
-            bulletMovement.SetMoveDirection(bullet.transform.position - transform.position);
-        }
-
-        // 파티클 생성
-        ObjectPooler.SpawnFromPool(particlePrefab.name, transform.position);
-
+        // 총알 비활성화 (오브젝트풀에 반납)
         gameObject.SetActive(false);
-    }
-
-    protected override void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Bullet"))
-        {
-            Bullet bullet = other.GetComponent<Bullet>();
-
-            if (bullet.GetOwner() == CharacterType.Player) return;
-
-            if (bullet)
-                bullets.Add(bullet);
-        }
-        else if (other.CompareTag(MonsterCollision.TAG))
-        {
-            MonsterCollision monster = other.GetComponent<MonsterCollision>();
-            if (monster)
-                monsters.Add(monster);
-        }
     }
 }

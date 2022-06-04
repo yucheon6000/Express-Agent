@@ -9,7 +9,7 @@ public class TotemMonster : Monster
     private Player target;
     [SerializeField]
     private Transform pivot;
-    private Vector2 moveDirecion = Vector2.zero;
+    private Vector2 moveDirection = Vector2.zero;
 
     [SerializeField]
     private ClosestTargetDetector detector;
@@ -31,6 +31,18 @@ public class TotemMonster : Monster
     private float minIdleTime = 0.5f;
     [SerializeField]
     private float maxIdleTime = 2f;
+    [SerializeField]
+    private int minAttackJumpCount = 2;
+    [SerializeField]
+    private int maxAttackJumpCount = 5;
+
+    [SerializeField]
+    private Transform footTransform;
+    [SerializeField]
+    private Transform shadowTransform;
+    private Vector3 prevShadowPosition;
+    [SerializeField]
+    private float yTotalMovedForce;
 
     protected override void Start()
     {
@@ -41,8 +53,6 @@ public class TotemMonster : Monster
         {
             target = transform.gameObject.GetComponentInParent<Player>();
             StartMove();
-            // weapon.StartTrigger();
-            animator.SetBool("isMoving", true);
         });
     }
 
@@ -50,22 +60,14 @@ public class TotemMonster : Monster
     {
         base.Update();
 
-        // 넉백 중        
-        if (knockBack.IsKnockBacking)
-        {
-            // if (agent.enabled)
-            //     agent.enabled = false;
-            return;
-        }
-        // 넉백 중 아님
-        else
-        {
-            // if (!agent.enabled)
-            //     agent.enabled = true;
+        // yTotalMovedForce += movement.MovedForce.y;
 
-            // if (movement.enabled)
-            //     movement.enabled = false;
-        }
+        // Vector3 shadowPosition = footTransform.localPosition;
+        // shadowPosition.y -= yTotalMovedForce;
+        // // shadowPosition.y += movement.MovedForce.y;
+        // print("yTotal: " + yTotalMovedForce);
+
+        // shadowTransform.localPosition = shadowPosition;
 
         // 죽었으면 타겟팅 안 함
         if (isDead) return;
@@ -73,8 +75,6 @@ public class TotemMonster : Monster
         // 타켓 있을 경우
         if (target)
         {
-            // agent.speed = characterStat.MoveSpeed;
-            // agent.SetDestination(target.TargetPosition);
         }
         // 타켓 없을 경우
         else
@@ -98,9 +98,6 @@ public class TotemMonster : Monster
         if (isDead) return;
         base.OnDead();
 
-        // agent.ResetPath();
-        // agent.enabled = false;
-
         animator.Play("Death", -1);
         Invoke("Inactive", 1.05f);
     }
@@ -109,15 +106,12 @@ public class TotemMonster : Monster
     {
         base.OnEnable();
 
-        // movement.enabled = true;
-        // agent.enabled = true;
-
         Transform targetTransform = detector.Target;
         if (targetTransform)
             target = targetTransform.GetComponent<Player>();
 
         animator.SetBool("isMoving", false);
-        animator.SetBool("isDead", false);
+        animator.SetBool("isAttacking", false);
     }
 
     private bool isMoving = false;
@@ -135,15 +129,25 @@ public class TotemMonster : Monster
     {
         // 점프(이동)
         int jumpCount = Random.Range(minJumpCount, maxJumpCount + 1);
+        animator.SetBool("isMoving", true);
         for (int i = 0; i < jumpCount; i++)
         {
-            print("jump " + i);
             yield return StartCoroutine(JumpRoutine());
-
             yield return new WaitForSeconds(jumpDeltaTime);
         }
+        animator.SetBool("isMoving", false);
 
         // 공격
+        int attackJumpCount = Random.Range(minAttackJumpCount, maxAttackJumpCount + 1);
+        weapon.StartTrigger();
+        animator.SetBool("isAttacking", true);
+        for (int i = 0; i < attackJumpCount; i++)
+        {
+            yield return StartCoroutine(JumpRoutine(Vector2.zero));
+            yield return new WaitForSeconds(jumpDeltaTime);
+        }
+        weapon.StopTrigger();
+        animator.SetBool("isAttacking", false);
 
         // 쉬기
         isMoving = false;
@@ -154,7 +158,16 @@ public class TotemMonster : Monster
 
     private IEnumerator JumpRoutine()
     {
+
+
         UpdateMoveDirection();
+        yield return StartCoroutine(JumpRoutine(moveDirection));
+    }
+
+    private IEnumerator JumpRoutine(Vector2 moveDirection)
+    {
+
+        // yTotalMovedForce = 0;
 
         float timer = 0;
         float percent = 0;
@@ -165,10 +178,16 @@ public class TotemMonster : Monster
             percent = timer / jumpTime;
 
             Vector2 jumpAmount = Vector2.up * jumpForce * Mathf.Sin(percent * Mathf.PI);
-            Vector2 moveAmount = moveDirecion * CharacterStat.MoveSpeed;
+            Vector2 moveAmount = moveDirection * CharacterStat.MoveSpeed;
             moveAmount += jumpAmount;
             movement.SetMoveSpeed(moveAmount.magnitude);
             movement.SetMoveDirection(moveAmount);
+
+            // yTotalMovedForce += Mathf.Sign(Mathf.Sin(percent * Mathf.PI)) * Mathf.Abs(movement.MovedForce.y);
+            // print(yTotalMovedForce);
+
+            // shadowTransform.position = footTransform.position;
+            // shadowTransform.position -= new Vector3(0, yTotalMovedForce * 2, 0);
 
             yield return null;
         }
@@ -176,8 +195,8 @@ public class TotemMonster : Monster
 
     private void UpdateMoveDirection()
     {
-        moveDirecion = target.transform.position - pivot.position;
-        moveDirecion.Normalize();
+        moveDirection = target.transform.position - pivot.position;
+        moveDirection.Normalize();
     }
 
     private void OnDrawGizmos()

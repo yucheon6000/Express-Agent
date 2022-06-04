@@ -7,7 +7,6 @@ public class SwitchBullet : StraightBullet
     [Header("[Switch Bullet]")]
     [SerializeField]
     private float enableDistance = 10;
-    private float distance = 0;
     private Vector3 startPosition;
     private bool enable = false;
 
@@ -17,7 +16,6 @@ public class SwitchBullet : StraightBullet
     public override void Init(BulletInitInfo info)
     {
         base.Init(info);
-        distance = 0;
         startPosition = transform.position;
         enable = false;
         SetColorA(0);

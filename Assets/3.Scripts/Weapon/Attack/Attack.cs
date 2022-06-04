@@ -189,4 +189,9 @@ public class Attack : MonoBehaviour, NeedCharacterStat
         if (isMinimumMode) SetAttackLevel(0);
         else SetAttackLevel(attackLevel);
     }
+
+    public void FillAttackGageUI()
+    {
+        StartCoroutine(FillAttackGageUI(0));
+    }
 }

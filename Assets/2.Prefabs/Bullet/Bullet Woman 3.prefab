@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6717062040357961970}
   - component: {fileID: 1916844970152324467}
   - component: {fileID: 7908417124944570366}
+  - component: {fileID: 1474582369559674613}
   m_Layer: 7
   m_Name: Bullet Woman 3
   m_TagString: Bullet
@@ -30,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 2356771059136709977}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -105,7 +106,12 @@ MonoBehaviour:
     moveSpeed: 7
     knockBack: 7
     scatter: 0
+  autoFlipY: 0
+  spriteRenderer: {fileID: 0}
   movement: {fileID: 6717062040357961970}
+  spawnParticlePrefab: {fileID: 0}
+  hitMonsterParticlePrefab: {fileID: 0}
+  hitObstacleParticlePrefab: {fileID: 0}
   isEnterTrigger: 1
   multipleAttackDeltaTime: 1
   ignoreObstacle: 0
@@ -169,3 +175,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1474582369559674613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2356771059136709977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea71d7d90cda496bae87706bad2f606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addAmountPerUnit: 0.15

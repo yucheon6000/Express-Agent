@@ -31,6 +31,11 @@ public class ClosestTargetDetector : MonoBehaviour
         collisionDetector.AddCollisionDetectAction(CheckClosestTarget);
     }
 
+    private void OnEnable()
+    {
+        target = null;
+    }
+
     private void CheckClosestTarget(Transform targetTransform, string tag, DetectType detectType)
     {
         if (!target && detectType != DetectType.Exit)

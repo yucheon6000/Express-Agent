@@ -40,6 +40,10 @@ public class DroneMonster : Monster
         {
             if (agent.enabled)
                 agent.enabled = false;
+
+            if (!movement.enabled)
+                movement.enabled = true;
+
             return;
         }
         // 넉백 중 아님

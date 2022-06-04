@@ -8,16 +8,24 @@ public class PlayerGodMode : MonoBehaviour
     private float godModeTime = 0.5f;
     [SerializeField]
     private int godModeFadeCount = 5;
+    [SerializeField]
+    private float hitTime = 0.3f;
+    [SerializeField]
+    private float hitCount = 1;
 
     [SerializeField]
     private float minAlpha = 0.3f;
     [SerializeField]
     private float maxAlpha = 1f;
 
+    [SerializeField]
     private bool isGodMode = false;
     public bool IsGodMode => isGodMode;
 
     private Coroutine coroutine;
+
+    private Shader shaderGUItext;
+    private Shader shaderSpritesDefault;
 
     [SerializeField]
     private SpriteRenderer spriteRenderer;
@@ -27,6 +35,9 @@ public class PlayerGodMode : MonoBehaviour
         if (isGodMode) return;
 
         coroutine = StartCoroutine(GodModeRoutine());
+
+        shaderGUItext = Shader.Find("GUI/Text Shader");
+        shaderSpritesDefault = Shader.Find("Sprites/Default");
     }
 
     public void StopGodMode()
@@ -42,14 +53,26 @@ public class PlayerGodMode : MonoBehaviour
     {
         isGodMode = true;
 
-        float timeOnce = godModeTime / (godModeFadeCount * 2);
+        float timeOnce = hitTime / (hitCount * 3);
 
+        for (int i = 0; i < hitCount; ++i)
+        {
+            yield return StartCoroutine(SetColor(Color.red, timeOnce));
+            yield return StartCoroutine(SetColor(Color.white, timeOnce));
+            yield return StartCoroutine(SetOrigin(timeOnce));
+        }
+
+        SetOrigin();
+        SetAlpha(1);
+
+        timeOnce = (godModeTime - hitCount) / (godModeFadeCount * 3);
         for (int i = 0; i < godModeFadeCount; ++i)
         {
             yield return StartCoroutine(ImageFadeRoutine(maxAlpha, minAlpha, timeOnce));
             yield return StartCoroutine(ImageFadeRoutine(minAlpha, maxAlpha, timeOnce));
         }
 
+        SetOrigin();
         SetAlpha(1);
 
         isGodMode = false;
@@ -80,5 +103,25 @@ public class PlayerGodMode : MonoBehaviour
         color.a = a;
 
         spriteRenderer.color = color;
+    }
+
+    private IEnumerator SetColor(Color color, float time)
+    {
+        spriteRenderer.material.shader = shaderGUItext;
+        spriteRenderer.color = color;
+        yield return new WaitForSeconds(time);
+    }
+
+    private IEnumerator SetOrigin(float time)
+    {
+        spriteRenderer.material.shader = shaderSpritesDefault;
+        spriteRenderer.color = Color.white;
+        yield return new WaitForSeconds(time);
+    }
+
+    private void SetOrigin()
+    {
+        spriteRenderer.material.shader = shaderSpritesDefault;
+        spriteRenderer.color = Color.white;
     }
 }

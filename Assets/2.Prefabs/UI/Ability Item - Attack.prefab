@@ -156,11 +156,24 @@ MonoBehaviour:
   abilityName: 
   abilitySubName: 
   abilityDescription: 
+  abilityIconSprite: {fileID: 0}
   textName: {fileID: 4807298995305398324}
   textSubName: {fileID: 6362268103467253832}
   textDescription: {fileID: 6955024212774128328}
+  imageIcon: {fileID: 6027438651191494131}
   weapon: {fileID: 0}
   attack: {fileID: 0}
+--- !u!114 &6027438651191494131 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5554521209168466044, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
+  m_PrefabInstance: {fileID: 2211368679154029967}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6362268103467253832 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5114696341558154695, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}

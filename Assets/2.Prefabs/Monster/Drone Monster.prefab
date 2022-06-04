@@ -125,7 +125,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5587273469749669300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.008, y: 0.407, z: 0}
+  m_LocalPosition: {x: 0.008, y: 0.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -285,8 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f59fb1017224a45bfbd88d90c52238f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attacks:
-  - {fileID: 6083123835717275943}
+  attacks: []
   debugMode: 0
   debugCharactorStat:
     characterType: 0
@@ -532,7 +531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterStat:
     characterType: 1
-    health: 30
+    health: 60
     moveSpeed: 4
     attack: 3
     knockBack: 1
