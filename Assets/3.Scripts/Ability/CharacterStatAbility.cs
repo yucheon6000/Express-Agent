@@ -69,6 +69,8 @@ public class CharacterStatAbility : Ability
                 break;
         }
 
+        character.GetComponent<Player>()?.PowerUp();
+
         base.OnClickAbility();
     }
 

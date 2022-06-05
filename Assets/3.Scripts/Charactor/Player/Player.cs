@@ -47,7 +47,7 @@ public class Player : Character
     private PlayerAngleDetector angleDetector;
     private PlayerCollision playerCollision;
     private PlayerGodMode godMode;
-    private PlayerAnimator[] animators;
+    private PlayerAnimator animator;
     [Header("[Component]")]
     [SerializeField]
     private PlayerAnimator bottomAnimator;
@@ -85,7 +85,7 @@ public class Player : Character
         angleDetector = GetComponent<PlayerAngleDetector>();
         playerCollision = GetComponentInChildren<PlayerCollision>();
         godMode = GetComponent<PlayerGodMode>();
-        animators = GetComponentsInChildren<PlayerAnimator>();
+        animator = GetComponent<PlayerAnimator>();
         monsterDetector = GetComponentInChildren<CollisionDetector>();
 
         maxHp = Mathf.Max(maxHp, characterStat.Health);
@@ -158,8 +158,7 @@ public class Player : Character
         movement.SetMoveDirection(moveDir);
 
         // 애니메이션
-        foreach (PlayerAnimator animator in animators)
-            animator.SetState(PlayerAnimator.IsMoving, moveDir.Equals(Vector3.zero) ? false : true);
+        animator.SetState(PlayerAnimator.IsMoving, moveDir.Equals(Vector3.zero) ? false : true);
     }
 
     private void UpdateMainPlayerAttack()
@@ -170,8 +169,7 @@ public class Player : Character
             weapon.StartTrigger();
 
             // 애니메이션
-            foreach (PlayerAnimator animator in animators)
-                animator.SetState(PlayerAnimator.IsAttacking, true);
+            animator.SetState(PlayerAnimator.IsAttacking, true);
         }
 
         // 공격 중지
@@ -180,8 +178,7 @@ public class Player : Character
             weapon.StopTrigger();
 
             // 애니메이션
-            foreach (PlayerAnimator animator in animators)
-                animator.SetState(PlayerAnimator.IsAttacking, false);
+            animator.SetState(PlayerAnimator.IsAttacking, false);
         }
     }
 
@@ -282,8 +279,7 @@ public class Player : Character
         if (isSidekickAttacking) return;
 
         // 애니메이션
-        foreach (PlayerAnimator animator in animators)
-            animator.SetState(PlayerAnimator.IsMoving, agent.velocity.Equals(Vector3.zero) ? false : true);
+        animator.SetState(PlayerAnimator.IsMoving, agent.velocity.Equals(Vector3.zero) ? false : true);
 
         if (!agent.velocity.Equals(Vector3.zero))
             angleDetector.SetAngleIndexByDirection(agent.velocity);
@@ -345,8 +341,7 @@ public class Player : Character
                 // 공격 시작
                 isSidekickAttacking = true;
                 timer = 0;
-                foreach (PlayerAnimator animator in animators)
-                    animator.SetState(PlayerAnimator.IsAttacking, true);
+                animator.SetState(PlayerAnimator.IsAttacking, true);
 
                 // 공격 중
                 while (timer < sidekickAttackTime
@@ -371,8 +366,7 @@ public class Player : Character
                 // 공격 끝
                 isSidekickAttacking = false;
                 timer = 0;
-                foreach (PlayerAnimator animator in animators)
-                    animator.SetState(PlayerAnimator.IsAttacking, false);
+                animator.SetState(PlayerAnimator.IsAttacking, false);
                 weapon.StopTrigger();
                 print("START ATTAK");
             }
@@ -396,8 +390,7 @@ public class Player : Character
         KnockBack(hitPosition, knockBack);
 
         // 애니메이션
-        foreach (PlayerAnimator animator in animators)
-            animator.Hit(hitPosition.x > TargetPosition.x ? PlayerAnimator.HitLeft : PlayerAnimator.HitRight);
+        animator.Hit(hitPosition.x > TargetPosition.x ? PlayerAnimator.HitLeft : PlayerAnimator.HitRight);
     }
 
     public void UpdatePlayerType(PlayerType playerType, bool init = false)
@@ -424,8 +417,7 @@ public class Player : Character
             weapon.StopTrigger();
 
             // 애니메이션
-            foreach (PlayerAnimator animator in animators)
-                animator.SetState(PlayerAnimator.IsAttacking, false);
+            animator.SetState(PlayerAnimator.IsAttacking, false);
         }
 
         // 사이드킥 공격 루틴 시작 또는 정지
@@ -503,8 +495,7 @@ public class Player : Character
         StopSidekickRoutine();
 
         // 애니메이션
-        foreach (PlayerAnimator animator in animators)
-            animator.Dead();
+        animator.Dead();
     }
 
     public void MoveTo(Vector3 position)
@@ -514,5 +505,10 @@ public class Player : Character
 
         if (playerType == PlayerType.Sidekick)
             agent.enabled = true;
+    }
+
+    public void PowerUp()
+    {
+        animator.PowerUp();
     }
 }

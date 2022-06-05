@@ -12,6 +12,7 @@ public class AttackLevelAbility : Ability
 
     public override void OnClickAbility()
     {
+        attack.GetComponentInParent<Player>()?.PowerUp();
         attack.IncreaseAttackLevel(level);
         base.OnClickAbility();
     }

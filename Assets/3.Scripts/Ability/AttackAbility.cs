@@ -12,6 +12,7 @@ public class AttackAbility : Ability
 
     public override void OnClickAbility()
     {
+        weapon.GetComponentInParent<Player>()?.PowerUp();
         attack.FillAttackGageUI();
         weapon.AddAttack(attack);
         base.OnClickAbility();
