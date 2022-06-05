@@ -28,16 +28,19 @@ public class PlayerGodMode : MonoBehaviour
     private Shader shaderSpritesDefault;
 
     [SerializeField]
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer[] spriteRenderers;
+
+    private void Start()
+    {
+        shaderGUItext = Shader.Find("GUI/Text Shader");
+        shaderSpritesDefault = Shader.Find("Sprites/Default");
+    }
 
     public void StartGodMode()
     {
         if (isGodMode) return;
 
         coroutine = StartCoroutine(GodModeRoutine());
-
-        shaderGUItext = Shader.Find("GUI/Text Shader");
-        shaderSpritesDefault = Shader.Find("Sprites/Default");
     }
 
     public void StopGodMode()
@@ -99,29 +102,41 @@ public class PlayerGodMode : MonoBehaviour
 
     private void SetAlpha(float a)
     {
-        Color color = spriteRenderer.color;
-        color.a = a;
+        foreach (var spriteRenderer in spriteRenderers)
+        {
+            Color color = spriteRenderer.color;
+            color.a = a;
 
-        spriteRenderer.color = color;
+            spriteRenderer.color = color;
+        }
     }
 
     private IEnumerator SetColor(Color color, float time)
     {
-        spriteRenderer.material.shader = shaderGUItext;
-        spriteRenderer.color = color;
+        foreach (var spriteRenderer in spriteRenderers)
+        {
+            spriteRenderer.color = color;
+            spriteRenderer.material.shader = shaderGUItext;
+        }
         yield return new WaitForSeconds(time);
     }
 
     private IEnumerator SetOrigin(float time)
     {
-        spriteRenderer.material.shader = shaderSpritesDefault;
-        spriteRenderer.color = Color.white;
+        foreach (var spriteRenderer in spriteRenderers)
+        {
+            spriteRenderer.color = Color.white;
+            spriteRenderer.material.shader = shaderSpritesDefault;
+        }
         yield return new WaitForSeconds(time);
     }
 
     private void SetOrigin()
     {
-        spriteRenderer.material.shader = shaderSpritesDefault;
-        spriteRenderer.color = Color.white;
+        foreach (var spriteRenderer in spriteRenderers)
+        {
+            spriteRenderer.material.shader = shaderSpritesDefault;
+            spriteRenderer.color = Color.white;
+        }
     }
 }

@@ -949,9 +949,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   godModeTime: 1.5
   godModeFadeCount: 5
+  hitTime: 0.3
+  hitCount: 1
   minAlpha: 0.3
   maxAlpha: 1
-  spriteRenderer: {fileID: 625592623155840108}
+  isGodMode: 0
+  spriteRenderers:
+  - {fileID: 625592623155840108}
+  - {fileID: 1967644954095064438}
 --- !u!114 &625592623469265944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1672,6 +1677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackLevel: 0
   bulletPrefab: {fileID: 0}
+  bulletStep: 0
   shootStats:
   - breakable: 1
     bulletCount: 1
@@ -3353,6 +3359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: 6b40e49a629ca47de930b5dc698df1d5, type: 3}
+  bulletStep: 0
   shootStats:
   - breakable: 0
     bulletCount: 1

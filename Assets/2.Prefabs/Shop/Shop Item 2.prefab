@@ -67,5 +67,13 @@ PrefabInstance:
       propertyPath: abilityDescription
       value: "\uC774\uC18D 5 \uC5C5!"
       objectReference: {fileID: 0}
+    - target: {fileID: 4978032975677335235, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e63acdd77a5264dcfb2b79272ef6fdd6, type: 3}
+    - target: {fileID: 7574360578203726781, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4f89eb20eea1e4b4fae0e4105776852c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51ca8088818534925a5915a3d27f8868, type: 3}

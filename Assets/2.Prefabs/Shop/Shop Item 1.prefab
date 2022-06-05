@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 306191533336526021, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
       propertyPath: m_Name
-      value: Shop Item 0
+      value: Shop Item 1
       objectReference: {fileID: 0}
     - target: {fileID: 3346937153865702882, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
       propertyPath: amount
@@ -67,5 +67,13 @@ PrefabInstance:
       propertyPath: abilityDescription
       value: "\uC774\uC18D 5 \uC5C5!"
       objectReference: {fileID: 0}
+    - target: {fileID: 4978032975677335235, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3a4ec008bdc4740568fdd6580d3e2889, type: 3}
+    - target: {fileID: 7574360578203726781, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bed842b9a9a734af48301004ab24383a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
