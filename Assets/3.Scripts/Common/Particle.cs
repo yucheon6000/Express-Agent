@@ -8,6 +8,14 @@ public class Particle : MonoBehaviour
     [SerializeField]
     private new ParticleSystem particleSystem;
 
+    private void Awake()
+    {
+        if (!particleSystem)
+            particleSystem = GetComponent<ParticleSystem>();
+        if (!particleSystem)
+            particleSystem = GetComponentInChildren<ParticleSystem>();
+    }
+
     private void OnEnable()
     {
         particleSystem.Play();

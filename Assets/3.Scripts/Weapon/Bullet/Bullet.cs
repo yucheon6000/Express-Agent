@@ -25,11 +25,13 @@ public abstract class Bullet : MonoBehaviour
 
     [Header("[Particle]")]
     [SerializeField]
-    protected GameObject spawnParticlePrefab;
-    [SerializeField]
-    protected GameObject hitMonsterParticlePrefab;
+    protected GameObject hitEnemyParticlePrefab;
     [SerializeField]
     protected GameObject hitObstacleParticlePrefab;
+    [SerializeField]
+    protected float hitEnemyParticleScale = 1;
+    [SerializeField]
+    protected float hitObstacleParticleScale = 1;
 
     protected virtual void Awake()
     {
@@ -151,10 +153,17 @@ public abstract class Bullet : MonoBehaviour
             bulletStat.KnockBack,
             transform.position
         );
+
+        if (!hitEnemyParticlePrefab) return;
+        GameObject particle = ObjectPooler.SpawnFromPool(hitEnemyParticlePrefab.name, transform.position, transform.rotation);
+        particle.transform.localScale *= hitEnemyParticleScale;
     }
 
     protected virtual void HitObstacle()
     {
+        if (!hitObstacleParticlePrefab) return;
+        GameObject particle = ObjectPooler.SpawnFromPool(hitObstacleParticlePrefab.name, transform.position, transform.rotation);
+        particle.transform.localScale *= hitObstacleParticleScale;
     }
 
     public CharacterType GetOwner() => bulletStat.CharacterStat.CharacterType;
