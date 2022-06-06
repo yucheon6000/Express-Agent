@@ -4802,8 +4802,8 @@ MonoBehaviour:
   movement: {fileID: 6717062040357961970}
   hitEnemyParticlePrefab: {fileID: 134802, guid: 56d5ec6115cb141459da6061ac29cf02, type: 3}
   hitObstacleParticlePrefab: {fileID: 134802, guid: 56d5ec6115cb141459da6061ac29cf02, type: 3}
-  hitEnemyParticleScale: 0.4
-  hitObstacleParticleScale: 0.2
+  hitEnemyParticleScale: 0
+  hitObstacleParticleScale: 0
   isEnterTrigger: 1
   multipleAttackDeltaTime: 1
   ignoreObstacle: 0
@@ -4837,7 +4837,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.7708333, y: 2.0208333}
+    oldSize: {x: 0.38541666, y: 1.0104166}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
