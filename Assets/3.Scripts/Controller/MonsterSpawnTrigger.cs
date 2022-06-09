@@ -9,6 +9,7 @@ public class MonsterSpawnTrigger : MonoBehaviour
     private MonsterSpawnController monsterSpawnController;
     [SerializeField]
     private MonsterSpawnControlInfo monsterSpawnControlInfo;
+    public List<Vector2> TargetTilePositions => monsterSpawnControlInfo.targetTilePositions;
     [SerializeField]
     private Tilemap targetTilemap;
     [SerializeField]
@@ -53,7 +54,7 @@ public class MonsterSpawnTrigger : MonoBehaviour
         if (!other.CompareTag(PlayerCollision.TAG)) return;
 
         isTrigger = true;
-        monsterSpawnController.StartSpawn(monsterSpawnControlInfo);
+        monsterSpawnController.StartSpawn(monsterSpawnControlInfo, this);
         collider2D.enabled = false;
     }
 }

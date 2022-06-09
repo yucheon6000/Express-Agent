@@ -99,7 +99,7 @@ public class TotemMonster : Monster
         base.OnDead();
 
         animator.Play("Death", -1);
-        Invoke("Inactive", 1.05f);
+        Invoke(INACTIVE, 1.05f);
     }
 
     protected override void OnEnable()

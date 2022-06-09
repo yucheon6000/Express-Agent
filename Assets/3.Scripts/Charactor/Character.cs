@@ -23,6 +23,8 @@ public abstract class Character : MonoBehaviour
     [Header("[Knock Back]")]
     [SerializeField]
     protected KnockBack knockBack;
+    [SerializeField]
+    protected Transform knockBackPivot;
 
     [Header("[Weapon]")]
     [SerializeField]
@@ -57,7 +59,7 @@ public abstract class Character : MonoBehaviour
 
         if (force == 0) return;
 
-        Vector2 dir = (Vector2)transform.position - hitPosition;
+        Vector2 dir = knockBackPivot ? (Vector2)knockBackPivot.position - hitPosition : (Vector2)transform.position - hitPosition;
 
         this.knockBack.StartKnockBack(dir, force);
     }

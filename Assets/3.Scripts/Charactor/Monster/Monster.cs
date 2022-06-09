@@ -63,6 +63,7 @@ public abstract class Monster : Character
         }
     }
 
+    protected static string INACTIVE = "Inactive";
     protected void Inactive()
     {
         gameObject.SetActive(false);
@@ -79,5 +80,11 @@ public abstract class Monster : Character
     {
         weapon.StopTrigger();
         ObjectPooler.ReturnToPool(this.gameObject);
+    }
+
+    protected MonsterSpawnTrigger monsterSpawnTrigger;
+    public void SetMonsterSpawnTrigger(MonsterSpawnTrigger trigger)
+    {
+        monsterSpawnTrigger = trigger;
     }
 }

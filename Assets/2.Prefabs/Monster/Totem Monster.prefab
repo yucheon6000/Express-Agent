@@ -242,7 +242,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.0833333, y: 2.0833333}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -718,7 +718,7 @@ MonoBehaviour:
   collider2D: {fileID: 1228882899759555899}
   layer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 5120
 --- !u!61 &1228882899759555899
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -35,14 +35,7 @@ public class MonsterSpawnController : MonoBehaviour
     private static bool skipWaveDeltaTime = false;
     private MonsterSpawnControlInfo controlInfo;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(spawnKeyCode))
-        {
-            if (controlInfo != null)
-                StartSpawn(controlInfo);
-        }
-    }
+    private MonsterSpawnTrigger currentTrigger = null;
 
     public static void SkipWaveDeltaTime()
     {
@@ -50,11 +43,29 @@ public class MonsterSpawnController : MonoBehaviour
         skipWaveDeltaTime = true;
     }
 
-    public void StartSpawn(MonsterSpawnControlInfo info)
+    public void Spawn(MonsterSpawnControlInfo info)
+    {
+        if (info.monsterSpawnWaves.Length == 0) return;
+
+        MonsterSpawnWave wave = info.monsterSpawnWaves[0];
+
+        List<Vector2> spawnableTilePositions = new List<Vector2>(info.targetTilePositions);
+        List<GameObject> spawnedMonsterList = new List<GameObject>();
+
+        foreach (MonsterSpawnWaveUnit wUnit in wave.waveUnits)
+        {
+            if (!wUnit.Monster) continue;
+
+            SpawnMonster(wUnit.Monster.gameObject.name, wUnit.getSpawnCount(), ref spawnableTilePositions, ref spawnedMonsterList);
+        }
+    }
+
+    public void StartSpawn(MonsterSpawnControlInfo info, MonsterSpawnTrigger trigger)
     {
         if (isStarted) return;
         controlInfo = info;
         isStarted = true;
+        currentTrigger = trigger;
 
         StartCoroutine(SpawnRoutine(info));
     }
@@ -169,8 +180,9 @@ public class MonsterSpawnController : MonoBehaviour
 
             spawnableTilePositions.RemoveAt(idx);
 
-            GameObject monster = ObjectPooler.SpawnFromPool(monsterName, pos, Quaternion.identity);
-            spawnedMonsterList.Add(monster);
+            Monster monster = ObjectPooler.SpawnFromPool<Monster>(monsterName, pos, Quaternion.identity);
+            monster.SetMonsterSpawnTrigger(currentTrigger);
+            spawnedMonsterList.Add(monster.gameObject);
         }
     }
 }
