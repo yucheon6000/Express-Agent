@@ -60,7 +60,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,10 +109,18 @@ MonoBehaviour:
     moveSpeed: 5
     knockBack: 0
     scatter: 0
+  autoRotate: 1
+  autoFlipY: 0
+  spriteRenderer: {fileID: 0}
   movement: {fileID: 6717062040357961970}
+  hitEnemyParticlePrefab: {fileID: 0}
+  hitObstacleParticlePrefab: {fileID: 0}
+  hitEnemyParticleScale: 1
+  hitObstacleParticleScale: 1
   shoot: {fileID: 1976950043357708550}
   onHitEnemy: 1
   onHitObstacle: 1
+  onBulletDisabler: {fileID: 0}
 --- !u!114 &6717062040357961970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: cb0fe37aaee1243e2bac7a98175865d1, type: 3}
+  bulletStep: 0
   shootStats:
   - breakable: 1
     bulletCount: 10

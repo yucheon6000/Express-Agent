@@ -62,7 +62,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,9 +111,14 @@ MonoBehaviour:
     moveSpeed: 6
     knockBack: 0
     scatter: 0
+  autoRotate: 1
   autoFlipY: 1
   spriteRenderer: {fileID: 2356771059136709975}
   movement: {fileID: 6717062040357961970}
+  hitEnemyParticlePrefab: {fileID: 0}
+  hitObstacleParticlePrefab: {fileID: 0}
+  hitEnemyParticleScale: 1
+  hitObstacleParticleScale: 1
   shoot: {fileID: 2918224776765519151}
   onHitEnemy: 1
   onHitObstacle: 1
@@ -202,6 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: 94a27ac7e23124370b7723bacf4a433c, type: 3}
+  bulletStep: 0
   shootStats:
   - breakable: 1
     bulletCount: 1
@@ -226,6 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: 243607df8823344ebb06ac075a35a194, type: 3}
+  bulletStep: 0
   shootStats:
   - breakable: 1
     bulletCount: 1
@@ -250,6 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: 243607df8823344ebb06ac075a35a194, type: 3}
+  bulletStep: 0
   shootStats:
   - breakable: 1
     bulletCount: 1
@@ -274,6 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: 03e2512c797cd431f89abd49e21be1bd, type: 3}
+  bulletStep: 0
   shootStats:
   - breakable: 1
     bulletCount: 1

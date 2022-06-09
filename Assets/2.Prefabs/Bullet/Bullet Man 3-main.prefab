@@ -90,7 +90,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -143,9 +143,10 @@ MonoBehaviour:
   autoFlipY: 0
   spriteRenderer: {fileID: 0}
   movement: {fileID: 6717062040357961970}
-  spawnParticlePrefab: {fileID: 0}
-  hitMonsterParticlePrefab: {fileID: 0}
+  hitEnemyParticlePrefab: {fileID: 0}
   hitObstacleParticlePrefab: {fileID: 0}
+  hitEnemyParticleScale: 1
+  hitObstacleParticleScale: 1
   shoot: {fileID: 6863747764267627501}
   onHitEnemy: 1
   onHitObstacle: 0
@@ -177,6 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: bbc1a82278b654df282be1746588823f, type: 3}
+  bulletStep: 0
   shootStats:
   - breakable: 1
     bulletCount: 1
@@ -204,7 +206,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.64}
+    oldSize: {x: 0.083333336, y: 0.16666667}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
