@@ -490,6 +490,8 @@ public class Player : Character
         movement.MoveSpeedType = MoveSpeedType.Manual;
         movement.SetMoveSpeed(0);
         movement.SetMoveDirection(Vector2.zero);
+        knockBack.enabled = false;
+        agent.enabled = false;
 
         // 사이드킥 공격 멈춤
         StopSidekickRoutine();

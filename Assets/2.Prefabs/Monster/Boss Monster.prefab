@@ -962,7 +962,7 @@ MonoBehaviour:
     characterType: 1
     health: 5000
     moveSpeed: 4
-    attack: 1
+    attack: 50
     knockBack: 10
     knockBackResistance: 0.6
     attackSpeed: 1

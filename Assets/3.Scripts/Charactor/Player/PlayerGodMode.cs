@@ -33,7 +33,7 @@ public class PlayerGodMode : MonoBehaviour
     private void Start()
     {
         shaderGUItext = Shader.Find("GUI/Text Shader");
-        shaderSpritesDefault = Shader.Find("Sprites/Default");
+        shaderSpritesDefault = spriteRenderers.Length > 0 ? spriteRenderers[0].material.shader : Shader.Find("Sprites/Default");
     }
 
     public void StartGodMode()
