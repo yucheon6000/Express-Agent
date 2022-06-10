@@ -86,7 +86,9 @@ public class DroneMonster : Monster
         if (isDead) return;
         base.OnDead();
 
-        agent.ResetPath();
+        try { agent.ResetPath(); }
+        catch { }
+
         agent.enabled = false;
 
         animator.Play("Death", -1);

@@ -1,0 +1,152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1303858657258537805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1303858657258537803}
+  - component: {fileID: 1303858657258537802}
+  m_Layer: 0
+  m_Name: Object Pooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1303858657258537803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303858657258537805}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1303858657258537802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303858657258537805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dec08d6dfecff48a0adf21f6f2d40723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - tag: Drone Monster
+    prefab: {fileID: 6083123837041040444, guid: 6c743ae829dfd40e7b0e659058ad9bc2, type: 3}
+    size: 5
+  - tag: Totem Monster
+    prefab: {fileID: 6698975153158687773, guid: 34b15acd3d346437ea0c4e5d230fcb94, type: 3}
+    size: 1
+  - tag: Boss Monster
+    prefab: {fileID: 5994918263211427139, guid: 7479f11534de34d90ae42410ec36588b, type: 3}
+    size: 1
+  - tag: Stamina
+    prefab: {fileID: 8743632893368475297, guid: 1cb6c818b8fda4c9a95568178db27594, type: 3}
+    size: 10
+  - tag: Coin
+    prefab: {fileID: 3878961878250301262, guid: 71eb6d10606b845b68160545168bed29, type: 3}
+    size: 10
+  - tag: Bullet Player Change Attack
+    prefab: {fileID: 2356771059136709977, guid: 6b40e49a629ca47de930b5dc698df1d5, type: 3}
+    size: 1
+  - tag: Bullet Player Change Attack Effect
+    prefab: {fileID: 3393526244297628791, guid: 70d48b72e6f1146a39f819739d78b692, type: 3}
+    size: 1
+  - tag: Bullet Man 0
+    prefab: {fileID: 2356771059136709977, guid: 3c8a895d816184ddaa5e06eb2a51792e, type: 3}
+    size: 10
+  - tag: Bullet Man 1-main
+    prefab: {fileID: 2356771059136709977, guid: 7c4d067459d894a05a8b405fc7f1857b, type: 3}
+    size: 10
+  - tag: Bullet Man 1-sub
+    prefab: {fileID: 2356771059136709977, guid: 445270e9b140d4a4f8c6d13bb7b55d5d, type: 3}
+    size: 10
+  - tag: Bullet Man 2
+    prefab: {fileID: 2356771059136709977, guid: 89c810b541f224c06844ed255f376787, type: 3}
+    size: 10
+  - tag: Bullet Man 3-main
+    prefab: {fileID: 2356771059136709977, guid: 4f1d7d03fec1f4e338a6d81bdc84cc64, type: 3}
+    size: 10
+  - tag: Bullet Man 3-sub
+    prefab: {fileID: 2356771059136709977, guid: bbc1a82278b654df282be1746588823f, type: 3}
+    size: 10
+  - tag: Bullet Man 4-main
+    prefab: {fileID: 2356771059136709977, guid: 16b334c3fcb10413f8b135dcafb7ec1b, type: 3}
+    size: 10
+  - tag: Bullet Man 4-sub
+    prefab: {fileID: 2356771059136709977, guid: 89227f1ff06b34a91a67cac4e9a316df, type: 3}
+    size: 10
+  - tag: Bullet Man 5
+    prefab: {fileID: 2356771059136709977, guid: 91800500e909d456a8997fb1e1987ae5, type: 3}
+    size: 10
+  - tag: Bullet Woman 0
+    prefab: {fileID: 2356771059136709977, guid: 9e5ba4d31e4f74f5fb79f1fd032de565, type: 3}
+    size: 10
+  - tag: Bullet Woman 1
+    prefab: {fileID: 2356771059136709977, guid: 5a56201373cc549a5bd6c01d165dec5c, type: 3}
+    size: 10
+  - tag: Bullet Woman 2
+    prefab: {fileID: 2356771059136709977, guid: 503db7913699e4d41b61856dab1e2db7, type: 3}
+    size: 10
+  - tag: Bullet Woman 3
+    prefab: {fileID: 2356771059136709977, guid: 77224415a5edc4cdbb9453744d61e20c, type: 3}
+    size: 10
+  - tag: Bullet Woman 4-main
+    prefab: {fileID: 2356771059136709977, guid: 8274155d17e3f416e950e23f562b3356, type: 3}
+    size: 10
+  - tag: Bullet Woman 4-sub
+    prefab: {fileID: 2356771059136709977, guid: 1825fe425784c4b3498b33cda550c981, type: 3}
+    size: 10
+  - tag: Bullet Woman 5-main
+    prefab: {fileID: 2356771059136709977, guid: a69933bb265864871a39b6aaf3970d8d, type: 3}
+    size: 10
+  - tag: Bullet Woman 5-sub-0
+    prefab: {fileID: 2356771059136709977, guid: 94a27ac7e23124370b7723bacf4a433c, type: 3}
+    size: 10
+  - tag: Bullet Woman 5-sub-1
+    prefab: {fileID: 2356771059136709977, guid: 243607df8823344ebb06ac075a35a194, type: 3}
+    size: 10
+  - tag: Bullet Woman 5-sub-2
+    prefab: {fileID: 2356771059136709977, guid: 709bad34e8ed5413cbdfe38af2d20d76, type: 3}
+    size: 10
+  - tag: Bullet Woman 5-sub-3
+    prefab: {fileID: 2356771059136709977, guid: 03e2512c797cd431f89abd49e21be1bd, type: 3}
+    size: 10
+  - tag: Bullet Monster Totem
+    prefab: {fileID: 2356771059136709977, guid: f4e06d48fbf4046c5954a3df21cf4e37, type: 3}
+    size: 10
+  - tag: Bullet Man 0 Effect
+    prefab: {fileID: 160430, guid: 1c7ddd6db35434239af8a1c1b0f55a23, type: 3}
+    size: 10
+  - tag: Bullet Woman 0 Effect
+    prefab: {fileID: 107292, guid: 90344237bb5c74ef7aca027cfcbdc557, type: 3}
+    size: 10
+  - tag: Bullet Woman 3 Effect
+    prefab: {fileID: 134802, guid: 56d5ec6115cb141459da6061ac29cf02, type: 3}
+    size: 10
+  - tag: Bullet Monster Boss Attack1
+    prefab: {fileID: 2356771059136709977, guid: 40a8e9861744d49319ba392d816f1f5d, type: 3}
+    size: 10
+  - tag: Bullet Monster Boss Attack2
+    prefab: {fileID: 2356771059136709977, guid: b39dc97e39d264b38a42cc70ae5e666f, type: 3}
+    size: 10
+  - tag: Bullet Monster Boss Attack4-main
+    prefab: {fileID: 2356771059136709977, guid: 4740452e8382042b5ad089592c1a2778, type: 3}
+    size: 10
+  - tag: Bullet Monster Boss Attack4-sub
+    prefab: {fileID: 2356771059136709977, guid: e96eb47a00e854f8db4bd380032448c0, type: 3}
+    size: 10

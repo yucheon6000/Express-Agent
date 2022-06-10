@@ -9,6 +9,9 @@ public class BulletDisabler : MonoBehaviour
     [HideInInspector]
     public BulletDisableEvent bulletDisableEvent = new BulletDisableEvent();
 
+    [SerializeField]
+    private bool once = false;
+
     [Header("[Trigger]")]
     [SerializeField]
     private bool timeTrigger = false;
@@ -57,6 +60,10 @@ public class BulletDisabler : MonoBehaviour
 
         disable = true;
         bulletDisableEvent.Invoke();
+
         gameObject.SetActive(false);
+
+        if (once)
+            this.enabled = false;
     }
 }
