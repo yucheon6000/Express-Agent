@@ -148,6 +148,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: ac511ba11b6d044259c4d4d1e7459dba, type: 3}
   - {fileID: 21300000, guid: 05ef4bb15635f46439de9b0c34a5fba0, type: 3}
   - {fileID: 21300000, guid: c2ae9cb17464b499796d1f675eb17e1b, type: 3}
+  - {fileID: 21300000, guid: dde3a4c1765b44b249bf1bf780f1680c, type: 3}
   - {fileID: 21300000, guid: 4c3d3ec18ef594bc6903333386e78d9c, type: 3}
   - {fileID: 21300000, guid: 012e40d199dbc417daf892fd1732140c, type: 3}
   - {fileID: 21300000, guid: 9c849ad1d80934d42b38a236503fb527, type: 3}
@@ -418,6 +419,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 1b5afd461b94445eca21aeff01e1c5e9, type: 3}
   - {fileID: 21300000, guid: 8bea1156a2f834533a33e5d378665567, type: 3}
   - {fileID: 21300000, guid: c5cd1256300c741c9baa86d5abe958eb, type: 3}
+  - {fileID: 21300000, guid: cf926256338604f45bb58877bcc61b34, type: 3}
   - {fileID: 21300000, guid: a587f956e77cc4339a973db6d34e68b6, type: 3}
   - {fileID: 21300000, guid: 97bbdb56f1648497b88c34602ce4ca7a, type: 3}
   - {fileID: 21300000, guid: b2b7fd5654fe243ceaa4d75065a4c696, type: 3}
@@ -775,6 +777,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8bd5302c4973d45adbadcd386e3c3502, type: 3}
   - {fileID: 21300000, guid: fb02b12cfe3d04a8895a2ef2aa00c507, type: 3}
   - {fileID: 21300000, guid: af9b162c10bb14d8ea44c505ead389a1, type: 3}
+  - {fileID: 21300000, guid: 15eb172c290ca4eb9b2b2e5a32c91f34, type: 3}
   - {fileID: 21300000, guid: ef8f7b2c0acde4fa89ab6f93ad720371, type: 3}
   - {fileID: 21300000, guid: 2754fd2c6197b46cea05295d453a2d41, type: 3}
   - {fileID: 21300000, guid: 03628e2c6658043cc9ab5e3756dcf93f, type: 3}
@@ -1092,6 +1095,7 @@ SpriteAtlas:
   - WC_R_U_1_03
   - E_VT_D_1
   - BOSS_1_pattern_1_02
+  - City_View
   - MC_RG_U_4_08
   - WC_H_4_04
   - WC_B_U_1_04
@@ -1362,6 +1366,7 @@ SpriteAtlas:
   - WC_RG_L_3_02
   - MC_RG_U_3_07
   - MC_RG_L_3_02
+  - City_View_Light
   - WC_B_L_7_02
   - MC_R_U_0_05
   - WC_BG_U_3_03
@@ -1719,6 +1724,7 @@ SpriteAtlas:
   - MC_RG_L_4_04
   - MC_R_U_4_06
   - S_Item_05
+  - C1_W_B_CC_01
   - WC_D_4_07
   - MC_D_4_01
   - WC_R_U_4_02
