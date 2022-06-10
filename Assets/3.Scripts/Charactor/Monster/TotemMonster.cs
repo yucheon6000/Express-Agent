@@ -51,6 +51,8 @@ public class TotemMonster : Monster
 
         detector.onUpdatedClosestTarget.AddListener((transform, _) =>
         {
+            if (isDead) return;
+
             target = transform.gameObject.GetComponentInParent<Player>();
             StartMove();
         });
@@ -97,6 +99,8 @@ public class TotemMonster : Monster
     {
         if (isDead) return;
         base.OnDead();
+
+        StopAllCoroutines();
 
         animator.Play("Death", -1);
         Invoke(INACTIVE, 1.05f);

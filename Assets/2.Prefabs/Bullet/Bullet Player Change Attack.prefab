@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 721730411551481606}
   - component: {fileID: 7908417124944570366}
   m_Layer: 7
-  m_Name: Change Attack Bullet
+  m_Name: Bullet Player Change Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
