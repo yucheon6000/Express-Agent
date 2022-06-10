@@ -51,7 +51,11 @@ public class BossMonster : Monster, IOnEndAnimation
     private MonsterSpawnControlInfo attack3;
     [Header("Attack4")]
     [SerializeField]
-    private Shoot attack4;
+    private GameObject attack4Bullet;
+    [SerializeField]
+    private int attack4Count;
+    [SerializeField]
+    private float attack4DeltaTime;
 
     protected override void Awake()
     {
@@ -120,8 +124,7 @@ public class BossMonster : Monster, IOnEndAnimation
         agent.ResetPath();
 
         // 공격 시작
-        ChangeBossState(BossState.Attack1);
-        // ChangeBossState((BossState)Random.Range(100, 104));
+        ChangeBossState((BossState)Random.Range(100, 104));
     }
 
     private IEnumerator Attack1Routine()
@@ -162,14 +165,19 @@ public class BossMonster : Monster, IOnEndAnimation
             monsterSpawnController.Spawn(attack3);
         }
 
-        ChangeBossState((BossState)Random.Range(0, 2));
+        ChangeBossState(BossState.Breath);
     }
 
     private IEnumerator Attack4Routine()
     {
         animator.Play("Attack4", -1);
 
-        yield return new WaitForSeconds(2);
+        for (int i = 0; i < attack4Count; i++)
+        {
+            Bullet bullet = ObjectPooler.SpawnFromPool<Bullet>(attack4Bullet.name, Player.Main.TargetPosition);
+            bullet.Init(new BulletInitInfo(this.transform, Vector3.zero, characterStat, 0));
+            yield return new WaitForSeconds(attack4DeltaTime);
+        }
 
         ChangeBossState((BossState)Random.Range(0, 2));
     }

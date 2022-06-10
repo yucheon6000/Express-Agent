@@ -6,25 +6,23 @@ public class Particle : MonoBehaviour
 {
     [Header("[Particle]")]
     [SerializeField]
-    private new ParticleSystem particleSystem;
-
-    private void Awake()
-    {
-        if (!particleSystem)
-            particleSystem = GetComponent<ParticleSystem>();
-        if (!particleSystem)
-            particleSystem = GetComponentInChildren<ParticleSystem>();
-    }
+    private ParticleSystem[] particleSystems;
 
     private void OnEnable()
     {
-        particleSystem.Play();
+        foreach (var particleSystem in particleSystems)
+        {
+            particleSystem.Stop();
+            particleSystem.Play();
+        }
     }
 
     private void Update()
     {
-        if (!particleSystem.isPlaying)
-            gameObject.SetActive(false);
+        foreach (var particleSystem in particleSystems)
+            if (particleSystem.isPlaying) return;
+
+        gameObject.SetActive(false);
     }
 
     private void OnDisable()

@@ -156,14 +156,14 @@ public abstract class Bullet : MonoBehaviour
 
         if (!hitEnemyParticlePrefab) return;
         GameObject particle = ObjectPooler.SpawnFromPool(hitEnemyParticlePrefab.name, transform.position, transform.rotation);
-        particle.transform.localScale *= hitEnemyParticleScale;
+        particle.transform.localScale = Vector3.one * hitEnemyParticleScale;
     }
 
     protected virtual void HitObstacle()
     {
         if (!hitObstacleParticlePrefab) return;
         GameObject particle = ObjectPooler.SpawnFromPool(hitObstacleParticlePrefab.name, transform.position, transform.rotation);
-        particle.transform.localScale *= hitObstacleParticleScale;
+        particle.transform.localScale = Vector3.one * hitObstacleParticleScale;
     }
 
     public CharacterType GetOwner() => bulletStat.CharacterStat.CharacterType;
