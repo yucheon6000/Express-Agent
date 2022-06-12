@@ -11,6 +11,8 @@ public abstract class Shoot : MonoBehaviour, NeedCharacterStat
 
     [Header("[Attack Level (Debug)]")]
     [SerializeField]
+    protected bool debugMode = false;
+    [SerializeField]
     protected int attackLevel = 0;
 
     public abstract void StartShoot();
@@ -31,5 +33,10 @@ public abstract class Shoot : MonoBehaviour, NeedCharacterStat
     public void ActiveMouseDirectionMode(bool enable)
     {
         mouseDirectionMode = enable;
+    }
+
+    public void SetDebugMode(bool active)
+    {
+        debugMode = active;
     }
 }

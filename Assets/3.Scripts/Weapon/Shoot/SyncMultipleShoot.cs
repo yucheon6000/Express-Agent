@@ -80,6 +80,9 @@ public class SyncMultipleShoot : MultipleShoot
 
     protected override void UpdateShootStat()
     {
+        if (debugMode)
+            statStepper = new Stepper<SyncMultipleShootStat>(shootStats);
+
         shootStat = statStepper.GetStep(attackLevel);
     }
 

@@ -90,6 +90,9 @@ public class LinearShoot : ShootWithBullet
 
     protected override void UpdateShootStat()
     {
+        if (debugMode)
+            statStepper = new Stepper<LinearShootStat>(shootStats);
+
         shootStat = statStepper.GetStep(attackLevel);
     }
 

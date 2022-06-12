@@ -90,6 +90,9 @@ public class CircleShoot : ShootWithBullet
 
     protected override void UpdateShootStat()
     {
+        if (debugMode)
+            statStepper = new Stepper<CircleShootStat>(shootStats);
+
         shootStat = statStepper.GetStep(attackLevel);
     }
 

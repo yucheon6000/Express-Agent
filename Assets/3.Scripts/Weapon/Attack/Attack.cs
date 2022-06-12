@@ -7,6 +7,10 @@ public class Attack : MonoBehaviour, NeedCharacterStat
 {
     private CharacterStat characterStat = CharacterStat.Default;
 
+    [Header("@Debug")]
+    [SerializeField]
+    private bool debugMode = false;
+
     [Header("[Attack Stat]")]
     [SerializeField]
     private AttackStat[] attackStats;
@@ -174,6 +178,12 @@ public class Attack : MonoBehaviour, NeedCharacterStat
 
     private void UpdateAttackStat()
     {
+        if (debugMode)
+        {
+            shoot.SetDebugMode(true);
+            attackStepper = new Stepper<AttackStat>(attackStats);
+        }
+
         attackStat = attackStepper.GetStep(attackLevel);
     }
 
