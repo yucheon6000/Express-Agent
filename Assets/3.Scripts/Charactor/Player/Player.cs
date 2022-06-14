@@ -69,7 +69,8 @@ public class Player : Character
     [Header("[UI]")]
     [SerializeField]
     private PlayerAttackListDisplayer playerAttackListDisplayer;
-
+    [SerializeField]
+    private GameObject playerPortrait;
 
     [Header("@TEST")]
     [SerializeField]
@@ -436,7 +437,8 @@ public class Player : Character
         StopFocusMode();
 
         // UI 업데이트
-        playerAttackListDisplayer.Display(playerType == PlayerType.Main);
+        playerAttackListDisplayer?.Display(playerType == PlayerType.Main);
+        playerPortrait?.SetActive(playerType == PlayerType.Main);
 
         // 마우스 추적 모드
         if (mouseDirectionMode)
