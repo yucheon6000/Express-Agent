@@ -137,7 +137,7 @@ public class MonsterSpawnController : MonoBehaviour
     {
         List<Vector2> allSpawnableTilePositions = new List<Vector2>(targetTilePositions);
         List<Vector2> spawnableTilePositions = new List<Vector2>();
-        List<GameObject> spawnedMonsterList = new List<GameObject>();
+        List<Monster> spawnedMonsterList = new List<Monster>();
 
         // 이펙트 생성
         foreach (MonsterSpawnWaveUnit wUnit in wave.waveUnits)
@@ -172,12 +172,14 @@ public class MonsterSpawnController : MonoBehaviour
             SpawnMonster(wUnit.Monster.gameObject.name, wUnit.getLastSpawnCount(), ref spawnableTilePositions, ref spawnedMonsterList);
         }
 
+        WaitForSeconds wait = new WaitForSeconds(0.5f);
+
         while (true)
         {
             bool flag = true;
 
-            foreach (GameObject monster in spawnedMonsterList)
-                if (monster.activeSelf)
+            foreach (Monster monster in spawnedMonsterList)
+                if (!monster.IsDead)
                 {
                     flag = false;
                     break;
@@ -186,11 +188,11 @@ public class MonsterSpawnController : MonoBehaviour
             if (flag)
                 break;
             else
-                yield return null;
+                yield return wait;
         }
     }
 
-    private void SpawnMonster(string monsterName, int targetCount, ref List<Vector2> spawnableTilePositions, ref List<GameObject> spawnedMonsterList)
+    private void SpawnMonster(string monsterName, int targetCount, ref List<Vector2> spawnableTilePositions, ref List<Monster> spawnedMonsterList)
     {
         for (int i = 0; i < targetCount; i++)
         {
@@ -203,7 +205,7 @@ public class MonsterSpawnController : MonoBehaviour
 
             Monster monster = ObjectPooler.SpawnFromPool<Monster>(monsterName, pos, Quaternion.identity);
             monster.SetMonsterSpawnTrigger(currentTrigger);
-            spawnedMonsterList.Add(monster.gameObject);
+            spawnedMonsterList.Add(monster);
         }
     }
 
@@ -211,7 +213,7 @@ public class MonsterSpawnController : MonoBehaviour
     {
         List<Vector2> allSpawnableTilePositions = new List<Vector2>(targetTilePositions);
         List<Vector2> spawnableTilePositions = new List<Vector2>();
-        List<GameObject> spawnedMonsterList = new List<GameObject>();
+        List<Monster> spawnedMonsterList = new List<Monster>();
 
         // 이펙트 생성
         foreach (MonsterSpawnWaveUnit wUnit in wave.waveUnits)

@@ -28,6 +28,11 @@ public class BulletDisabler : MonoBehaviour
 
     private bool disable = false;
 
+    [SerializeField]
+    protected GameObject disableParticlePrefab;
+    [SerializeField]
+    protected float disableParticleScale = 1;
+
     private void OnEnable()
     {
         disable = false;
@@ -57,6 +62,13 @@ public class BulletDisabler : MonoBehaviour
     private void Disable()
     {
         if (disable) return;
+
+        // 파티클 생성
+        if (disableParticlePrefab)
+        {
+            GameObject particle = ObjectPooler.SpawnFromPool(disableParticlePrefab.name, transform.position, transform.rotation);
+            particle.transform.localScale = Vector3.one * disableParticleScale;
+        }
 
         disable = true;
         bulletDisableEvent.Invoke();

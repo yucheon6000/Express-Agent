@@ -135,17 +135,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletStats:
   - attack: 5
-    moveSpeed: 4
+    moveSpeed: 2
     knockBack: 10
     scatter: 30
   autoRotate: 1
   autoFlipY: 0
   spriteRenderer: {fileID: 0}
   movement: {fileID: 6717062040357961970}
-  hitEnemyParticlePrefab: {fileID: 0}
-  hitObstacleParticlePrefab: {fileID: 0}
-  hitEnemyParticleScale: 1
-  hitObstacleParticleScale: 1
+  hitEnemyParticlePrefab: {fileID: 7711697610991426985, guid: 6763d6292fe1c4cb0aa1b8e4add6074e, type: 3}
+  hitObstacleParticlePrefab: {fileID: 7711697610991426985, guid: 6763d6292fe1c4cb0aa1b8e4add6074e, type: 3}
+  hitEnemyParticleScale: 0.03
+  hitObstacleParticleScale: 0.03
 --- !u!114 &6717062040357961970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +175,9 @@ MonoBehaviour:
   timeTrigger: 0
   timeLimit: 0
   distanceTrigger: 1
-  distanceLimit: 1.5
+  distanceLimit: 1
+  disableParticlePrefab: {fileID: 7711697610991426985, guid: 6763d6292fe1c4cb0aa1b8e4add6074e, type: 3}
+  disableParticleScale: 0.03
 --- !u!58 &721730411551481606
 CircleCollider2D:
   m_ObjectHideFlags: 0

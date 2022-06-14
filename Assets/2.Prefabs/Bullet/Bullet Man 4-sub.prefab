@@ -117,10 +117,10 @@ MonoBehaviour:
   autoFlipY: 0
   spriteRenderer: {fileID: 0}
   movement: {fileID: 6717062040357961970}
-  hitEnemyParticlePrefab: {fileID: 0}
-  hitObstacleParticlePrefab: {fileID: 0}
-  hitEnemyParticleScale: 1
-  hitObstacleParticleScale: 1
+  hitEnemyParticlePrefab: {fileID: 160430, guid: cbdac245f48514a1c9e531ace089f7ed, type: 3}
+  hitObstacleParticlePrefab: {fileID: 160430, guid: cbdac245f48514a1c9e531ace089f7ed, type: 3}
+  hitEnemyParticleScale: 0.08
+  hitObstacleParticleScale: 0.05
 --- !u!114 &6717062040357961970
 MonoBehaviour:
   m_ObjectHideFlags: 0

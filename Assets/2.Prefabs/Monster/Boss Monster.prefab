@@ -483,6 +483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc31e37e88c14d82819d211b4f8fb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: b39dc97e39d264b38a42cc70ae5e666f, type: 3}
   bulletStep: 0
@@ -960,7 +961,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterStat:
     characterType: 1
-    health: 5000
+    health: 100
     moveSpeed: 4
     attack: 50
     knockBack: 10
@@ -1151,6 +1152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c57fa62184e34b59b1bbee17837feed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackStats:
   - shootDeltaTime: 0.5
     shootDelayTimeAtStart: 0
@@ -1169,6 +1171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffca61f89e3dd4ef7a4e4d6d6c2cfa1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackLevel: 0
   shoots:
   - {fileID: 5994918263732271617}
@@ -1187,6 +1190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b853247b4328244f8a8793891c5b9b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: 40a8e9861744d49319ba392d816f1f5d, type: 3}
   bulletStep: 0
@@ -1212,6 +1216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b853247b4328244f8a8793891c5b9b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: 40a8e9861744d49319ba392d816f1f5d, type: 3}
   bulletStep: 0
