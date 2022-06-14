@@ -71,4 +71,12 @@ public class PlayerAnimator : MonoBehaviour
     {
         powerUpAnimator.SetTrigger("Trigger");
     }
+
+    public void Change()
+    {
+        if (isDead) return;
+
+        foreach (var animator in animators)
+            animator.Play("Change", -1);
+    }
 }

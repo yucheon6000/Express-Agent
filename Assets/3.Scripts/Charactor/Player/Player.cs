@@ -447,6 +447,9 @@ public class Player : Character
         // 사이드킥 플레이어 공격 레벨 0으로 변경
         // 메인 플레이어 공격 레벨 정상화
         weapon.SetMinimumMode(playerType == PlayerType.Sidekick);
+
+        // 애니메이션
+        animator.Change();
     }
 
     public static void IncreaseCurrentHp(float amount)
