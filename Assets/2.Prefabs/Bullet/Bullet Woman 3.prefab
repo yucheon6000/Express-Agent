@@ -4792,7 +4792,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletStats:
-  - attack: 20
+  - attack: 15
+    moveSpeed: 7
+    knockBack: 7
+    scatter: 0
+  - attack: 30
+    moveSpeed: 7
+    knockBack: 7
+    scatter: 0
+  - attack: 30
     moveSpeed: 7
     knockBack: 7
     scatter: 0

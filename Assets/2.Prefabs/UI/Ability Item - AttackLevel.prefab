@@ -7,33 +7,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2030440216, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2030440216, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2030440216, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: -5457494203807705822}
-    - target: {fileID: 2030440216, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2030440216, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickAbility
-      objectReference: {fileID: 0}
-    - target: {fileID: 2030440216, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AttackLevelAbility, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2030440216, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+    - target: {fileID: 930369206050786151, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -51.6
       objectReference: {fileID: 0}
     - target: {fileID: 2856250545819052279, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
       propertyPath: m_Pivot.x
@@ -156,9 +132,11 @@ MonoBehaviour:
   abilityName: 
   abilitySubName: 
   abilityDescription: 
+  abilityIconSprite: {fileID: 0}
   textName: {fileID: 4807298995305398324}
   textSubName: {fileID: 6362268103467253832}
   textDescription: {fileID: 6955024212774128328}
+  imageIcon: {fileID: 0}
   attack: {fileID: 0}
   level: 1
 --- !u!114 &6362268103467253832 stripped

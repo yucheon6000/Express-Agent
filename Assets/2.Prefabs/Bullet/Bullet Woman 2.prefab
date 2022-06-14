@@ -53,6 +53,14 @@ MonoBehaviour:
     moveSpeed: 0
     knockBack: 3
     scatter: 0
+  - attack: 15
+    moveSpeed: 0
+    knockBack: 5
+    scatter: 0
+  - attack: 20
+    moveSpeed: 0
+    knockBack: 10
+    scatter: 0
   autoRotate: 1
   autoFlipY: 0
   spriteRenderer: {fileID: 0}
@@ -76,6 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f56d354ffcf4bd0af4214f09c7fce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  once: 0
   timeTrigger: 1
   timeLimit: 5
   distanceTrigger: 0

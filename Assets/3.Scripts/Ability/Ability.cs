@@ -11,8 +11,10 @@ public abstract class Ability : MonoBehaviour
     public class OnClickAbilityEvent : UnityEvent<Ability> { }
 
     [Header("[Ability]")]
+    [Multiline]
     [SerializeField]
     protected string abilityName;
+    [Multiline]
     [SerializeField]
     protected string abilitySubName;
     [Multiline]

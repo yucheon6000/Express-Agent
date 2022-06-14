@@ -191,10 +191,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c57fa62184e34b59b1bbee17837feed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackStats:
   - shootDeltaTime: 0.3
     shootDelayTimeAtStart: 0
-  attackLevel: 0
+  attackLevel: 2
   shoot: {fileID: 5106101178712637332}
   imageAttackGage: {fileID: 0}
 --- !u!114 &5106101178712637332
@@ -209,7 +210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffca61f89e3dd4ef7a4e4d6d6c2cfa1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackLevel: 0
+  debugMode: 0
+  attackLevel: 2
   shoots:
   - {fileID: 1225916198179603932}
   - {fileID: 1485845623753815106}
@@ -266,7 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b853247b4328244f8a8793891c5b9b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackLevel: 0
+  debugMode: 0
+  attackLevel: 2
   bulletPrefab: {fileID: 2356771059136709977, guid: 89227f1ff06b34a91a67cac4e9a316df, type: 3}
   bulletStep: 0
   shootStats:
@@ -291,7 +294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b853247b4328244f8a8793891c5b9b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackLevel: 0
+  debugMode: 0
+  attackLevel: 2
   bulletPrefab: {fileID: 2356771059136709977, guid: 89227f1ff06b34a91a67cac4e9a316df, type: 3}
   bulletStep: 0
   shootStats:
@@ -316,7 +320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b853247b4328244f8a8793891c5b9b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackLevel: 0
+  debugMode: 0
+  attackLevel: 2
   bulletPrefab: {fileID: 2356771059136709977, guid: 89227f1ff06b34a91a67cac4e9a316df, type: 3}
   bulletStep: 0
   shootStats:
@@ -341,7 +346,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b853247b4328244f8a8793891c5b9b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackLevel: 0
+  debugMode: 0
+  attackLevel: 2
   bulletPrefab: {fileID: 2356771059136709977, guid: 89227f1ff06b34a91a67cac4e9a316df, type: 3}
   bulletStep: 0
   shootStats:

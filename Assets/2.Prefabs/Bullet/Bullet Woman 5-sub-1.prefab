@@ -52,7 +52,15 @@ MonoBehaviour:
   bulletStats:
   - attack: 10
     moveSpeed: 5
-    knockBack: 3
+    knockBack: 8
+    scatter: 0
+  - attack: 20
+    moveSpeed: 5
+    knockBack: 8
+    scatter: 0
+  - attack: 10
+    moveSpeed: 5
+    knockBack: 8
     scatter: 0
   autoRotate: 1
   autoFlipY: 0

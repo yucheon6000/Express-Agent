@@ -109,7 +109,15 @@ MonoBehaviour:
   bulletStats:
   - attack: 20
     moveSpeed: 6
-    knockBack: 0
+    knockBack: 10
+    scatter: 0
+  - attack: 40
+    moveSpeed: 6
+    knockBack: 10
+    scatter: 0
+  - attack: 60
+    moveSpeed: 6
+    knockBack: 10
     scatter: 0
   autoRotate: 1
   autoFlipY: 1
@@ -185,6 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffca61f89e3dd4ef7a4e4d6d6c2cfa1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackLevel: 0
   shoots:
   - {fileID: 5562955223071171050}
@@ -205,6 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc31e37e88c14d82819d211b4f8fb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: 94a27ac7e23124370b7723bacf4a433c, type: 3}
   bulletStep: 0
@@ -230,6 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc31e37e88c14d82819d211b4f8fb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: 243607df8823344ebb06ac075a35a194, type: 3}
   bulletStep: 0
@@ -255,6 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc31e37e88c14d82819d211b4f8fb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: 243607df8823344ebb06ac075a35a194, type: 3}
   bulletStep: 0
@@ -280,6 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc31e37e88c14d82819d211b4f8fb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: 03e2512c797cd431f89abd49e21be1bd, type: 3}
   bulletStep: 0

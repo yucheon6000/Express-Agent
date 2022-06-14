@@ -137,7 +137,15 @@ MonoBehaviour:
   bulletStats:
   - attack: 3
     moveSpeed: 5
-    knockBack: 3
+    knockBack: 1
+    scatter: 10
+  - attack: 4
+    moveSpeed: 5
+    knockBack: 1
+    scatter: 10
+  - attack: 5
+    moveSpeed: 5
+    knockBack: 1
     scatter: 10
   autoRotate: 0
   autoFlipY: 0
@@ -176,6 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b853247b4328244f8a8793891c5b9b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: bbc1a82278b654df282be1746588823f, type: 3}
   bulletStep: 0
