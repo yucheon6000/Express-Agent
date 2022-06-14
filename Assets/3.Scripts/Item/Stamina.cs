@@ -70,7 +70,7 @@ public class Stamina : Item
 
     private void UpdateCollision()
     {
-        float distance = (Player.Main.TargetPosition - transform.position).sqrMagnitude;
+        float distance = ((Vector2)Player.Main.TargetPosition - (Vector2)transform.position).sqrMagnitude;
         if (distance > Mathf.Pow(minCollisionDistance, 2)) return;
 
         Player.IncreaseStaminaCount(staminaAmount);
