@@ -26,6 +26,8 @@ public class MonsterSpawnController : MonoBehaviour
     [Header("[Controller]")]
     [SerializeField]
     private PlayerAbilityController playerAbilityController;
+    [SerializeField]
+    private GameObject monsterSpawnEffectPrefab;
 
     [Header("[UI]")]
     [SerializeField]
@@ -48,16 +50,9 @@ public class MonsterSpawnController : MonoBehaviour
         if (info.monsterSpawnWaves.Length == 0) return;
 
         MonsterSpawnWave wave = info.monsterSpawnWaves[0];
+        List<Vector2> targetTilePositions = info.targetTilePositions;
 
-        List<Vector2> spawnableTilePositions = new List<Vector2>(info.targetTilePositions);
-        List<GameObject> spawnedMonsterList = new List<GameObject>();
-
-        foreach (MonsterSpawnWaveUnit wUnit in wave.waveUnits)
-        {
-            if (!wUnit.Monster) continue;
-
-            SpawnMonster(wUnit.Monster.gameObject.name, wUnit.getSpawnCount(), ref spawnableTilePositions, ref spawnedMonsterList);
-        }
+        StartCoroutine(SpawnOnce(wave, targetTilePositions));
     }
 
     public void StartSpawn(MonsterSpawnControlInfo info, MonsterSpawnTrigger trigger)
@@ -140,15 +135,41 @@ public class MonsterSpawnController : MonoBehaviour
 
     private IEnumerator WaveRoutine(MonsterSpawnWave wave, List<Vector2> targetTilePositions)
     {
-
-        List<Vector2> spawnableTilePositions = new List<Vector2>(targetTilePositions);
+        List<Vector2> allSpawnableTilePositions = new List<Vector2>(targetTilePositions);
+        List<Vector2> spawnableTilePositions = new List<Vector2>();
         List<GameObject> spawnedMonsterList = new List<GameObject>();
 
+        // 이펙트 생성
         foreach (MonsterSpawnWaveUnit wUnit in wave.waveUnits)
         {
             if (!wUnit.Monster) continue;
 
-            SpawnMonster(wUnit.Monster.gameObject.name, wUnit.getSpawnCount(), ref spawnableTilePositions, ref spawnedMonsterList);
+            int count = wUnit.getRandomSpawnCount();
+            for (int i = 0; i < count; i++)
+            {
+                if (allSpawnableTilePositions.Count == 0) break;
+
+                // 생성할 위치 지정
+                int idx = Random.Range(0, allSpawnableTilePositions.Count);
+                Vector3 pos = allSpawnableTilePositions[idx];
+                spawnableTilePositions.Add(pos);
+
+                allSpawnableTilePositions.RemoveAt(idx);
+
+                // 이펙트 생성
+                ObjectPooler.SpawnFromPool(monsterSpawnEffectPrefab.name, pos, Quaternion.identity);
+            }
+        }
+
+        // 이펙트 사라질 때까지 기다림
+        yield return new WaitForSeconds(1.5f);
+
+        // 몬스터 생성
+        foreach (MonsterSpawnWaveUnit wUnit in wave.waveUnits)
+        {
+            if (!wUnit.Monster) continue;
+
+            SpawnMonster(wUnit.Monster.gameObject.name, wUnit.getLastSpawnCount(), ref spawnableTilePositions, ref spawnedMonsterList);
         }
 
         while (true)
@@ -185,6 +206,46 @@ public class MonsterSpawnController : MonoBehaviour
             spawnedMonsterList.Add(monster.gameObject);
         }
     }
+
+    private IEnumerator SpawnOnce(MonsterSpawnWave wave, List<Vector2> targetTilePositions)
+    {
+        List<Vector2> allSpawnableTilePositions = new List<Vector2>(targetTilePositions);
+        List<Vector2> spawnableTilePositions = new List<Vector2>();
+        List<GameObject> spawnedMonsterList = new List<GameObject>();
+
+        // 이펙트 생성
+        foreach (MonsterSpawnWaveUnit wUnit in wave.waveUnits)
+        {
+            if (!wUnit.Monster) continue;
+
+            int count = wUnit.getRandomSpawnCount();
+            for (int i = 0; i < count; i++)
+            {
+                if (allSpawnableTilePositions.Count == 0) break;
+
+                // 생성할 위치 지정
+                int idx = Random.Range(0, allSpawnableTilePositions.Count);
+                Vector3 pos = allSpawnableTilePositions[idx];
+                spawnableTilePositions.Add(pos);
+
+                allSpawnableTilePositions.RemoveAt(idx);
+
+                // 이펙트 생성
+                ObjectPooler.SpawnFromPool(monsterSpawnEffectPrefab.name, pos, Quaternion.identity);
+            }
+        }
+
+        // 이펙트 사라질 때까지 기다림
+        yield return new WaitForSeconds(1.5f);
+
+        // 몬스터 생성
+        foreach (MonsterSpawnWaveUnit wUnit in wave.waveUnits)
+        {
+            if (!wUnit.Monster) continue;
+
+            SpawnMonster(wUnit.Monster.gameObject.name, wUnit.getLastSpawnCount(), ref spawnableTilePositions, ref spawnedMonsterList);
+        }
+    }
 }
 
 [System.Serializable]
@@ -219,11 +280,22 @@ public class MonsterSpawnWaveUnit
 
     public Monster Monster => monsterPrefab;
 
-    public int getSpawnCount()
+    private int count = -1;
+
+    public int getLastSpawnCount()
+    {
+        if (count != -1) return count;
+
+        return getRandomSpawnCount();
+    }
+
+    public int getRandomSpawnCount()
     {
         int min = Mathf.Min(minMonsterCount, maxMonsterCount);
         int max = Mathf.Max(minMonsterCount, maxMonsterCount);
 
-        return Random.Range(min, max + 1);
+        count = Random.Range(min, max + 1);
+
+        return count;
     }
 }
