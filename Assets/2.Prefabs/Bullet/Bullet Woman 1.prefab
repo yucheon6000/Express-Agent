@@ -117,10 +117,11 @@ MonoBehaviour:
   autoFlipY: 0
   spriteRenderer: {fileID: 0}
   movement: {fileID: 6717062040357961970}
-  hitEnemyParticlePrefab: {fileID: 0}
-  hitObstacleParticlePrefab: {fileID: 0}
-  hitEnemyParticleScale: 1
-  hitObstacleParticleScale: 1
+  spawnParticleAtEnemyPosition: 0
+  hitEnemyParticlePrefab: {fileID: 2460124735592539638, guid: 273af947670e840fe8aa54e415b48481, type: 3}
+  hitObstacleParticlePrefab: {fileID: 2460124735592539638, guid: 273af947670e840fe8aa54e415b48481, type: 3}
+  hitEnemyParticleScale: 0.1
+  hitObstacleParticleScale: 0.08
   isEnterTrigger: 1
   multipleAttackDeltaTime: 1
   ignoreObstacle: 0
@@ -161,7 +162,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.37, y: 0.73}
+  m_Size: {x: 0.22, y: 0.4}
   m_EdgeRadius: 0
 --- !u!50 &7908417124944570366
 Rigidbody2D:

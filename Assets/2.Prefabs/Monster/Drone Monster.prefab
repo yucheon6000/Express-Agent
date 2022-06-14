@@ -309,6 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c57fa62184e34b59b1bbee17837feed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackStats:
   - shootDeltaTime: 5
     shootDelayTimeAtStart: 0
@@ -327,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc31e37e88c14d82819d211b4f8fb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackLevel: 0
   bulletPrefab: {fileID: 2356771059136709977, guid: 9291f8f24ab304d269a02c5fcb59043f, type: 3}
   bulletStep: 0
@@ -564,7 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4da7f85d83a84485810e81bb0d8fa8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detector: {fileID: 0}
+  detector: {fileID: 3191439977229021360}
 --- !u!114 &6083123837041040438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,6 +692,7 @@ GameObject:
   - component: {fileID: 1245823981158421067}
   - component: {fileID: 8069820276010044940}
   - component: {fileID: 2598332422610958578}
+  - component: {fileID: 3191439977229021360}
   m_Layer: 7
   m_Name: Monster Collision
   m_TagString: Monster Collision
@@ -772,6 +775,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3191439977229021360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8672130812961704612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 354505310388c4a4b9fe00e51534ed54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider2D: {fileID: 8069820276010044940}
+  layer:
+    serializedVersion: 2
+    m_Bits: 5120
 --- !u!1001 &220031737359233861
 PrefabInstance:
   m_ObjectHideFlags: 0

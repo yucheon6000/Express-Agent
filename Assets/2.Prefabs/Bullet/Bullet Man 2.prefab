@@ -163,6 +163,7 @@ MonoBehaviour:
   autoFlipY: 0
   spriteRenderer: {fileID: 0}
   movement: {fileID: 6717062040357961970}
+  spawnParticleAtEnemyPosition: 0
   hitEnemyParticlePrefab: {fileID: 3328509900940204707, guid: 9bdb2c488dc224a8cbc836043ae19370, type: 3}
   hitObstacleParticlePrefab: {fileID: 3328509900940204707, guid: 9bdb2c488dc224a8cbc836043ae19370, type: 3}
   hitEnemyParticleScale: 0.2
@@ -199,7 +200,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.03}
   serializedVersion: 2
-  m_Radius: 0.35
+  m_Radius: 0.14
 --- !u!50 &7908417124944570366
 Rigidbody2D:
   serializedVersion: 4

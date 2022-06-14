@@ -123,10 +123,11 @@ MonoBehaviour:
   autoFlipY: 1
   spriteRenderer: {fileID: 2356771059136709975}
   movement: {fileID: 6717062040357961970}
-  hitEnemyParticlePrefab: {fileID: 0}
-  hitObstacleParticlePrefab: {fileID: 0}
-  hitEnemyParticleScale: 1
-  hitObstacleParticleScale: 1
+  spawnParticleAtEnemyPosition: 0
+  hitEnemyParticlePrefab: {fileID: 3744571472457255457, guid: e1073d32bb17f4954bb04c28f2dbdeb0, type: 3}
+  hitObstacleParticlePrefab: {fileID: 3744571472457255457, guid: e1073d32bb17f4954bb04c28f2dbdeb0, type: 3}
+  hitEnemyParticleScale: 0.1
+  hitObstacleParticleScale: 0.1
   shoot: {fileID: 2918224776765519151}
   onHitEnemy: 1
   onHitObstacle: 1
@@ -159,7 +160,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.49999997
+  m_Radius: 0.25
 --- !u!50 &7908417124944570366
 Rigidbody2D:
   serializedVersion: 4
@@ -226,6 +227,20 @@ MonoBehaviour:
     bulletDeltaAngle: 90
     bulletIndexAtStart: 0
     spawnCircleRadius: 0
+  - breakable: 1
+    bulletCount: 2
+    bulletDeltaTime: 0
+    bulletStartAngle: 45
+    bulletDeltaAngle: 45
+    bulletIndexAtStart: 0
+    spawnCircleRadius: 0
+  - breakable: 1
+    bulletCount: 3
+    bulletDeltaTime: 0
+    bulletStartAngle: 45
+    bulletDeltaAngle: 30
+    bulletIndexAtStart: 0
+    spawnCircleRadius: 0
   spawnCircleCenterTransform: {fileID: 2356771059136709974}
   spawnCircleStandardTransform: {fileID: 3818836597097376567}
 --- !u!114 &1054690317114040130
@@ -250,6 +265,20 @@ MonoBehaviour:
     bulletDeltaTime: 0
     bulletStartAngle: 135
     bulletDeltaAngle: 90
+    bulletIndexAtStart: 0
+    spawnCircleRadius: 0
+  - breakable: 1
+    bulletCount: 2
+    bulletDeltaTime: 0
+    bulletStartAngle: 135
+    bulletDeltaAngle: 45
+    bulletIndexAtStart: 0
+    spawnCircleRadius: 0
+  - breakable: 1
+    bulletCount: 3
+    bulletDeltaTime: 0
+    bulletStartAngle: 135
+    bulletDeltaAngle: 30
     bulletIndexAtStart: 0
     spawnCircleRadius: 0
   spawnCircleCenterTransform: {fileID: 2356771059136709974}
@@ -278,6 +307,20 @@ MonoBehaviour:
     bulletDeltaAngle: 90
     bulletIndexAtStart: 0
     spawnCircleRadius: 0
+  - breakable: 1
+    bulletCount: 2
+    bulletDeltaTime: 0
+    bulletStartAngle: 225
+    bulletDeltaAngle: 45
+    bulletIndexAtStart: 0
+    spawnCircleRadius: 0
+  - breakable: 1
+    bulletCount: 3
+    bulletDeltaTime: 0
+    bulletStartAngle: 225
+    bulletDeltaAngle: 30
+    bulletIndexAtStart: 0
+    spawnCircleRadius: 0
   spawnCircleCenterTransform: {fileID: 2356771059136709974}
   spawnCircleStandardTransform: {fileID: 3818836597097376567}
 --- !u!114 &4409309508818306100
@@ -302,6 +345,20 @@ MonoBehaviour:
     bulletDeltaTime: 0
     bulletStartAngle: 315
     bulletDeltaAngle: 90
+    bulletIndexAtStart: 0
+    spawnCircleRadius: 0
+  - breakable: 1
+    bulletCount: 2
+    bulletDeltaTime: 0
+    bulletStartAngle: 315
+    bulletDeltaAngle: 45
+    bulletIndexAtStart: 0
+    spawnCircleRadius: 0
+  - breakable: 1
+    bulletCount: 3
+    bulletDeltaTime: 0
+    bulletStartAngle: 315
+    bulletDeltaAngle: 30
     bulletIndexAtStart: 0
     spawnCircleRadius: 0
   spawnCircleCenterTransform: {fileID: 2356771059136709974}

@@ -15,7 +15,7 @@ public class MonsterCollision : CharacterCollision
         monster = character.GetComponent<Monster>();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (monster.IsDead) return;
 

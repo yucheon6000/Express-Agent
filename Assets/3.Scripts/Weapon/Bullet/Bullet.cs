@@ -25,6 +25,8 @@ public abstract class Bullet : MonoBehaviour
 
     [Header("[Particle]")]
     [SerializeField]
+    protected bool spawnParticleAtEnemyPosition = false;
+    [SerializeField]
     protected GameObject hitEnemyParticlePrefab;
     [SerializeField]
     protected GameObject hitObstacleParticlePrefab;
@@ -155,7 +157,13 @@ public abstract class Bullet : MonoBehaviour
         );
 
         if (!hitEnemyParticlePrefab) return;
-        GameObject particle = ObjectPooler.SpawnFromPool(hitEnemyParticlePrefab.name, transform.position, transform.rotation);
+
+        GameObject particle;
+        if (spawnParticleAtEnemyPosition)
+            particle = ObjectPooler.SpawnFromPool(hitEnemyParticlePrefab.name, enemy.transform.position, transform.rotation);
+        else
+            particle = ObjectPooler.SpawnFromPool(hitEnemyParticlePrefab.name, transform.position, transform.rotation);
+
         particle.transform.localScale = Vector3.one * hitEnemyParticleScale;
     }
 

@@ -65,9 +65,10 @@ MonoBehaviour:
   autoFlipY: 0
   spriteRenderer: {fileID: 0}
   movement: {fileID: 0}
-  hitEnemyParticlePrefab: {fileID: 0}
+  spawnParticleAtEnemyPosition: 1
+  hitEnemyParticlePrefab: {fileID: 4528125930369406541, guid: c2ff8dc2f9f9744b4b71ebc5e562d5cd, type: 3}
   hitObstacleParticlePrefab: {fileID: 0}
-  hitEnemyParticleScale: 1
+  hitEnemyParticleScale: 0.1
   hitObstacleParticleScale: 1
   isEnterTrigger: 0
   multipleAttackDeltaTime: 0.5
@@ -89,6 +90,8 @@ MonoBehaviour:
   timeLimit: 5
   distanceTrigger: 0
   distanceLimit: 0
+  disableParticlePrefab: {fileID: 0}
+  disableParticleScale: 1
 --- !u!58 &721730411551481606
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -99,12 +102,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.83
+  m_Radius: 0.48
 --- !u!50 &7908417124944570366
 Rigidbody2D:
   serializedVersion: 4

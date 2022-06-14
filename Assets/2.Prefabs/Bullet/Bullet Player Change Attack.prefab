@@ -51,9 +51,15 @@ MonoBehaviour:
     moveSpeed: 0
     knockBack: 10
     scatter: 0
+  autoRotate: 1
   autoFlipY: 0
   spriteRenderer: {fileID: 0}
   movement: {fileID: 0}
+  spawnParticleAtEnemyPosition: 0
+  hitEnemyParticlePrefab: {fileID: 0}
+  hitObstacleParticlePrefab: {fileID: 0}
+  hitEnemyParticleScale: 1
+  hitObstacleParticleScale: 1
   particlePrefab: {fileID: 3393526244297628791, guid: 70d48b72e6f1146a39f819739d78b692, type: 3}
   circleCollider: {fileID: 721730411551481606}
   layerMask:

@@ -44,6 +44,8 @@ public class KnockBack : MonoBehaviour
         float timer = 0;
         float percent = 0;
 
+        movement.SetMoveDirection(Vector2.zero);
+
         while (percent < 0.8f)
         {
             timer += Time.deltaTime;

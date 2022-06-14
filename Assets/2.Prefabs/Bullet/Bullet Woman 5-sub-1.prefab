@@ -66,10 +66,11 @@ MonoBehaviour:
   autoFlipY: 0
   spriteRenderer: {fileID: 4007465650029971178}
   movement: {fileID: 6717062040357961970}
-  hitEnemyParticlePrefab: {fileID: 0}
-  hitObstacleParticlePrefab: {fileID: 0}
-  hitEnemyParticleScale: 1
-  hitObstacleParticleScale: 1
+  spawnParticleAtEnemyPosition: 0
+  hitEnemyParticlePrefab: {fileID: 3744571472457255457, guid: e1073d32bb17f4954bb04c28f2dbdeb0, type: 3}
+  hitObstacleParticlePrefab: {fileID: 3744571472457255457, guid: e1073d32bb17f4954bb04c28f2dbdeb0, type: 3}
+  hitEnemyParticleScale: 0.07
+  hitObstacleParticleScale: 0.06
   enableDistance: 1.5
   enableComponents:
   - {fileID: 721730411551481606}
@@ -101,7 +102,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.24
+  m_Radius: 0.12
 --- !u!50 &7908417124944570366
 Rigidbody2D:
   serializedVersion: 4
@@ -161,7 +162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7696252123956631807}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.208, y: 0.119, z: 0}
+  m_LocalPosition: {x: 0.113, y: 0.062, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
