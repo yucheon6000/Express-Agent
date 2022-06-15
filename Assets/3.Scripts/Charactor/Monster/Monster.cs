@@ -19,6 +19,8 @@ public abstract class Monster : Character
     private Slider hpSlider;
     [SerializeField]
     private Transform hpSliderTransform;
+    [SerializeField]
+    private bool dontMoveHpUI = false;
 
     [Header("[Sound]")]
     [SerializeField]
@@ -47,8 +49,10 @@ public abstract class Monster : Character
             hpSlider.gameObject.SetActive(true);
         }
 
-        hpSlider.transform.position = Camera.main.WorldToScreenPoint(hpSliderTransform.position);
         hpSlider.value = currentHp / (float)characterStat.Health;
+
+        if (!dontMoveHpUI)
+            hpSlider.transform.position = Camera.main.WorldToScreenPoint(hpSliderTransform.position);
     }
 
     public override void Hit(float attack, float knockBack, Vector3 hitPosition)

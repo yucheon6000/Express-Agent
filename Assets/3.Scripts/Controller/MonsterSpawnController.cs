@@ -31,13 +31,23 @@ public class MonsterSpawnController : MonoBehaviour
 
     [Header("[UI]")]
     [SerializeField]
-    private TextMeshProUGUI textWave;
+    private GameObject missionStartUI;
+    [SerializeField]
+    private GameObject missionClearUI;
+    [SerializeField]
+    private GameObject[] waveUIs;
+    private Stepper<GameObject> waveUIStepper;
 
     private bool isStarted = false;
     private static bool skipWaveDeltaTime = false;
     private MonsterSpawnControlInfo controlInfo;
 
     private MonsterSpawnTrigger currentTrigger = null;
+
+    private void Start()
+    {
+        waveUIStepper = new Stepper<GameObject>(waveUIs);
+    }
 
     public static void SkipWaveDeltaTime()
     {
@@ -75,19 +85,18 @@ public class MonsterSpawnController : MonoBehaviour
 
         // stageDelayTimeAtStart초 만큼 쉬면서
         // 스테이지 시작 UI 활성화
-        textWave.gameObject.SetActive(true);
-        textWave.text = $"<size=40>STAGE {info.stageIndex + 1}</size>\nSTART!";
+        missionStartUI.gameObject.SetActive(true);
         yield return new WaitForSeconds(info.stageDelayTimeAtStart);
-        textWave.gameObject.SetActive(false);
+        missionStartUI.gameObject.SetActive(false);
 
         // 스테이지 시작
         for (int i = 0; i < waveCnt; i++)
         {
             // UI
-            textWave.gameObject.SetActive(true);
-            textWave.text = $"<size=40>WAVE</size>\n{i + 1}";
+            GameObject waveUI = waveUIStepper.GetStep(i);
+            waveUI.gameObject.SetActive(true);
             yield return new WaitForSeconds(2f);
-            textWave.gameObject.SetActive(false);
+            waveUI.gameObject.SetActive(false);
 
             // 웨이브 시작
             MonsterSpawnWave wave = info.monsterSpawnWaves[i];
@@ -113,8 +122,7 @@ public class MonsterSpawnController : MonoBehaviour
         }
 
         // 스테이지 클리어 UI 활성화
-        textWave.gameObject.SetActive(true);
-        textWave.text = $"<size=40>STAGE</size>\nCLEAR!";
+        missionClearUI.gameObject.SetActive(true);
 
         // 스테이지 끝나면 코인 획득
         List<GameObject> coins = ObjectPooler.GetAllPools("Coin", true);
@@ -126,7 +134,7 @@ public class MonsterSpawnController : MonoBehaviour
         // stageDelayTimeAtEnd초 만큼 쉬고
         // 스테이지 클리어 UI 비활성화
         yield return new WaitForSeconds(info.stageDelayTimeAtEnd);
-        textWave.gameObject.SetActive(false);
+        missionClearUI.gameObject.SetActive(false);
 
         // 이벤트 호출
         onClearStageEvent.Invoke(info.stageIndex);
