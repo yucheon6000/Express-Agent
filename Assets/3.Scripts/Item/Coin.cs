@@ -88,6 +88,7 @@ public class Coin : Item
     {
         if (other.tag.Equals(PlayerCollision.TAG))
         {
+            PlayAudio();
             Player.IncreaseCoinCount(coinAmount);
             gameObject.SetActive(false);
         }

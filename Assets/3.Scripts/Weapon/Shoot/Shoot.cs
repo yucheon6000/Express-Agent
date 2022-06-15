@@ -15,6 +15,10 @@ public abstract class Shoot : MonoBehaviour, NeedCharacterStat
     [SerializeField]
     protected int attackLevel = 0;
 
+    [Header("Sound")]
+    [SerializeField]
+    private AudioSource shootAudio;
+
     public abstract void StartShoot();
     public abstract void StopShoot();
 
@@ -38,5 +42,11 @@ public abstract class Shoot : MonoBehaviour, NeedCharacterStat
     public void SetDebugMode(bool active)
     {
         debugMode = active;
+    }
+
+    protected void PlayAudio()
+    {
+        if (shootAudio == null) return;
+        shootAudio.PlayOneShot(shootAudio.clip);
     }
 }

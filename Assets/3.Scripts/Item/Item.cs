@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    [SerializeField]
+    private AudioClip itemAudioClip;
+
     protected virtual void OnDisable()
     {
         ObjectPooler.ReturnToPool(this.gameObject);
+    }
+
+    protected void PlayAudio()
+    {
+        AudioController.PlayItemAudio(itemAudioClip);
     }
 }

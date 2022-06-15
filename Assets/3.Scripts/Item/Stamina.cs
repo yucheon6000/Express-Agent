@@ -73,6 +73,7 @@ public class Stamina : Item
         float distance = ((Vector2)Player.Main.TargetPosition - (Vector2)transform.position).sqrMagnitude;
         if (distance > Mathf.Pow(minCollisionDistance, 2)) return;
 
+        PlayAudio();
         Player.IncreaseStaminaCount(staminaAmount);
         gameObject.SetActive(false);
     }

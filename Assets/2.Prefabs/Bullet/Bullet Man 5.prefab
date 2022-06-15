@@ -123,7 +123,7 @@ MonoBehaviour:
   hitEnemyParticlePrefab: {fileID: 8286680117420409383, guid: 8cf4180c7d0034600b34e66cee0346fc, type: 3}
   hitObstacleParticlePrefab: {fileID: 4023257273720912505, guid: 558d2def7dc2240668161de40120d485, type: 3}
   hitEnemyParticleScale: 0.08
-  hitObstacleParticleScale: 0.01
+  hitObstacleParticleScale: 0.1
   isEnterTrigger: 0
   multipleAttackDeltaTime: 0.5
   ignoreObstacle: 0

@@ -66,6 +66,20 @@ public class Player : Character
 
     public override Vector3 TargetPosition => playerCollision.ColliderPosition;
 
+    [Header("[Audio]")]
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip hitAudioClip;
+    [SerializeField]
+    private AudioClip dieAudioClip;
+    [SerializeField]
+    private AudioClip changeAudioClip;
+    [SerializeField]
+    private AudioClip powerUpAudioClip;
+    [SerializeField]
+    private AudioSource runAudioSource;
+
     [Header("[UI]")]
     [SerializeField]
     private PlayerAttackListDisplayer playerAttackListDisplayer;
@@ -146,7 +160,13 @@ public class Player : Character
 
     private void UpdateMainPlayerMovement()
     {
-        if (knockBack.IsKnockBacking) return;
+        if (knockBack.IsKnockBacking)
+        {
+            if (runAudioSource.enabled)
+                runAudioSource.enabled = false;
+
+            return;
+        }
 
         if (!movement.enabled)
             movement.enabled = true;
@@ -160,6 +180,9 @@ public class Player : Character
 
         // 애니메이션
         animator.SetState(PlayerAnimator.IsMoving, moveDir.Equals(Vector3.zero) ? false : true);
+
+        // 달리는 소리 재생
+        runAudioSource.enabled = !moveDir.Equals(Vector3.zero);
     }
 
     private void UpdateMainPlayerAttack()
@@ -263,6 +286,8 @@ public class Player : Character
                 agent.isStopped = true;
             if (!movement.enabled)
                 movement.enabled = true;
+            if (runAudioSource.enabled)
+                runAudioSource.enabled = false;
             return;
         }
         // 넉백 중 아님
@@ -390,30 +415,35 @@ public class Player : Character
 
         KnockBack(hitPosition, knockBack);
 
-        // 애니메이션
+        // 애니메이션 및 사운드
         animator.Hit(hitPosition.x > TargetPosition.x ? PlayerAnimator.HitLeft : PlayerAnimator.HitRight);
+        if (playerType == PlayerType.Main)
+            audioSource.PlayOneShot(hitAudioClip);
     }
 
     public void UpdatePlayerType(PlayerType playerType, bool init = false)
     {
         if (isDead) return;
 
+        bool isMainPlayer = playerType == PlayerType.Main;
+        bool isSidekickPlayer = playerType == PlayerType.Sidekick;
+
         // 스태틱 변수 main 지정
-        if (playerType == PlayerType.Main) main = this;
+        if (isMainPlayer) main = this;
 
         // 자신의 플레이어 타입 저장
         this.playerType = playerType;
 
         // 컴포넌트 활성화/비활성화
         movement.SetMoveDirection(Vector2.zero);
-        agent.enabled = playerType == PlayerType.Sidekick;
-        if (playerType == PlayerType.Main)
+        agent.enabled = isSidekickPlayer;
+        if (isMainPlayer)
             angleDetector.StartMouseTargeting();
         else
             angleDetector.StopMouseTargeting();
 
         // 사이드킥이 되었을 때, 공격 중지
-        if (playerType == PlayerType.Sidekick && weapon.IsTrigger)
+        if (isSidekickPlayer && weapon.IsTrigger)
         {
             weapon.StopTrigger();
 
@@ -422,13 +452,13 @@ public class Player : Character
         }
 
         // 사이드킥 공격 루틴 시작 또는 정지
-        if (playerType == PlayerType.Sidekick)
+        if (isSidekickPlayer)
             StartSidekickRoutine();
         else
             StopSidekickRoutine();
 
         // 플레이어 변경 공격
-        if (!init && playerType == PlayerType.Main)
+        if (!init && isMainPlayer)
         {
             changeAttackShoot.StartShoot();
         }
@@ -437,19 +467,22 @@ public class Player : Character
         StopFocusMode();
 
         // UI 업데이트
-        playerAttackListDisplayer?.Display(playerType == PlayerType.Main);
-        playerPortrait?.SetActive(playerType == PlayerType.Main);
+        playerAttackListDisplayer?.Display(isMainPlayer);
+        playerPortrait?.SetActive(isMainPlayer);
 
         // 마우스 추적 모드
         if (mouseDirectionMode)
-            weapon.ActiveMouseDirectionMode(playerType == PlayerType.Main);
+            weapon.ActiveMouseDirectionMode(isMainPlayer);
 
         // 사이드킥 플레이어 공격 레벨 0으로 변경
         // 메인 플레이어 공격 레벨 정상화
-        weapon.SetMinimumMode(playerType == PlayerType.Sidekick);
+        weapon.SetMinimumMode(isSidekickPlayer);
 
         // 애니메이션
         animator.Change();
+        if (isMainPlayer)
+            audioSource.PlayOneShot(changeAudioClip);
+        runAudioSource.enabled = isMainPlayer;
     }
 
     public static void IncreaseCurrentHp(float amount)
@@ -501,8 +534,11 @@ public class Player : Character
         // 사이드킥 공격 멈춤
         StopSidekickRoutine();
 
-        // 애니메이션
+        // 애니메이션 및 사운드
         animator.Dead();
+        runAudioSource.enabled = false;
+        if (playerType == PlayerType.Main)
+            audioSource.PlayOneShot(dieAudioClip);
     }
 
     public void MoveTo(Vector3 position)
@@ -517,5 +553,6 @@ public class Player : Character
     public void PowerUp()
     {
         animator.PowerUp();
+        audioSource.PlayOneShot(powerUpAudioClip);
     }
 }
