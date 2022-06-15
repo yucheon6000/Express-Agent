@@ -20,7 +20,17 @@ public abstract class Monster : Character
     [SerializeField]
     private Transform hpSliderTransform;
 
+    [Header("[Sound]")]
+    [SerializeField]
+    private AudioClip hitAudioClip;
+    [SerializeField]
+    private AudioClip dieAudioClip;
+
     protected virtual void Update()
+    {
+    }
+
+    protected virtual void LateUpdate()
     {
         UpdateUI();
     }
@@ -41,10 +51,17 @@ public abstract class Monster : Character
         hpSlider.value = currentHp / (float)characterStat.Health;
     }
 
+    public override void Hit(float attack, float knockBack, Vector3 hitPosition)
+    {
+        base.Hit(attack, knockBack, hitPosition);
+        AudioController.PlayMonsterAudioClip(hitAudioClip);
+    }
+
     protected override void OnDead()
     {
         if (isDead) return;
         isDead = true;
+        AudioController.PlayMonsterAudioClip(dieAudioClip);
         CreateCoinAndStamina();
     }
 

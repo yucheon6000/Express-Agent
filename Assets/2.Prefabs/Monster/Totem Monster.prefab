@@ -406,6 +406,8 @@ MonoBehaviour:
   staminaAmount: 100
   hpSlider: {fileID: 4644324363538257105}
   hpSliderTransform: {fileID: 8619625726850369415}
+  hitAudioClip: {fileID: 8300000, guid: 34fdc1d0ea8ac4080aa24bb1f9a4de79, type: 3}
+  dieAudioClip: {fileID: 8300000, guid: c0d03d4063661437abedf5973237702f, type: 3}
   pivot: {fileID: 7283997906316859939}
   detector: {fileID: 41889953184269751}
   animator: {fileID: 1295583895233376439}
@@ -536,6 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c57fa62184e34b59b1bbee17837feed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackStats:
   - shootDeltaTime: 0.5
     shootDelayTimeAtStart: 0
@@ -554,7 +557,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc31e37e88c14d82819d211b4f8fb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   attackLevel: 0
+  shootAudio: {fileID: 0}
   bulletPrefab: {fileID: 2356771059136709977, guid: f4e06d48fbf4046c5954a3df21cf4e37, type: 3}
   bulletStep: 0
   shootStats:

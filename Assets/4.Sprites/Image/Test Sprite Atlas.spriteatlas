@@ -577,6 +577,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e7621d68d0b9142759a2cdbd565c70f2, type: 3}
   - {fileID: 21300000, guid: 679fb27847ade40dc99c0c66bc229173, type: 3}
   - {fileID: 21300000, guid: b77b7678775284cbaa6585338df7d139, type: 3}
+  - {fileID: 21300000, guid: e17fa67887d704b6ca2558b2e2bffaee, type: 3}
   - {fileID: 21300000, guid: 1348b678b9ec0443b9d06b5673fcf51e, type: 3}
   - {fileID: 21300000, guid: df17c678e6b144517808589e2300fc77, type: 3}
   - {fileID: 21300000, guid: 25a70a7886db94ea99289e76692605d4, type: 3}
@@ -781,6 +782,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: fbd1f7ab6f9164dcdbf2d040b6100073, type: 3}
   - {fileID: 21300000, guid: f9a7ddabece8f4c9eb69eb2a29988c27, type: 3}
   - {fileID: 21300000, guid: 41ad7eab6a4d245209a99647da8c330b, type: 3}
+  - {fileID: 21300000, guid: 3c09aeabc3493495a98334d0f52162f5, type: 3}
   - {fileID: 21300000, guid: 44f460bb1cd844f9ca83e8c8a9f1467b, type: 3}
   - {fileID: 21300000, guid: fc8b50cb8bc5c4f2aba00782d9881f5d, type: 3}
   - {fileID: 21300000, guid: b8c905cb8b3ef4473a107d53d9657564, type: 3}
@@ -1565,6 +1567,7 @@ SpriteAtlas:
   - WC_RG_U_1_08
   - E_VT_H_2
   - MC_RG_U_0_07
+  - BOSS_1_shadow
   - MC_RG_L_2_07
   - MC_RG_L_4_03
   - MC_B_L_5_01
@@ -1769,6 +1772,7 @@ SpriteAtlas:
   - C1_Draft
   - MC_RG_U_0_02
   - MC_RG_U_7_02
+  - 000
   - MC_R_U_5_05
   - MC_B_U_5_01
   - WC_D_4_01

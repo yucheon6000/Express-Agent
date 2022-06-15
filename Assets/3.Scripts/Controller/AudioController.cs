@@ -9,6 +9,8 @@ public class AudioController : MonoBehaviour
     [SerializeField]
     private AudioSource itemAudioSource;
     [SerializeField]
+    private AudioSource monsterAudioSource;
+    [SerializeField]
     private AudioSource gameBgmAudioSource;
     [SerializeField]
     private AudioSource shopBgmAudioSource;
@@ -24,9 +26,11 @@ public class AudioController : MonoBehaviour
 
     public static void PlayItemAudio(AudioClip audioClip)
     {
-        if (audioClip == null) return;
+        if (audioClip == null || instance == null || instance.itemAudioSource == null) return;
 
-        instance?.itemAudioSource?.PlayOneShot(audioClip);
+        instance.itemAudioSource.Stop();
+        instance.itemAudioSource.clip = audioClip;
+        instance.itemAudioSource.Play();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -45,5 +49,12 @@ public class AudioController : MonoBehaviour
             gameBgmAudioSource.UnPause();
             shopBgmAudioSource.Pause();
         }
+    }
+
+    public static void PlayMonsterAudioClip(AudioClip audioClip)
+    {
+        if (audioClip == null || instance == null || instance.monsterAudioSource == null) return;
+
+        instance.monsterAudioSource.PlayOneShot(audioClip);
     }
 }

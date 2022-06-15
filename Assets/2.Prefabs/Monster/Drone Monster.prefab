@@ -330,6 +330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 0
   attackLevel: 0
+  shootAudio: {fileID: 0}
   bulletPrefab: {fileID: 2356771059136709977, guid: 9291f8f24ab304d269a02c5fcb59043f, type: 3}
   bulletStep: 0
   shootStats:
@@ -551,6 +552,8 @@ MonoBehaviour:
   staminaAmount: 100
   hpSlider: {fileID: 5255673175258694896}
   hpSliderTransform: {fileID: 9152191169475106726}
+  hitAudioClip: {fileID: 8300000, guid: 34fdc1d0ea8ac4080aa24bb1f9a4de79, type: 3}
+  dieAudioClip: {fileID: 8300000, guid: c0d03d4063661437abedf5973237702f, type: 3}
   agent: {fileID: 6083123837041040439}
   detector: {fileID: 578923925167084950}
   animator: {fileID: 1991285708}

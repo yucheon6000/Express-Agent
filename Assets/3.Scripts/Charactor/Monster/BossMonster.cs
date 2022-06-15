@@ -25,6 +25,10 @@ public class BossMonster : Monster, IOnEndAnimation
     [SerializeField]
     private Animator animator;
 
+    [Header("[Boss Monster]")]
+    [SerializeField]
+    private AudioSource runAudioSource;
+
     [Header("[Property]")]
     [SerializeField]
     private float minBreathTime;
@@ -49,6 +53,8 @@ public class BossMonster : Monster, IOnEndAnimation
     [Header("Attack3")]
     [SerializeField]
     private MonsterSpawnControlInfo attack3;
+    [SerializeField]
+    private AudioSource attack3AudioSource;
     [Header("Attack4")]
     [SerializeField]
     private GameObject attack4Bullet;
@@ -56,6 +62,8 @@ public class BossMonster : Monster, IOnEndAnimation
     private int attack4Count;
     [SerializeField]
     private float attack4DeltaTime;
+    [SerializeField]
+    private AudioSource attack4AudioSource;
 
     protected override void Awake()
     {
@@ -83,6 +91,7 @@ public class BossMonster : Monster, IOnEndAnimation
         if (this.bossState == bossState && !forcedChange) return;
 
         endAnimation = false;
+        runAudioSource?.Stop();
 
         StopCoroutine($"{this.bossState.ToString()}Routine");
         this.bossState = bossState;
@@ -107,6 +116,7 @@ public class BossMonster : Monster, IOnEndAnimation
     private IEnumerator RunRoutine()
     {
         animator.Play("Run", -1);
+        runAudioSource?.Play();
 
         // 추적 시작
         float runTime = Random.Range(minRunTime, maxRunTime);
@@ -158,6 +168,9 @@ public class BossMonster : Monster, IOnEndAnimation
         while (!endAnimation)
             yield return null;
 
+        attack3AudioSource.Stop();
+        attack3AudioSource.Play();
+
         // 몬스터 소환
         if (monsterSpawnTrigger)
         {
@@ -176,6 +189,9 @@ public class BossMonster : Monster, IOnEndAnimation
         {
             Bullet bullet = ObjectPooler.SpawnFromPool<Bullet>(attack4Bullet.name, Player.Main.TargetPosition);
             bullet.Init(new BulletInitInfo(this.transform, Vector3.zero, characterStat, 0));
+
+            attack4AudioSource.PlayOneShot(attack4AudioSource.clip);
+
             yield return new WaitForSeconds(attack4DeltaTime);
         }
 
@@ -203,6 +219,7 @@ public class BossMonster : Monster, IOnEndAnimation
     private IEnumerator DeathRoutine()
     {
         animator.Play("Death", -1);
+        runAudioSource?.Stop();
         yield break;
     }
 }

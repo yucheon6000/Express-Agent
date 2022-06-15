@@ -58,10 +58,11 @@ MonoBehaviour:
   autoFlipY: 0
   spriteRenderer: {fileID: 0}
   movement: {fileID: 6717062040357961970}
-  hitEnemyParticlePrefab: {fileID: 0}
-  hitObstacleParticlePrefab: {fileID: 0}
-  hitEnemyParticleScale: 1
-  hitObstacleParticleScale: 1
+  spawnParticleAtEnemyPosition: 0
+  hitEnemyParticlePrefab: {fileID: 2853030692451760692, guid: ca7d7ed67964a43c99b3559692859446, type: 3}
+  hitObstacleParticlePrefab: {fileID: 2853030692451760692, guid: ca7d7ed67964a43c99b3559692859446, type: 3}
+  hitEnemyParticleScale: 0.2
+  hitObstacleParticleScale: 0.2
   enableDistance: 2.5
   enableComponents:
   - {fileID: 4765039432221274273}
@@ -142,6 +143,8 @@ MonoBehaviour:
   timeLimit: 0
   distanceTrigger: 1
   distanceLimit: 3.5
+  disableParticlePrefab: {fileID: 2853030692451760692, guid: ca7d7ed67964a43c99b3559692859446, type: 3}
+  disableParticleScale: 0.2
 --- !u!1 &6821501949342696237
 GameObject:
   m_ObjectHideFlags: 0
