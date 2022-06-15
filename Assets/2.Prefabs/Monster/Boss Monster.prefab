@@ -1410,7 +1410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterStat:
     characterType: 1
-    health: 500
+    health: 2000
     moveSpeed: 4
     attack: 20
     knockBack: 10

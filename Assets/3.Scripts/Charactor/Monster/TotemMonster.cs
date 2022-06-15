@@ -105,6 +105,8 @@ public class TotemMonster : Monster
         if (isDead) return;
         base.OnDead();
 
+        movement.SetMoveDirection(Vector2.zero);
+
         weapon.StopTrigger();
         StopAllCoroutines();
 
