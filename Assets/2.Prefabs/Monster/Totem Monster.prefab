@@ -403,7 +403,7 @@ MonoBehaviour:
   knockBackPivot: {fileID: 0}
   weapon: {fileID: 6698975153308041479}
   coinAmout: 3
-  staminaAmount: 1000
+  staminaAmount: 15
   hpSlider: {fileID: 5657041777499935935}
   hpSliderTransform: {fileID: 8619625726850369415}
   dontMoveHpUI: 0
