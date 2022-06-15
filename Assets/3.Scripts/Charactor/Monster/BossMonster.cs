@@ -65,6 +65,12 @@ public class BossMonster : Monster, IOnEndAnimation
     [SerializeField]
     private AudioSource attack4AudioSource;
 
+    [Header("[UI]")]
+    [SerializeField]
+    private GameObject canvasWarning;
+    [SerializeField]
+    private GameObject canvasGameClear;
+
     protected override void Awake()
     {
         base.Awake();
@@ -74,6 +80,8 @@ public class BossMonster : Monster, IOnEndAnimation
     protected override void Start()
     {
         base.Start();
+
+        canvasWarning.SetActive(true);
 
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -220,6 +228,11 @@ public class BossMonster : Monster, IOnEndAnimation
     {
         animator.Play("Death", -1);
         runAudioSource?.Stop();
+        canvasGameClear.SetActive(true);
+
+        attack1.StopAttack();
+        attack2.StopShoot();
+
         yield break;
     }
 }

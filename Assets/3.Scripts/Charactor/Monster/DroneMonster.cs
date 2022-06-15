@@ -25,7 +25,7 @@ public class DroneMonster : Monster
 
         detector.onUpdatedClosestTarget.AddListener((transform, _) =>
         {
-            target = transform.gameObject.GetComponentInParent<Player>();
+            target = Player.Main;
             weapon.StartTrigger();
             animator.SetBool("isMoving", true);
         });
@@ -104,7 +104,7 @@ public class DroneMonster : Monster
 
         Transform targetTransform = detector.Target;
         if (targetTransform)
-            target = targetTransform.GetComponent<Player>();
+            target = Player.Main;
 
         animator.SetBool("isMoving", false);
         animator.SetBool("isDead", false);

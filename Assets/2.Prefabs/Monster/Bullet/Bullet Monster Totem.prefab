@@ -244,14 +244,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletStats:
-  - attack: 10
-    moveSpeed: 8
-    knockBack: 0
+  - attack: 5
+    moveSpeed: 3
+    knockBack: 1
     scatter: 10
   autoRotate: 1
   autoFlipY: 0
   spriteRenderer: {fileID: 0}
   movement: {fileID: 6717062040357961970}
+  spawnParticleAtEnemyPosition: 0
   hitEnemyParticlePrefab: {fileID: 0}
   hitObstacleParticlePrefab: {fileID: 0}
   hitEnemyParticleScale: 1

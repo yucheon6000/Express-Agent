@@ -85,6 +85,8 @@ public class Player : Character
     private PlayerAttackListDisplayer playerAttackListDisplayer;
     [SerializeField]
     private GameObject playerPortrait;
+    [SerializeField]
+    private GameObject canvasGameOver;
 
     [Header("@TEST")]
     [SerializeField]
@@ -92,6 +94,17 @@ public class Player : Character
 
     protected override void Awake()
     {
+        /* Init Static Variables */
+        currentHp = 0;
+        maxHp = 0;
+        currentCointCount = 0;
+        currentStaminaCount = 0;
+        maxStaminaCount = 0;
+        cantAttack = false;
+        if (players.Count == 2)
+            players = new List<Player>();
+        /*************************/
+
         base.Awake();
 
         players.Add(this);
@@ -106,12 +119,6 @@ public class Player : Character
         maxHp = Mathf.Max(maxHp, characterStat.Health);
         currentHp = maxHp;
         maxStaminaCount = Mathf.Max(maxStamina, maxStaminaCount);
-
-        // 변경 공격
-        changeAttackShoot.SetCharacterStat(characterStat);
-
-        // 집중 모드 정지
-        StopFocusMode();
     }
 
     protected override void Start()
@@ -137,6 +144,12 @@ public class Player : Character
         agent.updateUpAxis = false;
 
         UpdatePlayerType(playerType, true);
+
+        // 변경 공격
+        changeAttackShoot.SetCharacterStat(characterStat);
+
+        // 집중 모드 정지
+        StopFocusMode();
     }
 
     private void Update()
@@ -480,9 +493,11 @@ public class Player : Character
 
         // 애니메이션
         animator.Change();
-        if (isMainPlayer)
+
+        // 사운드
+        if (isMainPlayer && !init)
             audioSource.PlayOneShot(changeAudioClip);
-        runAudioSource.enabled = isMainPlayer;
+        runAudioSource.enabled = false;
     }
 
     public static void IncreaseCurrentHp(float amount)
@@ -490,7 +505,7 @@ public class Player : Character
         currentHp += (int)amount;
         currentHp = Mathf.Clamp(currentHp, 0, maxHp);
 
-        // 쥭음 처리
+        // 죽음 처리
         if (currentHp <= 0)
             foreach (var player in players)
                 player.OnDead();
@@ -521,8 +536,10 @@ public class Player : Character
 
     protected override void OnDead()
     {
+        print(gameObject.name);
         if (isDead) return;
         isDead = true;
+        print(gameObject.name);
 
         // 멈춤
         movement.MoveSpeedType = MoveSpeedType.Manual;
@@ -538,7 +555,10 @@ public class Player : Character
         animator.Dead();
         runAudioSource.enabled = false;
         if (playerType == PlayerType.Main)
+        {
             audioSource.PlayOneShot(dieAudioClip);
+            canvasGameOver.SetActive(true);
+        }
     }
 
     public void MoveTo(Vector3 position)

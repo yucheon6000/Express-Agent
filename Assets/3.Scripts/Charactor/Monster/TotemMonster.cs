@@ -44,6 +44,10 @@ public class TotemMonster : Monster
     [SerializeField]
     private float yTotalMovedForce;
 
+    [Header("[Sound]")]
+    [SerializeField]
+    private AudioClip jumpAudioClip;
+
     protected override void Start()
     {
         base.Start();
@@ -53,7 +57,7 @@ public class TotemMonster : Monster
         {
             if (isDead) return;
 
-            target = transform.gameObject.GetComponentInParent<Player>();
+            target = Player.Main;
             StartMove();
         });
     }
@@ -77,6 +81,7 @@ public class TotemMonster : Monster
         // 타켓 있을 경우
         if (target)
         {
+            StartMove();
         }
         // 타켓 없을 경우
         else
@@ -100,6 +105,7 @@ public class TotemMonster : Monster
         if (isDead) return;
         base.OnDead();
 
+        weapon.StopTrigger();
         StopAllCoroutines();
 
         animator.Play("Death", -1);
@@ -112,8 +118,9 @@ public class TotemMonster : Monster
 
         Transform targetTransform = detector.Target;
         if (targetTransform)
-            target = targetTransform.GetComponent<Player>();
+            target = Player.Main;
 
+        isMoving = false;
         animator.SetBool("isMoving", false);
         animator.SetBool("isAttacking", false);
     }
@@ -195,6 +202,8 @@ public class TotemMonster : Monster
 
             yield return null;
         }
+
+        AudioController.PlayMonsterAudioClip(jumpAudioClip);
     }
 
     private void UpdateMoveDirection()

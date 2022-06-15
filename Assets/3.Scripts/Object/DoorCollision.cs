@@ -24,6 +24,11 @@ public class DoorCollision : Collision
     [SerializeField]
     private float animateTime;
 
+    [SerializeField]
+    private bool changeScene = false;
+    [SerializeField]
+    private string sceneName;
+
     [Header("@Debug")]
     [SerializeField]
     private bool isOpen = false;
@@ -66,6 +71,12 @@ public class DoorCollision : Collision
         if (playerIsEnter) return;
         if (!other.CompareTag(PlayerCollision.TAG)) return;
         if (other.GetComponentInParent<Player>() != Player.Main) return;
+
+        if (changeScene)
+        {
+            LoadingSceneManager.LoadScene(sceneName);
+            return;
+        }
 
         playerIsEnter = true;
         onEnterDoorEvent.Invoke(targetPosition.position, fromMap, toMap);

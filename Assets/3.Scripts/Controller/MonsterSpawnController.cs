@@ -44,6 +44,14 @@ public class MonsterSpawnController : MonoBehaviour
 
     private MonsterSpawnTrigger currentTrigger = null;
 
+    private void Awake()
+    {
+        onStartStageEvent = new OnStartStage();
+        onClearWaveEvent = new OnClearWave();
+        onClearStageEvent = new OnClearStage();
+        skipWaveDeltaTime = false;
+    }
+
     private void Start()
     {
         waveUIStepper = new Stepper<GameObject>(waveUIs);
@@ -85,25 +93,33 @@ public class MonsterSpawnController : MonoBehaviour
 
         // stageDelayTimeAtStart초 만큼 쉬면서
         // 스테이지 시작 UI 활성화
-        missionStartUI.gameObject.SetActive(true);
+        // missionStartUI.gameObject.SetActive(true);
         yield return new WaitForSeconds(info.stageDelayTimeAtStart);
-        missionStartUI.gameObject.SetActive(false);
+        // missionStartUI.gameObject.SetActive(false);
 
         // 스테이지 시작
         for (int i = 0; i < waveCnt; i++)
         {
             // UI
-            GameObject waveUI = waveUIStepper.GetStep(i);
-            waveUI.gameObject.SetActive(true);
-            yield return new WaitForSeconds(2f);
-            waveUI.gameObject.SetActive(false);
+            if (info.showWaveUI)
+            {
+                GameObject waveUI = waveUIStepper.GetStep(i);
+                waveUI.gameObject.SetActive(true);
+                yield return new WaitForSeconds(2f);
+                waveUI.gameObject.SetActive(false);
+            }
+            else
+            {
+                yield return new WaitForSeconds(2f);
+            }
 
             // 웨이브 시작
             MonsterSpawnWave wave = info.monsterSpawnWaves[i];
             yield return StartCoroutine(WaveRoutine(wave, info.targetTilePositions));
 
             // 웨이브 종료
-            onClearWaveEvent.Invoke(info.waveDeltaTime);
+            if (info.waveDeltaTime > 0)
+                onClearWaveEvent.Invoke(info.waveDeltaTime);
 
             // 웨이브 사이 시간동안 기다림
             // 중간에 플레이어가 어빌리티 선택을 완료해 준비되면 바로 다음 웨이브 시작
@@ -122,7 +138,7 @@ public class MonsterSpawnController : MonoBehaviour
         }
 
         // 스테이지 클리어 UI 활성화
-        missionClearUI.gameObject.SetActive(true);
+        // missionClearUI.gameObject.SetActive(true);
 
         // 스테이지 끝나면 코인 획득
         List<GameObject> coins = ObjectPooler.GetAllPools("Coin", true);
@@ -134,7 +150,7 @@ public class MonsterSpawnController : MonoBehaviour
         // stageDelayTimeAtEnd초 만큼 쉬고
         // 스테이지 클리어 UI 비활성화
         yield return new WaitForSeconds(info.stageDelayTimeAtEnd);
-        missionClearUI.gameObject.SetActive(false);
+        // missionClearUI.gameObject.SetActive(false);
 
         // 이벤트 호출
         onClearStageEvent.Invoke(info.stageIndex);
@@ -268,6 +284,7 @@ public class MonsterSpawnControlInfo
     public float waveDeltaTime = 5;
     public int minWaveCount = 0;
     public int maxWaveCount = 5;
+    public bool showWaveUI = true;
     [HideInInspector]
     public List<Vector2> targetTilePositions;
 }

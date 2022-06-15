@@ -389,8 +389,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterStat:
     characterType: 1
-    health: 50
-    moveSpeed: 2
+    health: 80
+    moveSpeed: 3.2
     attack: 2
     knockBack: 3
     knockBackResistance: 0
@@ -403,9 +403,10 @@ MonoBehaviour:
   knockBackPivot: {fileID: 0}
   weapon: {fileID: 6698975153308041479}
   coinAmout: 3
-  staminaAmount: 100
+  staminaAmount: 1000
   hpSlider: {fileID: 5657041777499935935}
   hpSliderTransform: {fileID: 8619625726850369415}
+  dontMoveHpUI: 0
   hitAudioClip: {fileID: 8300000, guid: 34fdc1d0ea8ac4080aa24bb1f9a4de79, type: 3}
   dieAudioClip: {fileID: 8300000, guid: c0d03d4063661437abedf5973237702f, type: 3}
   pivot: {fileID: 7283997906316859939}
@@ -423,6 +424,7 @@ MonoBehaviour:
   footTransform: {fileID: 4666499990542613512}
   shadowTransform: {fileID: 6511354371381719519}
   yTotalMovedForce: 0
+  jumpAudioClip: {fileID: 8300000, guid: 194811b2939f245e4b39691218ae0c5a, type: 3}
 --- !u!114 &6698975153158687770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,10 +566,10 @@ MonoBehaviour:
   bulletStep: 0
   shootStats:
   - breakable: 1
-    bulletCount: 7
+    bulletCount: 5
     bulletDeltaTime: 0
     bulletStartAngle: -60
-    bulletDeltaAngle: -10
+    bulletDeltaAngle: -15
     bulletIndexAtStart: 0
     spawnCircleRadius: 0.2
   spawnCircleCenterTransform: {fileID: 6698975153061871565}
