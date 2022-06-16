@@ -537,8 +537,8 @@ MonoBehaviour:
   characterStat:
     characterType: 1
     health: 60
-    moveSpeed: 2.664
-    attack: 3
+    moveSpeed: 2.3
+    attack: 10
     knockBack: 1
     knockBackResistance: 0
     attackSpeed: 1

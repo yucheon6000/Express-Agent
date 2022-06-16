@@ -57,20 +57,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3346937153865702882, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
       propertyPath: amount
-      value: 5
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3346937153865702882, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
-      propertyPath: targetStat
+      propertyPath: percent
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3346937153865702882, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
+      propertyPath: targetStat
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3346937153865702882, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
       propertyPath: abilityDescription
-      value: "\uC774\uC18D 5 \uC5C5!"
+      value: "\uB450\uB450\uB450\uB450 \uACF5\uACA9\uC744 \uBE60\uB974\uAC8C-\n\uAC00\uACA9\uC740
+        45\uC804\uC774\uC57C-\n\uC090-\uB9AC-\uC090-\uBF40-"
       objectReference: {fileID: 0}
     - target: {fileID: 4978032975677335235, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 3a4ec008bdc4740568fdd6580d3e2889, type: 3}
+    - target: {fileID: 5656603667645793915, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
+      propertyPath: price
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 7574360578203726781, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
       propertyPath: m_Sprite
       value: 

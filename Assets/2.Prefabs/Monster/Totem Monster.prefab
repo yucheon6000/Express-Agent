@@ -390,8 +390,8 @@ MonoBehaviour:
   characterStat:
     characterType: 1
     health: 80
-    moveSpeed: 3.2
-    attack: 2
+    moveSpeed: 3
+    attack: 15
     knockBack: 3
     knockBackResistance: 0
     attackSpeed: 1
@@ -402,7 +402,7 @@ MonoBehaviour:
   knockBack: {fileID: 6698975153158687767}
   knockBackPivot: {fileID: 0}
   weapon: {fileID: 6698975153308041479}
-  coinAmout: 3
+  coinAmout: 5
   staminaAmount: 15
   hpSlider: {fileID: 5657041777499935935}
   hpSliderTransform: {fileID: 8619625726850369415}
@@ -415,7 +415,7 @@ MonoBehaviour:
   minJumpCount: 2
   maxJumpCount: 5
   jumpTime: 0.3
-  jumpForce: 3
+  jumpForce: 2.5
   jumpDeltaTime: 0.3
   minIdleTime: 0.5
   maxIdleTime: 2

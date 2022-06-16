@@ -57,15 +57,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3346937153865702882, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
       propertyPath: amount
-      value: 5
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3346937153865702882, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
+      propertyPath: percent
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3346937153865702882, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
       propertyPath: targetStat
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3346937153865702882, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
       propertyPath: abilityDescription
-      value: "\uC774\uC18D 5 \uC5C5!"
+      value: "\uB2E4\uB9AC\uBE60\uC9C0\uAC8C \uB2EC\uB824-\uB2EC\uB824-\n\uAC00\uACA9\uC740
+        35\uC804\uC774\uC57C-\n\uC090-\uB9AC-\uC090-\uBF40-"
       objectReference: {fileID: 0}
     - target: {fileID: 4978032975677335235, guid: 51ca8088818534925a5915a3d27f8868, type: 3}
       propertyPath: m_Sprite

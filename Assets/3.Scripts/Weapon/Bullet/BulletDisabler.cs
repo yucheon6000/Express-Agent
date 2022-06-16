@@ -33,6 +33,9 @@ public class BulletDisabler : MonoBehaviour
     [SerializeField]
     protected float disableParticleScale = 1;
 
+    [SerializeField]
+    private bool returnObjectToPool = false;
+
     private void OnEnable()
     {
         disable = false;
@@ -77,5 +80,11 @@ public class BulletDisabler : MonoBehaviour
 
         if (once)
             this.enabled = false;
+    }
+
+    private void OnDisable()
+    {
+        if (returnObjectToPool)
+            ObjectPooler.ReturnToPool(this.gameObject);
     }
 }

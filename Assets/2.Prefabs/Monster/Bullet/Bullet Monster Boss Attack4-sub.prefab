@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletStats:
-  - attack: 1.5
+  - attack: 0.8333333
     moveSpeed: 4
     knockBack: 3
     scatter: 0
@@ -146,6 +146,7 @@ MonoBehaviour:
   distanceLimit: 3.5
   disableParticlePrefab: {fileID: 2853030692451760692, guid: ca7d7ed67964a43c99b3559692859446, type: 3}
   disableParticleScale: 0.2
+  returnObjectToPool: 0
 --- !u!114 &8252063962474216731
 MonoBehaviour:
   m_ObjectHideFlags: 0

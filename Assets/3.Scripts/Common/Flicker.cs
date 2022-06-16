@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class Flicker : MonoBehaviour
 {
     [SerializeField]
-    private Image target;
+    private Image targetImage;
+    [SerializeField]
+    private SpriteRenderer targetSpriteRenderer;
     [SerializeField]
     private float time;
     [SerializeField]
@@ -37,10 +39,21 @@ public class Flicker : MonoBehaviour
             timer += Time.deltaTime;
             percent = timer / time;
 
-            Color color = target.color;
-            color.a = Mathf.Lerp(from, to, percent);
+            if (targetImage)
+            {
+                Color color = targetImage.color;
+                color.a = Mathf.Lerp(from, to, percent);
 
-            target.color = color;
+                targetImage.color = color;
+            }
+
+            if (targetSpriteRenderer)
+            {
+                Color color = targetSpriteRenderer.color;
+                color.a = Mathf.Lerp(from, to, percent);
+
+                targetSpriteRenderer.color = color;
+            }
 
             yield return null;
         }

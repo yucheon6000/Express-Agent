@@ -198,6 +198,7 @@ MonoBehaviour:
   distanceLimit: 0
   disableParticlePrefab: {fileID: 0}
   disableParticleScale: 1
+  returnObjectToPool: 0
 --- !u!1 &5994918261781853338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,9 +1428,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterStat:
     characterType: 1
-    health: 2000
+    health: 20000
     moveSpeed: 4
-    attack: 20
+    attack: 50
     knockBack: 10
     knockBackResistance: 0.6
     attackSpeed: 1
@@ -1465,8 +1466,11 @@ MonoBehaviour:
     monsterSpawnWaves:
     - waveUnits:
       - monsterPrefab: {fileID: 6083123837041040442, guid: 6c743ae829dfd40e7b0e659058ad9bc2, type: 3}
-        minMonsterCount: 3
-        maxMonsterCount: 3
+        minMonsterCount: 6
+        maxMonsterCount: 10
+      - monsterPrefab: {fileID: 6653756303951005238, guid: 34b15acd3d346437ea0c4e5d230fcb94, type: 3}
+        minMonsterCount: 2
+        maxMonsterCount: 4
     waveDeltaTime: 5
     minWaveCount: 0
     maxWaveCount: 5
@@ -2086,7 +2090,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7845d102bbfc44b9cb5cb3e9c60198dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 3575849725095414317}
+  targetImage: {fileID: 0}
+  targetSpriteRenderer: {fileID: 0}
   time: 0.33333334
   minA: 0
   maxA: 0.31
@@ -2211,6 +2216,7 @@ MonoBehaviour:
   distanceLimit: 0
   disableParticlePrefab: {fileID: 0}
   disableParticleScale: 1
+  returnObjectToPool: 0
 --- !u!1 &7655101691324657344
 GameObject:
   m_ObjectHideFlags: 0

@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 855368533eeef4b818177b6941e314e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 1
+  price: 35
   ability: {fileID: 3346937153865702882}
   buyableMouseDistance: 0.8
   soldoutPrefab: {fileID: 3207388920581331068, guid: 5bd648ad5104c458da041d907ca1da44, type: 3}
@@ -95,16 +95,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: 
   abilitySubName: 
-  abilityDescription: "\uCCB4\uB825 30 \uD68C\uBCF5"
+  abilityDescription: "\uCD1D\uC54C\uC774 \uC288\uC219-\uC288\uC218\uC289-\n\uAC00\uACA9\uC740
+    35\uC804\uC774\uC57C-\n\uC090-\uB9AC-\uC090-\uBF40-"
   abilityIconSprite: {fileID: 0}
   textName: {fileID: 0}
   textSubName: {fileID: 0}
   textDescription: {fileID: 0}
   imageIcon: {fileID: 0}
   character: {fileID: 0}
-  targetStat: 8
+  targetStat: 6
   percent: 0
-  amount: 30
+  amount: 0.3
 --- !u!114 &5737116508064617721
 MonoBehaviour:
   m_ObjectHideFlags: 0

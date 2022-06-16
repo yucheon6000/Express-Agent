@@ -33,6 +33,8 @@ public class Player : Character
     [SerializeField]
     private PlayerSex playerSex;
     [SerializeField]
+    private GhostTrail ghostTrail;
+    [SerializeField]
     private ParticleSystem focusModeParticle;
 
     [Header("[Change Attck]")]
@@ -263,8 +265,9 @@ public class Player : Character
         if (playerSex == PlayerSex.Man)
         {
             focusMoveSpeedPercent = 1.5f;
-            var emission = focusModeParticle.emission;
-            emission.rateOverDistance = 3;
+            // var emission = focusModeParticle.emission;
+            // emission.rateOverDistance = 3;
+            ghostTrail.enabled = true;
         }
         else
         {
@@ -281,8 +284,9 @@ public class Player : Character
 
         if (playerSex == PlayerSex.Man)
         {
-            var emission = focusModeParticle.emission;
-            emission.rateOverDistance = 0;
+            // var emission = focusModeParticle.emission;
+            // emission.rateOverDistance = 0;
+            ghostTrail.enabled = false;
         }
         else
         {

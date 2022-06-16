@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletStats:
-  - attack: 7
+  - attack: 5
     moveSpeed: 8
     knockBack: 2
     scatter: 20

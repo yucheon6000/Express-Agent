@@ -147,17 +147,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletStats:
-  - attack: 10
+  - attack: 1
     moveSpeed: 8
-    knockBack: 2
+    knockBack: 0.5
     scatter: 10
-  - attack: 15
+  - attack: 1.5
     moveSpeed: 8
-    knockBack: 2
+    knockBack: 0.5
     scatter: 10
-  - attack: 20
+  - attack: 3
     moveSpeed: 8
-    knockBack: 2
+    knockBack: 0.5
     scatter: 10
   autoRotate: 1
   autoFlipY: 0
