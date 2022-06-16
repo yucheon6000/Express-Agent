@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7908417124944570366}
   - component: {fileID: 4765039432221274273}
   - component: {fileID: 3738501417922708183}
+  - component: {fileID: 8252063962474216731}
   m_Layer: 7
   m_Name: Bullet Monster Boss Attack4-sub
   m_TagString: Bullet
@@ -145,6 +146,21 @@ MonoBehaviour:
   distanceLimit: 3.5
   disableParticlePrefab: {fileID: 2853030692451760692, guid: ca7d7ed67964a43c99b3559692859446, type: 3}
   disableParticleScale: 0.2
+--- !u!114 &8252063962474216731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2356771059136709977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e98cabdab992e484dbee898433f19d0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 0.13
+  duration: 0.05
+  shakeOnDisable: 1
 --- !u!1 &6821501949342696237
 GameObject:
   m_ObjectHideFlags: 0

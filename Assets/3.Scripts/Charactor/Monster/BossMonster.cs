@@ -166,6 +166,8 @@ public class BossMonster : Monster, IOnEndAnimation
         attack2.StartShoot();
         attack2.StopShoot();
 
+        TargetCamera.Shake(0.07f, 0.05f);
+
         ChangeBossState(BossState.Breath);
     }
 

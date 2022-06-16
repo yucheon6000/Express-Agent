@@ -49,4 +49,10 @@ public abstract class Shoot : MonoBehaviour, NeedCharacterStat
         if (shootAudio == null) return;
         shootAudio.PlayOneShot(shootAudio.clip);
     }
+
+    protected void ShakeCamera()
+    {
+        if (characterStat.CharacterType == CharacterType.Player)
+            TargetCamera.Shake(0.01f, 0.01f);
+    }
 }

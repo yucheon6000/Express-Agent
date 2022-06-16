@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TargetCamera : MonoBehaviour
 {
+    private static TargetCamera instance;
+
     private Camera camera;
     private Vector3 halfScreenSize;     // 화면크기의 절반 크기
     private int halfScreenMaxSize;      // 화면의 긴 부분의 절반 크기
@@ -21,6 +23,7 @@ public class TargetCamera : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         camera = GetComponent<Camera>();
         halfScreenSize = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         halfScreenMaxSize = Screen.width > Screen.height ? Screen.width / 2 : Screen.height / 2;
@@ -43,8 +46,9 @@ public class TargetCamera : MonoBehaviour
         Vector3 newCameraPosition = targetPosition + mousePosition.normalized * mouseDistanceRatio * strength;
         if (sensitivity > 0)
             newCameraPosition = Vector3.Lerp(transform.position, newCameraPosition, sensitivity * Time.deltaTime);
-        newCameraPosition.z = camera.transform.position.z;
+        newCameraPosition.z = -10;
         transform.position = newCameraPosition;
+        originPos = newCameraPosition;
     }
 
     public void StartFollowing()
@@ -55,5 +59,34 @@ public class TargetCamera : MonoBehaviour
     public void StopFollowing()
     {
         this.enabled = false;
+    }
+
+    Vector3 originPos;
+
+    void Start()
+    {
+        originPos = transform.localPosition;
+    }
+
+    public static void Shake(float amount, float duration)
+    {
+        if (instance == null) return;
+
+        instance.StopAllCoroutines();
+        Camera.main.transform.localPosition = instance.originPos;
+        instance.StartCoroutine(instance._Shake(amount, duration));
+    }
+
+    private IEnumerator _Shake(float _amount, float _duration)
+    {
+        float timer = 0;
+        while (timer <= _duration)
+        {
+            Camera.main.transform.localPosition = (Vector3)Random.insideUnitCircle * _amount + originPos;
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        Camera.main.transform.localPosition = originPos;
     }
 }

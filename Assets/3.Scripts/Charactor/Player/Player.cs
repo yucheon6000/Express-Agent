@@ -86,6 +86,8 @@ public class Player : Character
     [SerializeField]
     private GameObject playerPortrait;
     [SerializeField]
+    private GameObject GameOverUI;
+    [SerializeField]
     private GameObject canvasGameOver;
 
     [Header("@TEST")]
@@ -431,7 +433,10 @@ public class Player : Character
         // 애니메이션 및 사운드
         animator.Hit(hitPosition.x > TargetPosition.x ? PlayerAnimator.HitLeft : PlayerAnimator.HitRight);
         if (playerType == PlayerType.Main)
+        {
             audioSource.PlayOneShot(hitAudioClip);
+            TargetCamera.Shake(0.1f, 0.05f);
+        }
     }
 
     public void UpdatePlayerType(PlayerType playerType, bool init = false)
@@ -557,8 +562,15 @@ public class Player : Character
         if (playerType == PlayerType.Main)
         {
             audioSource.PlayOneShot(dieAudioClip);
-            canvasGameOver.SetActive(true);
+            GameOverUI.SetActive(true);
+            Invoke("ShowCanvasGameOver", 2);
         }
+    }
+
+    private void ShowCanvasGameOver()
+    {
+        GameOverUI.SetActive(false);
+        canvasGameOver.SetActive(true);
     }
 
     public void MoveTo(Vector3 position)

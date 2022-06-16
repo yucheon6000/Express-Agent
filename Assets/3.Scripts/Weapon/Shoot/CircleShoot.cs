@@ -55,7 +55,11 @@ public class CircleShoot : ShootWithBullet
         WaitForSeconds wait = new WaitForSeconds(shootStat.BulletDeltaTime);
         int count = 0;
 
-        if (shootStat.BulletDeltaTime == 0) PlayAudio();
+        if (shootStat.BulletDeltaTime == 0)
+        {
+            ShakeCamera();
+            PlayAudio();
+        }
 
         while (count < shootStat.BulletCount)
         {
@@ -84,6 +88,7 @@ public class CircleShoot : ShootWithBullet
 
             if (shootStat.BulletDeltaTime > 0 && count < shootStat.BulletCount)
             {
+                ShakeCamera();
                 PlayAudio();
                 yield return wait;
             }
