@@ -11,7 +11,7 @@ public class PlayerAnimator : MonoBehaviour
     private Animator[] animators;
 
     [SerializeField]
-    private Animator powerUpAnimator;
+    private ParticleSystem powerUpParticle;
 
     private bool isDead = false;
 
@@ -69,7 +69,8 @@ public class PlayerAnimator : MonoBehaviour
 
     public void PowerUp()
     {
-        powerUpAnimator.SetTrigger("Trigger");
+        powerUpParticle.Stop();
+        powerUpParticle.Play();
     }
 
     public void Change()

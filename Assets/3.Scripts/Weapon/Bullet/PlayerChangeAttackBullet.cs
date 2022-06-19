@@ -12,10 +12,17 @@ public class PlayerChangeAttackBullet : Bullet
     [SerializeField]
     private LayerMask layerMask;
 
+    private bool first = true;
     private int frameCount = 0;
 
     protected void OnEnable()
     {
+        if (first)
+        {
+            first = false;
+            return;
+        }
+
         frameCount = 0;
 
         // 파티클 생성
@@ -61,5 +68,10 @@ public class PlayerChangeAttackBullet : Bullet
 
         // 총알 비활성화 (오브젝트풀에 반납)
         gameObject.SetActive(false);
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D other)
+    {
+        // base.OnTriggerEnter2D(other);
     }
 }

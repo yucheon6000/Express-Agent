@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        ChangeMainPlayer(0);
         foreach (DoorCollision door in doors)
         {
             door.onEnterDoorEvent.AddListener((Vector3 targetPosition, GameObject fromMap, GameObject toMap) =>
@@ -51,6 +50,7 @@ public class PlayerController : MonoBehaviour
 
     private void ChangeMainPlayer(int step = 1)
     {
+        if (Player.Main.IsDead) return;
         if (Player.CurrentStaminaCount < changeStaminaAmount) return;
 
         foreach (Player current in players)

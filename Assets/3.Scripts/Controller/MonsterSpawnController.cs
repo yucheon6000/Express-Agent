@@ -175,7 +175,7 @@ public class MonsterSpawnController : MonoBehaviour
 
                 // 생성할 위치 지정
                 int idx = Random.Range(0, allSpawnableTilePositions.Count);
-                Vector3 pos = allSpawnableTilePositions[idx];
+                Vector3 pos = wUnit.useFixedPosition ? wUnit.fixedPosition : allSpawnableTilePositions[idx];
                 spawnableTilePositions.Add(pos);
 
                 allSpawnableTilePositions.RemoveAt(idx);
@@ -251,7 +251,7 @@ public class MonsterSpawnController : MonoBehaviour
 
                 // 생성할 위치 지정
                 int idx = Random.Range(0, allSpawnableTilePositions.Count);
-                Vector3 pos = allSpawnableTilePositions[idx];
+                Vector3 pos = wUnit.useFixedPosition ? wUnit.fixedPosition : allSpawnableTilePositions[idx];
                 spawnableTilePositions.Add(pos);
 
                 allSpawnableTilePositions.RemoveAt(idx);
@@ -304,6 +304,8 @@ public class MonsterSpawnWaveUnit
     private int minMonsterCount;
     [SerializeField]
     private int maxMonsterCount;
+    public bool useFixedPosition = false;
+    public Vector2 fixedPosition;
 
     public Monster Monster => monsterPrefab;
 

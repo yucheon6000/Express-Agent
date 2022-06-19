@@ -390,7 +390,7 @@ MonoBehaviour:
   characterStat:
     characterType: 1
     health: 80
-    moveSpeed: 3
+    moveSpeed: 2.5
     attack: 15
     knockBack: 3
     knockBackResistance: 0
@@ -415,7 +415,7 @@ MonoBehaviour:
   minJumpCount: 2
   maxJumpCount: 5
   jumpTime: 0.3
-  jumpForce: 2.5
+  jumpForce: 2.2
   jumpDeltaTime: 0.3
   minIdleTime: 0.5
   maxIdleTime: 2
