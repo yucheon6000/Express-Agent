@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class DroneMonster : Monster
 {
+    [Space]
     [Header("[DroneMonster]")]
     [SerializeField]
     private NavMeshAgent agent;
@@ -16,6 +17,25 @@ public class DroneMonster : Monster
     [SerializeField]
     private Animator animator;
 
+    /* 공격 */
+    [Header("[Attack]")]
+    [SerializeField]
+    private bool useWeapon = false;                 // 무기 사용 여부
+    [SerializeField]
+    private float moveTime = 3f;                    // 이동 시간
+    [SerializeField]
+    private float attackTime = 2f;                  // 공격 시간
+
+    /* 자폭 */
+    [Header("[Suicide]")]
+    [SerializeField]
+    private bool useSuicideBombing = false;         // 자폭 사용 여부
+    [SerializeField]
+    private Shoot suicideShoot;                     // 자폭 Shoot
+    [SerializeField]
+    private float minSuicideDistance = 0.3f;        // 이 거리 안에 들어와야 자폭
+    private bool isSuicideBombed = false;           // 자폭 했는지 여부
+
     protected override void Start()
     {
         base.Start();
@@ -23,12 +43,7 @@ public class DroneMonster : Monster
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
-        detector.onUpdatedClosestTarget.AddListener((transform, _) =>
-        {
-            target = Player.Main;
-            weapon.StartTrigger();
-            animator.SetBool("isMoving", true);
-        });
+        suicideShoot?.SetCharacterStat(characterStat);
     }
 
     protected override void Update()
@@ -56,21 +71,67 @@ public class DroneMonster : Monster
                 movement.enabled = false;
         }
 
-        // 죽었으면 타겟팅 안 함
-        if (isDead) return;
+        if (!isDead && useSuicideBombing && target &&
+            Vector2.Distance(target.TargetPosition, transform.position) < minSuicideDistance)
+        {
+            Suicide();
+        }
+    }
 
-        // 타켓 있을 경우
-        if (target)
+    public IEnumerator MoveAndAttackRoutine()
+    {
+        while (true)
         {
-            agent.speed = characterStat.MoveSpeed;
-            agent.SetDestination(target.TargetPosition);
+            // 이동
+            agent.enabled = true;
+            yield return StartCoroutine(MoveRoutine(moveTime));
+            agent.enabled = false;
+
+            // 공격
+            weapon.StartTrigger();
+            yield return new WaitForSeconds(attackTime);
+            weapon.StopTrigger();
         }
-        // 타켓 없을 경우
-        else
+    }
+
+    public IEnumerator MoveRoutine(float moveTime = -1)
+    {
+        float timer = 0;
+
+        while (true)
         {
-            movement.SetMoveDirection(Vector2.zero);
-            return;
+            timer += Time.deltaTime;
+
+            if (moveTime > 0 && timer > moveTime) break;
+
+            if (isDead) break;
+
+            // 타켓 있을 경우
+            if (target)
+            {
+                agent.speed = characterStat.MoveSpeed;
+                agent.SetDestination(target.TargetPosition);
+            }
+            // 타켓 없을 경우
+            else
+            {
+                movement.SetMoveDirection(Vector2.zero);
+            }
+
+            yield return null;
         }
+
+        agent.ResetPath();
+    }
+
+    private void Suicide()
+    {
+        // Shoot 공격
+        suicideShoot.StartShoot();
+        suicideShoot.StopShoot();
+
+        // 죽인다
+        Hit(currentHp * 2, 0, transform.position);
     }
 
     public override void Hit(float attack, float knockBack, Vector3 hitPosition)
@@ -86,8 +147,9 @@ public class DroneMonster : Monster
         if (isDead) return;
         base.OnDead();
 
-        try { agent.ResetPath(); }
-        catch { }
+        try { weapon.StopTrigger(); } catch { }
+        try { StopAllCoroutines(); } catch { }
+        try { agent.ResetPath(); } catch { }
 
         agent.enabled = false;
 
@@ -98,6 +160,19 @@ public class DroneMonster : Monster
     protected override void OnEnable()
     {
         base.OnEnable();
+
+        detector.onUpdatedClosestTarget.AddListener((transform, _) =>
+        {
+            target = Player.Main;
+            animator.SetBool("isMoving", true);
+
+            if (useWeapon)
+                StartCoroutine(MoveAndAttackRoutine());
+            else
+                StartCoroutine(MoveRoutine());
+
+            detector.onUpdatedClosestTarget.RemoveAllListeners();
+        });
 
         movement.enabled = true;
         agent.enabled = true;

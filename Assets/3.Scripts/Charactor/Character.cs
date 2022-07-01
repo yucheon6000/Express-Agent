@@ -41,7 +41,7 @@ public abstract class Character : MonoBehaviour
     protected virtual void Start()
     {
         movement.SetStat(characterStat);
-        weapon.SetCharacterStat(CharacterStat);
+        weapon?.SetCharacterStat(CharacterStat);
     }
 
     public virtual void Hit(float attack, float knockBack, Vector3 hitPosition)

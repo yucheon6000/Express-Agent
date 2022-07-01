@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - tag: Drone Monster
+  - tag: Drone Monster - Normal
     prefab: {fileID: 6083123837041040444, guid: 6c743ae829dfd40e7b0e659058ad9bc2, type: 3}
     size: 5
-  - tag: Totem Monster
+  - tag: Totem Monster - Normal
     prefab: {fileID: 6698975153158687773, guid: 34b15acd3d346437ea0c4e5d230fcb94, type: 3}
     size: 1
   - tag: Boss Monster
@@ -129,15 +129,6 @@ MonoBehaviour:
   - tag: Bullet Monster Totem
     prefab: {fileID: 2356771059136709977, guid: f4e06d48fbf4046c5954a3df21cf4e37, type: 3}
     size: 10
-  - tag: Bullet Man 0 Effect
-    prefab: {fileID: 160430, guid: 1c7ddd6db35434239af8a1c1b0f55a23, type: 3}
-    size: 10
-  - tag: Bullet Woman 0 Effect
-    prefab: {fileID: 107292, guid: 90344237bb5c74ef7aca027cfcbdc557, type: 3}
-    size: 10
-  - tag: Bullet Woman 3 Effect
-    prefab: {fileID: 134802, guid: 56d5ec6115cb141459da6061ac29cf02, type: 3}
-    size: 10
   - tag: Bullet Monster Boss Attack1
     prefab: {fileID: 2356771059136709977, guid: 40a8e9861744d49319ba392d816f1f5d, type: 3}
     size: 10
@@ -149,4 +140,52 @@ MonoBehaviour:
     size: 10
   - tag: Bullet Monster Boss Attack4-sub
     prefab: {fileID: 2356771059136709977, guid: e96eb47a00e854f8db4bd380032448c0, type: 3}
+    size: 10
+  - tag: Bullet Man 0 Effect
+    prefab: {fileID: 160430, guid: 1c7ddd6db35434239af8a1c1b0f55a23, type: 3}
+    size: 10
+  - tag: Bullet Man 1 Effect
+    prefab: {fileID: 7711697610991426985, guid: 6763d6292fe1c4cb0aa1b8e4add6074e, type: 3}
+    size: 10
+  - tag: Bullet Man 2 Effect
+    prefab: {fileID: 3328509900940204707, guid: 9bdb2c488dc224a8cbc836043ae19370, type: 3}
+    size: 10
+  - tag: Bullet Man 3 Effect
+    prefab: {fileID: 160430, guid: 3c5207960c7064c3a99a4d94536fc48c, type: 3}
+    size: 10
+  - tag: Bullet Man 4-main Effect
+    prefab: {fileID: 4023257273720912505, guid: 558d2def7dc2240668161de40120d485, type: 3}
+    size: 2
+  - tag: Bullet Man 4-sub Effect
+    prefab: {fileID: 160430, guid: cbdac245f48514a1c9e531ace089f7ed, type: 3}
+    size: 10
+  - tag: Bullet Man 5 Effect
+    prefab: {fileID: 8286680117420409383, guid: 8cf4180c7d0034600b34e66cee0346fc, type: 3}
+    size: 10
+  - tag: Bullet Woman 0 Effect
+    prefab: {fileID: 107292, guid: 90344237bb5c74ef7aca027cfcbdc557, type: 3}
+    size: 10
+  - tag: Bullet Woman 1 Effect
+    prefab: {fileID: 2460124735592539638, guid: 273af947670e840fe8aa54e415b48481, type: 3}
+    size: 10
+  - tag: Bullet Woman 2 Effect
+    prefab: {fileID: 4528125930369406541, guid: c2ff8dc2f9f9744b4b71ebc5e562d5cd, type: 3}
+    size: 10
+  - tag: Bullet Woman 3 Effect
+    prefab: {fileID: 134802, guid: 56d5ec6115cb141459da6061ac29cf02, type: 3}
+    size: 10
+  - tag: Bullet Woman 4 Effect
+    prefab: {fileID: 4331925506307837749, guid: f891816a1a4f146e3b385345c7555c9b, type: 3}
+    size: 10
+  - tag: Bullet Woman 5 Effect
+    prefab: {fileID: 3744571472457255457, guid: e1073d32bb17f4954bb04c28f2dbdeb0, type: 3}
+    size: 10
+  - tag: Monster Spawn Effect
+    prefab: {fileID: 5126493090412459572, guid: 0b8b9120d519740989db51522303623e, type: 3}
+    size: 10
+  - tag: Monster Boss Attack 4-sub Effect
+    prefab: {fileID: 2853030692451760692, guid: ca7d7ed67964a43c99b3559692859446, type: 3}
+    size: 2
+  - tag: Ghost Part
+    prefab: {fileID: 8780223207841501091, guid: 4fe74db1ce33c45f28854669ab245c8e, type: 3}
     size: 10

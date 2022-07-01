@@ -99,7 +99,7 @@ public abstract class Monster : Character
 
     protected virtual void OnDisable()
     {
-        weapon.StopTrigger();
+        weapon?.StopTrigger();
         ObjectPooler.ReturnToPool(this.gameObject);
     }
 
