@@ -5,43 +5,43 @@ using UnityEngine;
 [RequireComponent(typeof(Movement))]
 public class Coin : Item
 {
-    private static readonly int coinAmount = 1;
+    protected static readonly int coinAmount = 1;
     public static int CointAmount => coinAmount;
 
     [SerializeField]
-    private float minMoveSpeed = 5;
+    protected float minMoveSpeed = 5;
     [SerializeField]
-    private float maxMoveSpeed = 5;
-    private float currentMoveSpeed = 0;
+    protected float maxMoveSpeed = 5;
+    protected float currentMoveSpeed = 0;
 
     [SerializeField]
-    private float scatterTime = 0.5f;
+    protected float scatterTime = 0.5f;
     [SerializeField]
-    private float minScatterPower = 5;
+    protected float minScatterPower = 5;
     [SerializeField]
-    private float maxScatterPower = 5;
-    private float currentScatterPower;
-    private float scatterTimer = 0;
+    protected float maxScatterPower = 5;
+    protected float currentScatterPower;
+    protected float scatterTimer = 0;
 
-    private bool scattered = false;
-    private bool targeting = false;
+    protected bool scattered = false;
+    protected bool targeting = false;
 
-    private Vector3 startPosition;
+    protected Vector3 startPosition;
 
-    private Movement movement;
+    protected Movement movement;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         movement = GetComponent<Movement>();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (targeting) UpdateMove();
         else if (!scattered) UpdateScatter();
     }
 
-    private void UpdateScatter()
+    protected virtual void UpdateScatter()
     {
         scatterTimer += Time.deltaTime;
         float percent = scatterTimer / scatterTime;
@@ -55,7 +55,7 @@ public class Coin : Item
         }
     }
 
-    private void UpdateMove()
+    protected virtual void UpdateMove()
     {
         Vector2 moveDirection = Player.Main.TargetPosition - transform.position;
 
@@ -67,12 +67,12 @@ public class Coin : Item
     }
 
     [ContextMenu("Start Targeting")]
-    public void StartTargeting()
+    public virtual void StartTargeting()
     {
         targeting = true;
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         scattered = false;
         targeting = false;
@@ -84,7 +84,7 @@ public class Coin : Item
         movement.SetMoveDirection(Random.insideUnitCircle);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag.Equals(PlayerCollision.TAG))
         {

@@ -1480,6 +1480,8 @@ MonoBehaviour:
   attack4Count: 3
   attack4DeltaTime: 2
   attack4AudioSource: {fileID: 7256704781981413148}
+  minRubyCount: 1
+  maxRubyCount: 5
   canvasWarning: {fileID: 5162982870890986756}
   canvasGameClear: {fileID: 6688379385269724697}
 --- !u!114 &5994918263211427149

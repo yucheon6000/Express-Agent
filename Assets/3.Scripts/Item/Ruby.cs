@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ruby : Item
+public class Ruby : Coin
 {
-    void Start()
+    protected override void OnTriggerEnter2D(Collider2D other)
     {
+        // base.OnTriggerEnter2D(other);
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if (other.tag.Equals(PlayerCollision.TAG))
+        {
+            PlayAudio();
+            Player.IncreaseRubyCount(1);
+            gameObject.SetActive(false);
+        }
     }
 }

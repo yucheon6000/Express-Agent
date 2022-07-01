@@ -65,6 +65,12 @@ public class BossMonster : Monster, IOnEndAnimation
     [SerializeField]
     private AudioSource attack4AudioSource;
 
+    [Header("[Ruby]")]
+    [SerializeField]
+    private int minRubyCount;
+    [SerializeField]
+    private int maxRubyCount;
+
     [Header("[UI]")]
     [SerializeField]
     private GameObject canvasWarning;
@@ -236,5 +242,16 @@ public class BossMonster : Monster, IOnEndAnimation
         attack2.StopShoot();
 
         yield break;
+    }
+
+    protected override void CreateCoinAndStamina()
+    {
+        base.CreateCoinAndStamina();
+
+        int rubyCount = Random.Range(minRubyCount, maxRubyCount + 1);
+        for (int i = 0; i < rubyCount; i++)
+        {
+            ObjectPooler.SpawnFromPool("Ruby", transform.position);
+        }
     }
 }

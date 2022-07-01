@@ -69,7 +69,7 @@ public abstract class Monster : Character
         CreateCoinAndStamina();
     }
 
-    protected void CreateCoinAndStamina()
+    protected virtual void CreateCoinAndStamina()
     {
         int staminaCount = (int)(staminaAmount / Stamina.StaminaAmount);
         for (int i = 0; i < staminaCount; i++)

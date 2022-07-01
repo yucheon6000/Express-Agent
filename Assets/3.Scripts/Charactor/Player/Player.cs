@@ -537,6 +537,13 @@ public class Player : Character
         currentCointCount += amount;
     }
 
+    public static void IncreaseRubyCount(int amount)
+    {
+        int rubyCount = PlayerPrefs.GetInt("rubyCount", 0) + amount;
+        print(rubyCount);
+        PlayerPrefs.SetInt("rubyCount", rubyCount);
+    }
+
     public static void IncreaseStaminaCount(int amount)
     {
         currentStaminaCount += amount;
