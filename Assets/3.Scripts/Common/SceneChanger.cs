@@ -10,7 +10,12 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    public void ChangeSceneWithLoading(string sceneName)
+    public void ChangeSceneWithStoryLoading(string sceneName)
+    {
+        LoadingSceneManager.LoadScene(sceneName, false);
+    }
+
+    public void ChangeSceneWithDroneLoading(string sceneName)
     {
         LoadingSceneManager.LoadScene(sceneName);
     }
