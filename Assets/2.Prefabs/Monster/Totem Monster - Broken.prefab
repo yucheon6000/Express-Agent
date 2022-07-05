@@ -237,7 +237,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 383aa36508c7745398235edb30e222dd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9387b3fafe4e44c44a7c1c585a29d073, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -258,7 +258,7 @@ Animator:
   m_GameObject: {fileID: 5736549300150391942}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: d9c7aab19d798421390ec5784e1ac4dd, type: 2}
+  m_Controller: {fileID: 22100000, guid: d4f3cf14484024d1ca754e5466508a05, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -277,6 +277,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3761899128000843023}
+  - component: {fileID: 6589859598810683534}
   m_Layer: 0
   m_Name: Dir 0
   m_TagString: Untagged
@@ -299,6 +300,20 @@ Transform:
   m_Father: {fileID: 6698975153308041476}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6589859598810683534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6372994547078506766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 976d8f494e5454add93c02daf60b1fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pivot: {fileID: 6698975153061871565}
+  target: {fileID: 3761899128000843023}
 --- !u!1 &6698975153061871566
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,11 +404,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterStat:
     characterType: 1
-    health: 80
-    moveSpeed: 2.5
+    health: 120
+    moveSpeed: 0
     attack: 15
     knockBack: 3
-    knockBackResistance: 0
+    knockBackResistance: 1
     attackSpeed: 1
     bulletSpeed: 1
     bulletScatterResistance: 0
@@ -414,8 +429,8 @@ MonoBehaviour:
   animator: {fileID: 1295583895233376439}
   minJumpCount: 2
   maxJumpCount: 5
-  jumpTime: 0.3
-  jumpForce: 2.2
+  jumpTime: 0.5
+  jumpForce: 0
   jumpDeltaTime: 0.3
   minIdleTime: 0.5
   maxIdleTime: 2
@@ -544,9 +559,10 @@ MonoBehaviour:
   attackStats:
   - shootDeltaTime: 0.5
     shootDelayTimeAtStart: 0
-  attackLevel: 0
+  currentAttackLevel: 0
   shoot: {fileID: 6698975153308041477}
   imageAttackGage: {fileID: 0}
+  imageAttackIcon: {fileID: 0}
 --- !u!114 &6698975153308041477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,7 +578,7 @@ MonoBehaviour:
   debugMode: 0
   attackLevel: 0
   shootAudio: {fileID: 0}
-  bulletPrefab: {fileID: 2356771059136709977, guid: f4e06d48fbf4046c5954a3df21cf4e37, type: 3}
+  bulletPrefab: {fileID: 2356771059136709977, guid: 0d72dec44028240bb9b662e7fb894a68, type: 3}
   bulletStep: 0
   shootStats:
   - breakable: 1

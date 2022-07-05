@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class LoadingSceneManager : MonoBehaviour
 {
     public static string nextScene;
+    private static bool droneLoading = false;
 
     [SerializeField] Image progressBar;
     [SerializeField] Image[] images;
@@ -19,8 +20,9 @@ public class LoadingSceneManager : MonoBehaviour
 
     private void Start()
     {
-        if (testWebVer)
+        if (testWebVer || droneLoading)
         {
+            droneLoading = false;
             StartCoroutine(LoadSceneWeb());
             return;
         }
@@ -32,8 +34,10 @@ public class LoadingSceneManager : MonoBehaviour
 #endif
     }
 
-    public static void LoadScene(string sceneName)
+    public static void LoadScene(string sceneName, bool droneLoading = true)
     {
+        LoadingSceneManager.droneLoading = droneLoading;
+
         Time.timeScale = 1;
         nextScene = sceneName;
         SceneManager.LoadScene("Loading Scene");

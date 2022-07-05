@@ -89,7 +89,9 @@ public class DroneMonster : Monster
 
             // 공격
             weapon.StartTrigger();
+            animator.SetBool("isAttacking", true);
             yield return new WaitForSeconds(attackTime);
+            animator.SetBool("isAttacking", false);
             weapon.StopTrigger();
         }
     }

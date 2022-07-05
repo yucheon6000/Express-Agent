@@ -573,14 +573,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1521766302}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: ChangeSceneWithLoading
+        m_MethodName: ChangeSceneWithStoryLoading
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 1.Ingame Scene
+          m_StringArgument: 1.Lobby Scene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &960245599
