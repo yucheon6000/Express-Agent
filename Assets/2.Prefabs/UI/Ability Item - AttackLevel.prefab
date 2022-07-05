@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 930369206050786151, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -51.6
+      value: -54.1
       objectReference: {fileID: 0}
     - target: {fileID: 2856250545819052279, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
       propertyPath: m_Pivot.x
@@ -95,9 +95,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5114696341558154695, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6342299770515716866, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
       propertyPath: m_Name
       value: Ability Item - AttackLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6631173248956749243, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9094291248566640455, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bd0b41eca2b7486884a503c82110561, type: 3}

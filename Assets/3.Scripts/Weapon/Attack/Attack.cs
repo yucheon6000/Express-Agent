@@ -17,7 +17,8 @@ public class Attack : MonoBehaviour, NeedCharacterStat
     private AttackStat attackStat;
     private Stepper<AttackStat> attackStepper;
     [SerializeField]
-    private int attackLevel = 0;
+    private int currentAttackLevel = 0;
+    private int originAttackLevel = 0;
     private bool isMinimumMode = false;
     public bool IsMinimumMode => isMinimumMode;
 
@@ -34,6 +35,8 @@ public class Attack : MonoBehaviour, NeedCharacterStat
     [Header("[UI]")]
     [SerializeField]
     private Image imageAttackGage;
+    [SerializeField]
+    private Image imageAttackIcon;
 
     private Coroutine coroutine;
 
@@ -134,6 +137,8 @@ public class Attack : MonoBehaviour, NeedCharacterStat
     {
         if (!imageAttackGage) yield break;
 
+        UpdateAttackGageUIColor();
+
         float timer = 0;
 
         while (timer < time)
@@ -160,20 +165,26 @@ public class Attack : MonoBehaviour, NeedCharacterStat
             shoot.SetCharacterStat(characterStat);
     }
 
-    public int GetAttackLevel() => attackLevel;
+    public int GetAttackLevel() => currentAttackLevel;
 
     public void IncreaseAttackLevel(int level)
     {
-        SetAttackLevel(GetAttackLevel() + level);
+        originAttackLevel += level;
+        if (isMinimumMode)
+            SetAttackLevel(0);
+        else
+            SetAttackLevel(originAttackLevel);
     }
 
     public void SetAttackLevel(int level)
     {
-        attackLevel = level;
+        currentAttackLevel = level;
         UpdateAttackStat();
 
         if (shoot)
-            shoot.SetAttackLevel(attackLevel);
+            shoot.SetAttackLevel(currentAttackLevel);
+
+        UpdateAttackGageUIColor();
     }
 
     private void UpdateAttackStat()
@@ -184,7 +195,7 @@ public class Attack : MonoBehaviour, NeedCharacterStat
             attackStepper = new Stepper<AttackStat>(attackStats);
         }
 
-        attackStat = attackStepper.GetStep(attackLevel);
+        attackStat = attackStepper.GetStep(currentAttackLevel);
     }
 
     protected bool mouseDirectionMode = false;
@@ -197,11 +208,30 @@ public class Attack : MonoBehaviour, NeedCharacterStat
     {
         isMinimumMode = value;
         if (isMinimumMode) SetAttackLevel(0);
-        else SetAttackLevel(attackLevel);
+        else SetAttackLevel(originAttackLevel);
+
+        UpdateAttackGageUIColor();
     }
 
     public void FillAttackGageUI()
     {
         StartCoroutine(FillAttackGageUI(0));
+    }
+
+    private void UpdateAttackGageUIColor()
+    {
+        if (!imageAttackGage) return;
+
+        if (currentAttackLevel == 0)
+            imageAttackGage.color = new Color(71 / 255f, 157 / 255f, 233 / 255f);
+        else if (currentAttackLevel == 1)
+            imageAttackGage.color = new Color(149 / 255f, 42 / 255f, 220 / 255f);
+        else if (currentAttackLevel == 2)
+            imageAttackGage.color = new Color(234 / 255f, 54 / 255f, 94 / 255f);
+
+        if (!imageAttackIcon) return;
+        Color c = imageAttackIcon.color;
+        c.a = 1;
+        imageAttackIcon.color = c;
     }
 }
