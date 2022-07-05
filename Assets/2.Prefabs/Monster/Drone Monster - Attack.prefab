@@ -247,9 +247,7 @@ GameObject:
   - component: {fileID: 6083123835717275941}
   - component: {fileID: 6083123835717275942}
   - component: {fileID: 6083123835717275943}
-  - component: {fileID: 5982903618855475567}
   - component: {fileID: 6083123835717275940}
-  - component: {fileID: 6458214816838708018}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -313,32 +311,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 0
   attackStats:
-  - shootDeltaTime: 0.3
+  - shootDeltaTime: 2
     shootDelayTimeAtStart: 0
-  attackLevel: 0
-  shoot: {fileID: 5982903618855475567}
+  currentAttackLevel: 0
+  shoot: {fileID: 6083123835717275940}
   imageAttackGage: {fileID: 0}
---- !u!114 &5982903618855475567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6083123835717275945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ae26992d168e4cbb9cd605794b84322, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debugMode: 0
-  attackLevel: 0
-  shootAudio: {fileID: 0}
-  shoots:
-  - {fileID: 6083123835717275940}
-  - {fileID: 6458214816838708018}
-  shootStats:
-  - breakable: 0
-    shootDeltaTime: 0.3
+  imageAttackIcon: {fileID: 0}
 --- !u!114 &6083123835717275940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,43 +332,16 @@ MonoBehaviour:
   debugMode: 0
   attackLevel: 0
   shootAudio: {fileID: 0}
-  bulletPrefab: {fileID: 2356771059136709977, guid: f4e06d48fbf4046c5954a3df21cf4e37, type: 3}
+  bulletPrefab: {fileID: 2356771059136709977, guid: a0ad2bef98bac41348f384aa54062a81, type: 3}
   bulletStep: 0
   shootStats:
   - breakable: 0
-    bulletCount: 4
-    bulletDeltaTime: 0
+    bulletCount: 3
+    bulletDeltaTime: 0.1
     bulletStartAngle: 0
-    bulletDeltaAngle: 90
+    bulletDeltaAngle: 0
     bulletIndexAtStart: 0
-    spawnCircleRadius: 0.8
-  spawnCircleCenterTransform: {fileID: 6083123837079154668}
-  spawnCircleStandardTransform: {fileID: 6083123837100346668}
---- !u!114 &6458214816838708018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6083123835717275945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcc31e37e88c14d82819d211b4f8fb1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debugMode: 0
-  attackLevel: 0
-  shootAudio: {fileID: 0}
-  bulletPrefab: {fileID: 2356771059136709977, guid: f4e06d48fbf4046c5954a3df21cf4e37, type: 3}
-  bulletStep: 0
-  shootStats:
-  - breakable: 0
-    bulletCount: 4
-    bulletDeltaTime: 0
-    bulletStartAngle: 45
-    bulletDeltaAngle: 90
-    bulletIndexAtStart: 0
-    spawnCircleRadius: 0.8
+    spawnCircleRadius: 0
   spawnCircleCenterTransform: {fileID: 6083123837079154668}
   spawnCircleStandardTransform: {fileID: 6083123837100346668}
 --- !u!1 &6083123836611934408
@@ -467,7 +418,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 50d24e809dd544703869e9b90db00945, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5b5b87456a27a4812a660717a393002a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -488,7 +439,7 @@ Animator:
   m_GameObject: {fileID: 6083123836611934408}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 73fece1e3b8134c9f856d863932feac2, type: 2}
+  m_Controller: {fileID: 22100000, guid: 1c3c8f7e29b2247659e2d00f95ceaff5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -580,7 +531,7 @@ MonoBehaviour:
   animator: {fileID: 1991285708}
   useWeapon: 1
   moveTime: 3
-  attackTime: 2
+  attackTime: 1.8
   useSuicideBombing: 0
   suicideShoot: {fileID: 0}
   minSuicideDistance: 0.3
@@ -688,6 +639,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6083123837100346668}
+  - component: {fileID: 1532327311592837984}
   m_Layer: 0
   m_Name: Std 1
   m_TagString: Untagged
@@ -710,6 +662,20 @@ Transform:
   m_Father: {fileID: 6083123835717275941}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1532327311592837984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6083123837100346671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 976d8f494e5454add93c02daf60b1fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pivot: {fileID: 6083123837079154668}
+  target: {fileID: 6083123837100346668}
 --- !u!1 &6222227895821761838
 GameObject:
   m_ObjectHideFlags: 0

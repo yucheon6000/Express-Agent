@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Drone Anim Ctrl
+  m_Controller: {fileID: 9100000, guid: 73fece1e3b8134c9f856d863932feac2, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 5825859ed00724c1abdd7ac6077fff0c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 03c331e1134174c42bde609cf5b9da5f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6f3f8d85d916e494ebf09a89d9fb126f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 63ecb59593b5943ac901846c15346633, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 453f36fb88d734f7c86cb727888953e3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: feebe2ab660b44c72ab0afe09a72e298, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f25f3f338dc664144a6772aff92f69ef, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f1a7aa88743ee457c8f44acc24b7fac9, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 43701f25fe7ce423699a8e0a420ec74b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bb07a38d77ff8499ca5463f3d514ad9c, type: 2}

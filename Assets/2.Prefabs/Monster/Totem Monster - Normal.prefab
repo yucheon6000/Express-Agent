@@ -258,7 +258,7 @@ Animator:
   m_GameObject: {fileID: 5736549300150391942}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: d9c7aab19d798421390ec5784e1ac4dd, type: 2}
+  m_Controller: {fileID: 22100000, guid: ca59efca39c9f474ea5df4e3c5ab4532, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -390,7 +390,7 @@ MonoBehaviour:
   characterStat:
     characterType: 1
     health: 80
-    moveSpeed: 2.5
+    moveSpeed: 1
     attack: 15
     knockBack: 3
     knockBackResistance: 0
@@ -413,9 +413,9 @@ MonoBehaviour:
   detector: {fileID: 41889953184269751}
   animator: {fileID: 1295583895233376439}
   minJumpCount: 2
-  maxJumpCount: 5
+  maxJumpCount: 1
   jumpTime: 0.3
-  jumpForce: 2.2
+  jumpForce: 0.7
   jumpDeltaTime: 0.3
   minIdleTime: 0.5
   maxIdleTime: 2
@@ -542,11 +542,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 0
   attackStats:
-  - shootDeltaTime: 0.5
+  - shootDeltaTime: 2
     shootDelayTimeAtStart: 0
-  attackLevel: 0
+  currentAttackLevel: 0
   shoot: {fileID: 6698975153308041477}
   imageAttackGage: {fileID: 0}
+  imageAttackIcon: {fileID: 0}
 --- !u!114 &6698975153308041477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,10 +567,10 @@ MonoBehaviour:
   bulletStep: 0
   shootStats:
   - breakable: 1
-    bulletCount: 5
+    bulletCount: 3
     bulletDeltaTime: 0
-    bulletStartAngle: -60
-    bulletDeltaAngle: -15
+    bulletStartAngle: -70
+    bulletDeltaAngle: -20
     bulletIndexAtStart: 0
     spawnCircleRadius: 0.2
   spawnCircleCenterTransform: {fileID: 6698975153061871565}

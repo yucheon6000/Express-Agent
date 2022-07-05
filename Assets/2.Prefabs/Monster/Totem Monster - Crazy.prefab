@@ -237,7 +237,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 383aa36508c7745398235edb30e222dd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 38575e0eab2bc4eda9134b762ae6a51d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -542,11 +542,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 0
   attackStats:
-  - shootDeltaTime: 0.5
+  - shootDeltaTime: 1.5
     shootDelayTimeAtStart: 0
-  attackLevel: 0
+  currentAttackLevel: 0
   shoot: {fileID: 6698975153308041477}
   imageAttackGage: {fileID: 0}
+  imageAttackIcon: {fileID: 0}
 --- !u!114 &6698975153308041477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,7 +563,7 @@ MonoBehaviour:
   debugMode: 0
   attackLevel: 0
   shootAudio: {fileID: 0}
-  bulletPrefab: {fileID: 2356771059136709977, guid: f4e06d48fbf4046c5954a3df21cf4e37, type: 3}
+  bulletPrefab: {fileID: 2356771059136709977, guid: a6d972bb4b23d4dda84b949d89be622e, type: 3}
   bulletStep: 0
   shootStats:
   - breakable: 1
