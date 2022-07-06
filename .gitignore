@@ -38,7 +38,7 @@ Temporary Items
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
-/[Bb]uild/
+# /[Bb]uild/
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
@@ -117,6 +117,7 @@ crashlytics-build.properties
 
 # Built Visual Studio Code Extensions
 *.vsix
+.vscode
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
@@ -126,3 +127,9 @@ crashlytics-build.properties
 # Support for Project snippet scope
 
 # End of https://www.toptal.com/developers/gitignore/api/unity,visualstudiocode,macos
+
+mono_crash*
+
+# 추가
+/[Aa]ssets/8.Addon/**/*.*
+!/[Aa]ssets/8.Addon/**/*.meta

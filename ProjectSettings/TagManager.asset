@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Player Collision
+  - Monster
+  - Monster Collision
+  - Obstacle
+  - Bullet
+  - Door
+  - Player Foot
   layers:
   - Default
   - TransparentFX
@@ -12,12 +19,12 @@ TagManager:
   - Water
   - UI
   - 
+  - Collision
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Obstacle
+  - Nav
+  - Movable
   - 
   - 
   - 
@@ -38,6 +45,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Ground
+    uniqueID: 614176189
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
