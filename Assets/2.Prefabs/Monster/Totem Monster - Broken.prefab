@@ -404,8 +404,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterStat:
     characterType: 1
-    health: 120
-    moveSpeed: 0
+    health: 100
+    moveSpeed: 0.08
     attack: 15
     knockBack: 3
     knockBackResistance: 1

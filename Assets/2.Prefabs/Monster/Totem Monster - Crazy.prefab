@@ -389,7 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterStat:
     characterType: 1
-    health: 80
+    health: 90
     moveSpeed: 2.5
     attack: 15
     knockBack: 3

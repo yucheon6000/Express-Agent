@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private DoorCollision[] doors;
 
+    [Serializable]
+    private class Stack
+    {
+        public CharacterStatType characterStatType;
+        public List<ShopItem> shopItems;
+    }
+
+    [Header("[Shop Items]")]
+    [SerializeField]
+    private List<Stack> stacks;
+
     private void Start()
     {
         foreach (DoorCollision door in doors)
@@ -38,6 +50,8 @@ public class PlayerController : MonoBehaviour
                 fromMap.SetActive(false);
             });
         }
+
+        InitStack();
     }
 
     private void Update()
@@ -82,5 +96,21 @@ public class PlayerController : MonoBehaviour
         Player.IncreaseStaminaCount(-changeStaminaAmount);
 
         targetCamera.SetTargetTransform(mainPlayer.transform);
+    }
+
+    private void InitStack()
+    {
+        foreach (var stack in stacks)
+        {
+            var type = stack.characterStatType;
+            int level = PlayerPrefs.GetInt(type.ToString(), 0);
+
+            try
+            {
+                ShopItem item = stack.shopItems[level];
+                item.Buy();
+            }
+            catch { }
+        }
     }
 }

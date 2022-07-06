@@ -48,21 +48,9 @@ MonoBehaviour:
   - tag: Drone Monster - Normal
     prefab: {fileID: 6083123837041040444, guid: 6c743ae829dfd40e7b0e659058ad9bc2, type: 3}
     size: 5
-  - tag: Drone Monster - Attack
-    prefab: {fileID: 6083123837041040444, guid: 4025985797a7041b7bbb682cf78dfbb6, type: 3}
-    size: 5
-  - tag: Drone Monster - Suicide
-    prefab: {fileID: 6083123837041040444, guid: e45678991df4a4e2999f0df9c1621d9b, type: 3}
-    size: 5
   - tag: Totem Monster - Normal
     prefab: {fileID: 6698975153158687773, guid: 34b15acd3d346437ea0c4e5d230fcb94, type: 3}
-    size: 5
-  - tag: Totem Monster - Crazy
-    prefab: {fileID: 6698975153158687773, guid: 8c2e3e4bd861f42dca9793b5c97fc92f, type: 3}
-    size: 5
-  - tag: Totem Monster - Broken
-    prefab: {fileID: 6698975153158687773, guid: e21a14a67197b46808ff2d591078a5e2, type: 3}
-    size: 5
+    size: 1
   - tag: Boss Monster
     prefab: {fileID: 5994918263211427139, guid: 7479f11534de34d90ae42410ec36588b, type: 3}
     size: 1
@@ -72,9 +60,6 @@ MonoBehaviour:
   - tag: Coin
     prefab: {fileID: 3878961878250301262, guid: 71eb6d10606b845b68160545168bed29, type: 3}
     size: 10
-  - tag: Ruby
-    prefab: {fileID: 3878961878250301262, guid: 5dbe624c91d094a6783a16cffc4ac652, type: 3}
-    size: 5
   - tag: Bullet Player Change Attack
     prefab: {fileID: 2356771059136709977, guid: 6b40e49a629ca47de930b5dc698df1d5, type: 3}
     size: 1
@@ -141,9 +126,6 @@ MonoBehaviour:
   - tag: Bullet Woman 5-sub-3
     prefab: {fileID: 2356771059136709977, guid: 03e2512c797cd431f89abd49e21be1bd, type: 3}
     size: 10
-  - tag: Bullet Monster Drone Suicide Bombing
-    prefab: {fileID: 2356771059136709977, guid: 6a39c7ab93ff64dc3893702bef83892e, type: 3}
-    size: 5
   - tag: Bullet Monster Totem
     prefab: {fileID: 2356771059136709977, guid: f4e06d48fbf4046c5954a3df21cf4e37, type: 3}
     size: 10
