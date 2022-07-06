@@ -247,7 +247,7 @@ MonoBehaviour:
   - attack: 0.53333336
     moveSpeed: 1.5
     knockBack: 1
-    scatter: 10
+    scatter: 2
   autoRotate: 1
   autoFlipY: 0
   spriteRenderer: {fileID: 0}

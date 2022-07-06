@@ -112,7 +112,7 @@ public class DroneMonster : Monster
             if (target)
             {
                 agent.speed = characterStat.MoveSpeed;
-                agent.SetDestination(target.TargetPosition);
+                agent.SetDestination(Player.Main.TargetPosition);
             }
             // 타켓 없을 경우
             else

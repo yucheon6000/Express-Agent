@@ -112,5 +112,7 @@ public class PlayerController : MonoBehaviour
             }
             catch { }
         }
+
+        Player.IncreaseCurrentHp(Player.MaxHp);
     }
 }

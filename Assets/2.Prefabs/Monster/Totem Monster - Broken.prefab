@@ -493,6 +493,7 @@ GameObject:
   - component: {fileID: 6698975153308041476}
   - component: {fileID: 6698975153308041479}
   - component: {fileID: 6698975153308041478}
+  - component: {fileID: 7487022685543443629}
   - component: {fileID: 6698975153308041477}
   m_Layer: 0
   m_Name: Weapon
@@ -557,12 +558,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 0
   attackStats:
-  - shootDeltaTime: 0.5
+  - shootDeltaTime: 2
     shootDelayTimeAtStart: 0
   currentAttackLevel: 0
-  shoot: {fileID: 6698975153308041477}
+  shoot: {fileID: 7487022685543443629}
   imageAttackGage: {fileID: 0}
   imageAttackIcon: {fileID: 0}
+--- !u!114 &7487022685543443629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6698975153308041480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae26992d168e4cbb9cd605794b84322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugMode: 0
+  attackLevel: 0
+  shootAudio: {fileID: 0}
+  shoots:
+  - {fileID: 6698975153308041477}
+  - {fileID: 6698975153308041477}
+  - {fileID: 6698975153308041477}
+  shootStats:
+  - breakable: 1
+    shootDeltaTime: 0.3
 --- !u!114 &6698975153308041477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,10 +605,10 @@ MonoBehaviour:
   bulletStep: 0
   shootStats:
   - breakable: 1
-    bulletCount: 5
+    bulletCount: 3
     bulletDeltaTime: 0
-    bulletStartAngle: -60
-    bulletDeltaAngle: -15
+    bulletStartAngle: 20
+    bulletDeltaAngle: -20
     bulletIndexAtStart: 0
     spawnCircleRadius: 0.2
   spawnCircleCenterTransform: {fileID: 6698975153061871565}

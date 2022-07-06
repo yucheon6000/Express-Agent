@@ -1470,6 +1470,18 @@ MonoBehaviour:
         maxMonsterCount: 6
         useFixedPosition: 0
         fixedPosition: {x: 0, y: 0}
+    - waveUnits:
+      - monsterPrefab: {fileID: 6083123837041040442, guid: 4025985797a7041b7bbb682cf78dfbb6, type: 3}
+        minMonsterCount: 1
+        maxMonsterCount: 3
+        useFixedPosition: 0
+        fixedPosition: {x: 0, y: 0}
+    - waveUnits:
+      - monsterPrefab: {fileID: 6083123837041040442, guid: e45678991df4a4e2999f0df9c1621d9b, type: 3}
+        minMonsterCount: 0
+        maxMonsterCount: 1
+        useFixedPosition: 0
+        fixedPosition: {x: 0, y: 0}
     waveDeltaTime: 5
     minWaveCount: 0
     maxWaveCount: 5

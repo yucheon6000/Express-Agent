@@ -14,7 +14,7 @@ public class DoctorMenu : MonoBehaviour
     private void Start()
     {
         UpdateBuyButton();
-        PlayerPrefs.SetInt("rubyCount", 100);
+        // PlayerPrefs.SetInt("rubyCount", 1000000);
     }
 
     public void UpdateBuyButton()

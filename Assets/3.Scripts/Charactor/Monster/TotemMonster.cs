@@ -171,8 +171,6 @@ public class TotemMonster : Monster
 
     private IEnumerator JumpRoutine()
     {
-
-
         UpdateMoveDirection();
         yield return StartCoroutine(JumpRoutine(moveDirection));
     }
@@ -210,7 +208,7 @@ public class TotemMonster : Monster
 
     private void UpdateMoveDirection()
     {
-        moveDirection = target.transform.position - pivot.position;
+        moveDirection = Player.Main.TargetPosition - pivot.position;
         moveDirection.Normalize();
     }
 
