@@ -21,6 +21,8 @@ public class TargetCamera : MonoBehaviour
     [Tooltip("민감도\n(높을수록 따라가는 속도 빠름)\n(0이면 바로 따라감)")]
     private float sensitivity;
 
+    private bool init = false;
+
     private void Awake()
     {
         instance = this;
@@ -63,14 +65,15 @@ public class TargetCamera : MonoBehaviour
 
     Vector3 originPos;
 
-    void Start()
+    private void Start()
     {
         originPos = transform.localPosition;
+        init = true;
     }
 
     public static void Shake(float amount, float duration)
     {
-        if (instance == null) return;
+        if (instance == null || !instance.init) return;
 
         instance.StopAllCoroutines();
         Camera.main.transform.localPosition = instance.originPos;
@@ -79,6 +82,8 @@ public class TargetCamera : MonoBehaviour
 
     private IEnumerator _Shake(float _amount, float _duration)
     {
+        if (!init) yield break;
+
         float timer = 0;
         while (timer <= _duration)
         {

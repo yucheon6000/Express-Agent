@@ -17,6 +17,8 @@ public class Player : Character
     public static int CurrentCoinCount => currentCointCount;
     private static int currentStaminaCount = 0;
     public static int CurrentStaminaCount => currentStaminaCount;
+    private static int currentRubyCount = 0;
+    public static int CurrentRubyCount => currentRubyCount;
     private static int maxStaminaCount = 0;
     public static int MaxStaminaCount => maxStaminaCount;
     private static bool cantAttack = false;
@@ -102,6 +104,7 @@ public class Player : Character
         currentHp = 0;
         maxHp = 0;
         currentCointCount = 0;
+        currentRubyCount = PlayerPrefs.GetInt("rubyCount", 0);
         currentStaminaCount = 0;
         maxStaminaCount = 0;
         cantAttack = false;
@@ -539,9 +542,11 @@ public class Player : Character
 
     public static void IncreaseRubyCount(int amount)
     {
-        int rubyCount = PlayerPrefs.GetInt("rubyCount", 0) + amount;
-        print(rubyCount);
-        PlayerPrefs.SetInt("rubyCount", rubyCount);
+        currentRubyCount = currentRubyCount + amount;
+
+        if (currentRubyCount < 0) currentRubyCount = 0;
+
+        PlayerPrefs.SetInt("rubyCount", currentRubyCount);
     }
 
     public static void IncreaseStaminaCount(int amount)
