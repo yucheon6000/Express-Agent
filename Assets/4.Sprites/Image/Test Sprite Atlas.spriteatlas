@@ -548,6 +548,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 84f68bb6cd0354a26b5375b5ba4cacbe, type: 3}
   - {fileID: 21300000, guid: 71ebddb65418f4b768f3de9b2d06f46e, type: 3}
   - {fileID: 21300000, guid: 70a0a1c6ccade42b6936e5599e74ed24, type: 3}
+  - {fileID: 21300000, guid: 9d25b1c6b8e8e473dbc681349decf7f0, type: 3}
   - {fileID: 21300000, guid: cecab4c6597f3492c9451b38534d9ee5, type: 3}
   - {fileID: 21300000, guid: d9b054d66cf5d4d369cd088cc5d8c035, type: 3}
   - {fileID: 21300000, guid: ab1d60e6e45e9486b951a3ac3a80af80, type: 3}
@@ -1717,6 +1718,7 @@ SpriteAtlas:
   - L_Ojbect_00
   - Energy_Bar_00_On
   - MC_RG_U_6_01
+  - Setting
   - E_D2_A_04
   - WC_RG_U_7_05
   - D_W_06

@@ -9608,7 +9608,7 @@ AudioSource:
   m_GameObject: {fileID: 5126493090412459572}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3789725352102315636, guid: 49c56531091fd471195a3383b2cd3004, type: 2}
   m_audioClip: {fileID: 8300000, guid: b570a8658d6905549b216ac9d2c2aa42, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
@@ -9712,6 +9712,9 @@ MonoBehaviour:
   timeLimit: 1.5
   distanceTrigger: 0
   distanceLimit: 0
+  disableParticlePrefab: {fileID: 0}
+  disableParticleScale: 1
+  returnObjectToPool: 0
 --- !u!114 &572986844374284183
 MonoBehaviour:
   m_ObjectHideFlags: 0

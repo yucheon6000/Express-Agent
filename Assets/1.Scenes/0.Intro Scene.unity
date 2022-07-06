@@ -831,6 +831,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1970342101}
   - component: {fileID: 1970342100}
+  - component: {fileID: 1970342103}
+  - component: {fileID: 1970342102}
   m_Layer: 0
   m_Name: BGM
   m_TagString: Untagged
@@ -847,7 +849,7 @@ AudioSource:
   m_GameObject: {fileID: 1970342099}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7730442348635521349, guid: 49c56531091fd471195a3383b2cd3004, type: 2}
   m_audioClip: {fileID: 8300000, guid: 341a09532009a48c7974b0333979b2df, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -949,3 +951,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1970342102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970342099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970d904944de347e69adac0312625ac0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 0}
+  mixer: {fileID: 24100000, guid: 49c56531091fd471195a3383b2cd3004, type: 2}
+  audioMixerName: SFX
+--- !u!114 &1970342103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970342099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970d904944de347e69adac0312625ac0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 0}
+  mixer: {fileID: 24100000, guid: 49c56531091fd471195a3383b2cd3004, type: 2}
+  audioMixerName: BGM

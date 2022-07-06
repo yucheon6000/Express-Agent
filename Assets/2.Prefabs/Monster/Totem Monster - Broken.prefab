@@ -439,7 +439,7 @@ MonoBehaviour:
   footTransform: {fileID: 4666499990542613512}
   shadowTransform: {fileID: 6511354371381719519}
   yTotalMovedForce: 0
-  jumpAudioClip: {fileID: 8300000, guid: 194811b2939f245e4b39691218ae0c5a, type: 3}
+  jumpAudioClip: {fileID: 0}
 --- !u!114 &6698975153158687770
 MonoBehaviour:
   m_ObjectHideFlags: 0
